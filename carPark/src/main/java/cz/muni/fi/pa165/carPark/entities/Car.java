@@ -6,12 +6,14 @@ package cz.muni.fi.pa165.carPark.entities;
 
 import cz.muni.fi.pa165.carPark.enums.Fuel;
 import cz.muni.fi.pa165.carPark.enums.Transmission;
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 /**
@@ -19,7 +21,9 @@ import javax.persistence.Id;
  * @author xcmarko
  */
 @Entity
-public class Car {
+@Table(name = "car")
+public class Car implements Serializable {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
