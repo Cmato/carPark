@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.carPark.entities;
 
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -93,12 +89,14 @@ public class Rental {
     public int hashCode() {
         final int prime = 47;
 	int result = 1;
-        result = prime * result + car.hashCode() + employee.hashCode();
+        result = prime * result + ((startingDate == null) ? 0 : startingDate.hashCode());
+	result = prime * result + ((endingDate == null) ? 0 : endingDate.hashCode());
+	result = prime * result + ((employee == null) ? 0 : employee.hashCode());
+        result = prime * result + ((car == null) ? 0 : car.hashCode());
+        //result = prime * result + car.hashCode() + employee.hashCode();
         return result;
     }
 
-    
-    /*
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -108,14 +106,28 @@ public class Rental {
 	if (! (obj instanceof Rental))
             return false;
 	Rental other = (Rental) obj;
-	if (name == null) {
-            if (other.getName() != null)
-                return false;
-            } else if (!name.equals(other.getName()))
-                return false;
-	return true;
+        if (startingDate == null) {
+			if (other.getStartingDate() != null)
+				return false;
+		} else if (!startingDate.equals(other.getStartingDate()))
+			return false;
+        if (endingDate == null) {
+			if (other.getEndingDate() != null)
+				return false;
+		} else if (!endingDate.equals(other.getEndingDate()))
+			return false;
+        if (employee == null) {
+            if (other.getEmployee() != null)
+		return false;
+	} else if (!this.getEmployee().equals(other.getEmployee()))
+            return false;
+        if (car == null) {
+            if (other.getCar() != null)
+		return false;
+	} else if (car.equals(other.getCar()))
+            return false;
+        return true;
 	}
-    */
     
     @Override
     public String toString(){
