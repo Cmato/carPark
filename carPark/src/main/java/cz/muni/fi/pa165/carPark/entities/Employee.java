@@ -5,6 +5,8 @@
 package cz.muni.fi.pa165.carPark.entities;
 
 import java.util.Date;
+import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,9 +23,50 @@ public class Employee {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     
+    @NotNull
+    @Column(nullable=false)
     private String name;
     
     private Date birth;
     
     private String idCardNumber;
+    
+    //TODO
+    //List<Reservation> reservations;
+    
+    List<Rental> rentals;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIdCardNumber() {
+        return idCardNumber;
+    }
+
+    public void setIdCardNumber(String idCardNumber) {
+        this.idCardNumber = idCardNumber;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Date getBirth() {
+        return birth;
+    }
+
+    public List<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
+    }
+    
+    
 }
