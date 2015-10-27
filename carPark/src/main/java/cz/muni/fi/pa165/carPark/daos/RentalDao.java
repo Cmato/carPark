@@ -47,8 +47,9 @@ public interface RentalDao {
     /**
      * Update specific rental in the database
      * @param rental to be updated
+     * @return updated rental
      */
-    public void update(Rental rental);
+    public Rental update(Rental rental);
     
     /**
      * Delete specific rental from the database
