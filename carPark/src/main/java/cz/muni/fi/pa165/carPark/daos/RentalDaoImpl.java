@@ -26,19 +26,20 @@ public class RentalDaoImpl implements RentalDao{
     }
 
     @Override
-    public List<Rental> findAll() {
-        //return em.createQuery("select r from Rental r", Rental.class).getResultList();
-        return null;
+    public List<Rental> findAll() {     
+        return em.createQuery("SELECT r FROM Rental r", Rental.class).getResultList();
     }
 
     @Override
     public List<Rental> findByEmployee(Employee employee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.createQuery("SELECT r FROM Rental r WHERE r.employee.id = :id", Rental.class)
+                .setParameter("id", employee.getId()).getResultList();
     }
 
     @Override
     public List<Rental> findByCar(Car car) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.createQuery("SELECT r FROM Rental r WHERE r.car.id = :id", Rental.class)
+                .setParameter("id", car.getId()).getResultList();
     }
 
     @Override
