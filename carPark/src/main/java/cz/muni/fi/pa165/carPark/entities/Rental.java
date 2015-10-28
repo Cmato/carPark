@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -26,13 +27,13 @@ public class Rental {
     private Long id;
     
     @NotNull
-    @Column(nullable = false)
-    @ManyToOne //mappedBy
+    @ManyToOne 
+    @JoinColumn(nullable = false)
     private Employee employee;
     
     @NotNull
-    @Column(nullable = false)
     @ManyToOne //mappedBy
+    @JoinColumn(nullable = false)
     private Car car;
     
     @NotNull
