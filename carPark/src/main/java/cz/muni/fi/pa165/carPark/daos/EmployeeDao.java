@@ -9,12 +9,11 @@ import java.util.List;
 
 /**
  *
- * @author xcmarko
+ * @author Erik Hasprunar
  */
 public interface EmployeeDao {
-    void createCar(Employee employee);
-    void deleteCar(Employee employee);
-    void updateCar(Employee employee);
-    Employee findCarById(Long id);
-    List<Employee> findAllCars();
+    void createEmployee(Employee employee);
+    void deleteEmployee(Employee employee);
+    Employee findEmployeeById(Long id);
+    List<Employee> findAllEmployees();
 }

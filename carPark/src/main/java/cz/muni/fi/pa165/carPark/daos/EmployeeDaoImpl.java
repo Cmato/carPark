@@ -33,8 +33,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
     @Override
     public List<Employee> findAllEmployees() {
-        //TODO !!!interface problem!!!
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.createQuery("SELECT x FROM Employee x", Employee.class).getResultList();
     }
     
 }
