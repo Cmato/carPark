@@ -71,5 +71,17 @@ public class Employee {
         this.birth = birth;
     }
     
+    @Override
+    public boolean equals(Object obj){
+        //TODO
+        return true;
+    }
+    
+    @Override
+    public int hashCode(){
+        //TODO
+        return 1;
+    }
+    
     
 }
