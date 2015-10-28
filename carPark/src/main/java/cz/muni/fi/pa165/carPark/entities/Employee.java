@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -30,13 +31,17 @@ public class Employee {
     private String name;
     
     @Temporal(TemporalType.DATE)
+    @NotNull
+    @Column(nullable=false)
     private Date birth;
     
+    @Column(unique=true)
     private String idCardNumber;
     
-    //@OneToMany(mappedBy="emlpoyee")
+    //@OneToMany(mappedBy="employee")
     //List<Reservation> reservations;
     
+    @OneToMany(mappedBy="employee")
     List<Rental> rentals;
 
     public String getName() {
@@ -73,14 +78,37 @@ public class Employee {
     
     @Override
     public boolean equals(Object obj){
-        //TODO
-        return true;
+        if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Employee))
+			return false;
+		Employee second = (Employee) obj;
+                //name comparison
+		if (name == null) {
+			if (second.getName() != null)
+				return false;
+		} else if (!name.equals(second.getName()))
+			return false;
+                //birth date comparison
+                if (birth == null) {
+			if (second.getBirth()!= null)
+				return false;
+		} else if (!birth.equals(second.getBirth()))
+			return false;
+                
+		return true;
     }
     
     @Override
     public int hashCode(){
-        //TODO
-        return 1;
+        //conflict not expected -> might change in future
+        final int prime = 37;
+	int hash = 1;
+	hash = prime * hash + ((name == null) ? 0 : name.hashCode());
+	hash = prime * hash + ((birth == null) ? 0 : birth.hashCode());
+	return hash;
     }
     
     
