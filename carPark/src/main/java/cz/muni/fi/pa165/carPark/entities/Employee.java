@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -27,11 +29,12 @@ public class Employee {
     @Column(nullable=false)
     private String name;
     
+    @Temporal(TemporalType.DATE)
     private Date birth;
     
     private String idCardNumber;
     
-    //TODO
+    //@OneToMany(mappedBy="emlpoyee")
     //List<Reservation> reservations;
     
     List<Rental> rentals;
