@@ -25,7 +25,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
     @Override
     public void deleteEmployee(Employee employee) {
-        em.remove(employee);
+        em.remove(em.merge(employee));
     }
 
     @Override

@@ -54,7 +54,7 @@ public class RentalDaoImpl implements RentalDao{
 
     @Override
     public void remove(Rental rental) {
-        em.remove(rental);
+        em.remove(em.merge(rental));
     }
     
 }

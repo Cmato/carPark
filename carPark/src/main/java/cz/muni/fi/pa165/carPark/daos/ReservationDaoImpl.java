@@ -50,7 +50,7 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public void remove(Reservation reservation) {
-        em.remove(reservation);
+        em.remove(em.merge(reservation));
     }
 
 }
