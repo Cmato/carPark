@@ -125,7 +125,7 @@ public class Rental {
         if (car == null) {
             if (other.getCar() != null)
 		return false;
-	} else if (car.equals(other.getCar()))
+	} else if (!car.equals(other.getCar()))
             return false;
         return true;
 	}
