@@ -2,3 +2,4 @@
 .project
 .classpath
 /carPark/.settings/
+/carPark/test-output/
