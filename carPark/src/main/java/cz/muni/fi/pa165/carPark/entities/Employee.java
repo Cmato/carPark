@@ -6,6 +6,8 @@ package cz.muni.fi.pa165.carPark.entities;
 
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,10 +40,10 @@ public class Employee {
     @Column(unique=true)
     private String idCardNumber;
     
-    @OneToMany(mappedBy="employee")
+    @OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
     List<Reservation> reservations;
     
-    @OneToMany(mappedBy="employee")
+    @OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
     List<Rental> rentals;
 
     public String getName() {

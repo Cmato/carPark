@@ -27,12 +27,12 @@ public class Rental {
     private Long id;
     
     @NotNull
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     private Employee employee;
     
     @NotNull
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     private Car car;
     
