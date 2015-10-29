@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author Erik Hasprunar
+ * @author xhasprun
  */
 @Repository
 @Transactional
@@ -36,6 +36,11 @@ public class EmployeeDaoImpl implements EmployeeDao{
     @Override
     public List<Employee> findAllEmployees() {
         return em.createQuery("SELECT x FROM Employee x", Employee.class).getResultList();
+    }
+
+    @Override
+    public void updateCar(Employee employee) {
+        em.merge(employee);
     }
     
 }
