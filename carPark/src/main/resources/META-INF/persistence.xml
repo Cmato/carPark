@@ -9,6 +9,7 @@
                 <class>cz.muni.fi.pa165.carPark.entities.Car</class>
                 <class>cz.muni.fi.pa165.carPark.entities.Rental</class>
                 <class>cz.muni.fi.pa165.carPark.entities.Employee</class>
+                <class>cz.muni.fi.pa165.carPark.entities.Reservation</class>
                 
 		<properties>		
 			<property name="hibernate.connection.url" value="jdbc:derby:memory:testdb" />
