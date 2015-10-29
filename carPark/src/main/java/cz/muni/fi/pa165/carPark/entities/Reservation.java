@@ -13,6 +13,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import cz.muni.fi.pa165.carPark.utils.DateFormater;
+
 /**
  *
  * @author xruzic16
@@ -110,6 +112,6 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Rental " + id + " -- Employee: " + employee.getName() + " From: " + startingDate + " To: " + endingDate;
+		return "Rental " + id + " -- Employee: " + employee.getName() + " From: " + DateFormater.format(startingDate) + " To: " + DateFormater.format(endingDate);
 	}
 }
