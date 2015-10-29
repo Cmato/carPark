@@ -1,1 +1,4 @@
 /carPark/target/
+.project
+.classpath
+/carPark/.settings/
