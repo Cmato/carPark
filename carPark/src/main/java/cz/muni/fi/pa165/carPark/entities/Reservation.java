@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.carPark.entities;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Reservation {
 	private Long id;
 
 	@NotNull
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(nullable = false)
 	private Employee employee;
 
