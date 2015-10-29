@@ -38,8 +38,8 @@ public class Employee {
     @Column(unique=true)
     private String idCardNumber;
     
-    //@OneToMany(mappedBy="employee")
-    //List<Reservation> reservations;
+    @OneToMany(mappedBy="employee")
+    List<Reservation> reservations;
     
     @OneToMany(mappedBy="employee")
     List<Rental> rentals;
