@@ -2,10 +2,20 @@ package cz.muni.fi.pa165.carPark;
 
 import cz.muni.fi.pa165.carPark.daos.EmployeeDao;
 import cz.muni.fi.pa165.carPark.entities.Employee;
+
+
+import java.util.Calendar;
+import java.util.Date;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import cz.muni.fi.pa165.carPark.utils.DateFormater;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -19,24 +29,30 @@ public class EmployeeDaoImplTest extends AbstractTestNGSpringContextTests {
     @Autowired
     EmployeeDao DAO;
 
+    private Employee newEmployee(String name, Date date, String idCardNumber) {
+        Employee employee = new Employee();
+        employee.setName(name);
+        employee.setBirth(date);
+        employee.setIdCardNumber(idCardNumber);
+
+        return employee;
+    }
+
+    @DirtiesContext
     @Test
     public void testCreateEmployee(){
-        Employee employee = new Employee();
-        employee.setName("Ignac");
-        employee.setBirth(DateFormater.newDate(2000, 12, 1));
-        employee.setIdCardNumber("AA123456");
+        Employee employee = newEmployee("Ignac", DateFormater.newDate(2000, 12, 1), "AA123456");
+
         DAO.createEmployee(employee);
 
         Employee sameEmployee = DAO.findEmployeeById(employee.getId());
         assert(employee.equals(sameEmployee));
     }
 
+    @DirtiesContext
     @Test
     public void testDeleteEmployee() {
-        Employee employee = new Employee();
-        employee.setName("Ignacik");
-        employee.setBirth(DateFormater.newDate(2000, 12, 1));
-        employee.setIdCardNumber("AA123456");
+        Employee employee = newEmployee("Ignacik", DateFormater.newDate(1998, 1, 1), "AA123456");
 
         DAO.createEmployee(employee);
         DAO.deleteEmployee(employee);
@@ -44,7 +60,8 @@ public class EmployeeDaoImplTest extends AbstractTestNGSpringContextTests {
         assert(!employee.equals(sameEmployee) && sameEmployee==null);
     }
 
-    /*@Test
+    @DirtiesContext
+    @Test
     public void testUpdateEmployee() {
         Employee employee = newEmployee("Ignac", DateFormater.newDate(1998, 1, 1), "AA123456");
 
@@ -60,5 +77,5 @@ public class EmployeeDaoImplTest extends AbstractTestNGSpringContextTests {
 
         assert(employee.equals(verifyEmployee));
 
-    }*/
+    }
 }
