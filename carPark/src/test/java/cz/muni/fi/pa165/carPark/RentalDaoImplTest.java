@@ -11,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.springframework.transaction.TransactionSystemException;
 import org.testng.annotations.Test;
 
 import cz.muni.fi.pa165.carPark.daos.CarDao;
@@ -39,18 +38,8 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
 	private CarDao cDAO;
 	@Autowired
 	private EmployeeDao eDAO;
-	
-    @BeforeTest
-    public void before(){
-    	
-    }
 
-    @AfterTest
-    public void close() {
-    	
-    }
-    
-      
+	
     @Test
     @DirtiesContext
     public void createRentalTest(){
@@ -97,9 +86,6 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
         } catch (ConstraintViolationException ex) {
         }
     }
-//<<<<<<< HEAD
-//}
-//=======
     
     @Test
     @DirtiesContext
@@ -107,7 +93,7 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
     	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
     	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29)); 
-    	Car c2 = TestHelper.car("Skoda Superb2","Black",Fuel.Petrol,Transmission.Automatic);
+    	Car c2 = TestHelper.car("Skoda Fabia","Red",Fuel.Diesel,Transmission.manual);
     	Employee e2 = TestHelper.employee("Pepa2", DateFormater.newDate(2000, 12, 1), "ABC124");
     	Rental rent2 = TestHelper.rental(e, c, DateFormater.newDate(2015, 11, 29), DateFormater.newDate(2015, 12, 29)); 
     	
@@ -120,16 +106,101 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     	DAO.create(rent);
     	DAO.create(rent2);
 
-    	DAO.remove(rent);
+    	DAO.remove(rent); // remove 
     	
-    	assert(DAO.findAll().size() == 1);
+    	assert(DAO.findAll().size() == 1); //check
     	assertEquals(DAO.findByCar(c).get(0), rent2);
 
-    	rent.setId(null);
-    	DAO.create(rent);
+    	rent.setId(null); // reset index
+    	DAO.create(rent); //imput same thing again
     	assert(DAO.findAll().size() == 2);
+    	
+    	
+    }
+    
+    @Test
+    @DirtiesContext
+    public void removeWithNullRentalTest(){
+    	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
+    	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
+    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29)); 
+    	
+    	cDAO.createCar(c);
+    	eDAO.createEmployee(e);   	
+
+    	DAO.create(rent);
+    	
+    	// try to remove null
+    	try {
+    		DAO.remove(null);
+            fail("Ex not thrown");
+        } catch (IllegalArgumentException ex) {
+        }
+    	
+    	rent.setCar(null);
+    	rent.setEmployee(null);
+    	rent.setId(null);
+    	
+    	// try to remove corupted rental
+    	try {
+    		DAO.remove(null);
+            fail("Ex not thrown");
+        } catch (IllegalArgumentException ex) {
+        }
+    	assert(DAO.findAll().size() == 1);
+    
+    }
+    
+    @Test
+    @DirtiesContext
+    public void updateRentalTest(){
+    	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
+    	Car c2 = TestHelper.car("Skoda Fabia","Red",Fuel.Diesel,Transmission.manual);
+    	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
+    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29));
+    	
+    	cDAO.createCar(c);
+    	cDAO.createCar(c2);
+    	eDAO.createEmployee(e);
+    	
+    	DAO.create(rent);
+    	
+    	rent.setStartingDate(DateFormater.newDate(2014, 10, 29));
+    	rent.setEndingDate(DateFormater.newDate(1900, 11, 29));
+    	rent.setCar(c2);
+    	
+    	DAO.update(rent);
+    	assert(DAO.findByCar(c2).size() == 1);    	
+    	Rental rent2 = DAO.findByCar(c2).get(0);
+    	assertEquals(rent2.getStartingDate(), DateFormater.newDate(2014, 10, 29));
+    	assertEquals(rent2.getCar(), c2);
+    }
+    
+    @Test
+    @DirtiesContext
+    public void updateWithNullRentalTest(){
+    	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
+    	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
+    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29));
+    	
+    	cDAO.createCar(c);
+    	eDAO.createEmployee(e);
+    	
+    	DAO.create(rent);
+    	
+    	rent.setStartingDate(null);
+    	rent.setEndingDate(null);
+    	rent.setCar(null);
+    	
+    	try{
+    		DAO.update(rent);
+    		fail("Ex not thrown");
+    	} catch (TransactionSystemException ex) {
+    		
+    	}  
     }
     
     
+    
 }
-//>>>>>>> 85f51071b75c38952615c1d15fde393f1350814e
+

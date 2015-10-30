@@ -24,7 +24,7 @@ import org.testng.annotations.Test;
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 public class CarDaoTest extends AbstractTestNGSpringContextTests{
     
-    @Inject
+    @Autowired
     CarDao carDao;
     
     @Test
