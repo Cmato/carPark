@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.carPark.daos;
 
 import cz.muni.fi.pa165.carPark.entities.Car;
@@ -9,6 +5,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+
+import cz.muni.fi.pa165.carPark.entities.Reservation;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,38 +18,37 @@ import org.springframework.stereotype.Repository;
 public class CarDaoImpl implements CarDao{
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     @Override
     public void createCar(Car car) {
-        validateCar(car);
+        /*validateCar(car);
         if(car.getId() != null) {
             throw new IllegalArgumentException("Cannot create car with assigned id");
-        }
+        }*/
         em.persist(car);
     }
 
     @Override
     public void deleteCar(Car car) {
-        if (car == null) {
+        /*if (car == null) {
             throw new NullPointerException("Car is null. Nothing to delete");
         }
         if (car.getId() == null) {
             throw new IllegalArgumentException("Cannot delete car with null id. Nothing to delete");
-        }
+        }*/
         em.remove(em.merge(car));
     }
 
     @Override
     public void updateCar(Car car) {
-        validateCar(car);
+        //validateCar(car);
         em.merge(car);
     }
 
     @Override
     public Car findCarById(Long id) {
-        return em.createQuery("SELECT r FROM Car r WHERE r.car.id = :id", Car.class)
-                .setParameter("id", id).getResultList().get(0);
+        return em.find(Car.class, id);
     }
 
     @Override
