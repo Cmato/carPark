@@ -47,5 +47,5 @@ public interface EmployeeDao {
      * 
      * @param employee to be updated
      */
-    void updateCar(Employee employee);
+    void updateEmployee(Employee employee);
 }

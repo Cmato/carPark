@@ -39,7 +39,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
     }
 
     @Override
-    public void updateCar(Employee employee) {
+    public void updateEmployee(Employee employee) {
         em.merge(employee);
     }
     
