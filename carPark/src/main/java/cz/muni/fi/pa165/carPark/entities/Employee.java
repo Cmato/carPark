@@ -40,10 +40,10 @@ public class Employee {
     @Column(unique=true)
     private String idCardNumber;
     
-    @OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
+    @OneToMany(targetEntity=Reservation.class,mappedBy="employee", orphanRemoval = true)
     List<Reservation> reservations;
     
-    @OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
+    @OneToMany(targetEntity=Rental.class,mappedBy="employee", orphanRemoval = true)
     List<Rental> rentals;
 
     public String getName() {
