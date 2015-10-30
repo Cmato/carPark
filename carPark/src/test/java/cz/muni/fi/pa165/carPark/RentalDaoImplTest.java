@@ -1,9 +1,6 @@
 package cz.muni.fi.pa165.carPark;
 
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNotNull;
-import static org.testng.AssertJUnit.assertNotSame;
-import static org.testng.AssertJUnit.fail;
+import static org.testng.AssertJUnit.*;
 
 import javax.validation.ConstraintViolationException;
 
@@ -198,6 +195,11 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     	} catch (TransactionSystemException ex) {
     		
     	}  
+    }
+    
+    @Test
+    public void findNonExistObject(){
+        assertNull((Object)DAO.findById(321231231l));
     }
     
     
