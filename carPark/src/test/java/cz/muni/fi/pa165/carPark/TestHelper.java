@@ -1,11 +1,11 @@
 package cz.muni.fi.pa165.carPark;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import cz.muni.fi.pa165.carPark.entities.Car;
 import cz.muni.fi.pa165.carPark.entities.Employee;
 import cz.muni.fi.pa165.carPark.entities.Rental;
+import cz.muni.fi.pa165.carPark.entities.Reservation;
 import cz.muni.fi.pa165.carPark.enums.Fuel;
 import cz.muni.fi.pa165.carPark.enums.Transmission;
 
@@ -35,6 +35,15 @@ public class TestHelper {
 
 	protected static Rental rental(Employee e, Car c, Date from, Date to) {
 		Rental out = new Rental();
+		out.setEmployee(e);
+		out.setCar(c);
+		out.setStartingDate(from);
+		out.setEndingDate(to);
+		return out;
+	}
+        
+        protected static Reservation reservation(Employee e, Car c, Date from, Date to) {
+		Reservation out = new Reservation();
 		out.setEmployee(e);
 		out.setCar(c);
 		out.setStartingDate(from);

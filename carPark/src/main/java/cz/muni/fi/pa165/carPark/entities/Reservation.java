@@ -30,6 +30,11 @@ public class Reservation {
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(nullable = false)
 	private Employee employee;
+        
+        @NotNull
+        @ManyToOne(cascade=CascadeType.PERSIST)
+        @JoinColumn(nullable = false)
+        private Car car;
 
 	@NotNull
 	@Column(nullable = false)
@@ -72,6 +77,16 @@ public class Reservation {
 	public void setEndingDate(Date endingDate) {
 		this.endingDate = endingDate;
 	}
+
+        public Car getCar() {
+            return car;
+        }
+
+        public void setCar(Car car) {
+            this.car = car;
+        }
+        
+        
 
 	@Override
 	public int hashCode() {

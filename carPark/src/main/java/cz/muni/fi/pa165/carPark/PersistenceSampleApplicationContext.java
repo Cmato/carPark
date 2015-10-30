@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.carPark;
 
+import cz.muni.fi.pa165.carPark.daos.EmployeeDao;
+import cz.muni.fi.pa165.carPark.daos.EmployeeDaoImpl;
 import javax.sql.DataSource;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;

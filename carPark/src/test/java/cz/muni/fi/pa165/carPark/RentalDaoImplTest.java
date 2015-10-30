@@ -22,7 +22,7 @@ import cz.muni.fi.pa165.carPark.entities.Rental;
 import cz.muni.fi.pa165.carPark.enums.Fuel;
 import cz.muni.fi.pa165.carPark.enums.Transmission;
 import cz.muni.fi.pa165.carPark.utils.DateFormater;
- 
+
 /**
 *
 * @author xruzic16
