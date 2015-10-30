@@ -15,28 +15,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 /**
  *
  * @author xcmarko
  */
 @Entity
-@Table(name = "car")
 public class Car implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
+    @NotNull
     @Column(nullable = false)
     private String name;
-    
+
+    @NotNull
     @Column(nullable = false)
     private String color;
-    
+
+    @NotNull
     @Column(nullable = false)
     private Fuel fuel;
-    
+
+    @NotNull
     @Column(nullable = false)
     private Transmission transmission;
 
