@@ -97,9 +97,9 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
         } catch (ConstraintViolationException ex) {
         }
     }
-<<<<<<< HEAD
-}
-=======
+//<<<<<<< HEAD
+//}
+//=======
     
     @Test
     @DirtiesContext
@@ -132,4 +132,4 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     
     
 }
->>>>>>> 85f51071b75c38952615c1d15fde393f1350814e
+//>>>>>>> 85f51071b75c38952615c1d15fde393f1350814e

@@ -57,4 +57,58 @@ public class CarDaoTest extends AbstractTestNGSpringContextTests{
         Car sameCar = carDao.findCarById(testCar.getId());
         assert(!testCar.equals(sameCar) && sameCar==null);
     }
+    
+    @Test
+    public void updateCarTest(){
+        Car testCar = new Car();
+        testCar.setColor("Red");
+        testCar.setFuel(Fuel.CNG);
+        testCar.setName("Ferrari");
+        testCar.setTransmission(Transmission.Automatic);
+        
+        carDao.createCar(testCar);
+        
+        testCar.setColor("Blue");
+        testCar.setFuel(Fuel.Petrol);
+        testCar.setName("Skoda");
+        testCar.setTransmission(Transmission.manual);
+        
+        carDao.updateCar(testCar);
+        
+        Car sameCar = carDao.findCarById(testCar.getId());
+        assert(testCar.equals(sameCar));
+    }
+    
+    @Test
+    public void equalsTest(){
+        Car testCar = new Car();
+        testCar.setColor("Red");
+        testCar.setFuel(Fuel.CNG);
+        testCar.setName("Ferrari");
+        testCar.setTransmission(Transmission.Automatic);
+        
+        carDao.createCar(testCar);
+        
+        testCar.setColor("Blue");
+        testCar.setFuel(Fuel.Petrol);
+        testCar.setName("Skoda");
+        testCar.setTransmission(Transmission.manual);
+        
+        carDao.updateCar(testCar);
+        
+        Car sameCar = carDao.findCarById(testCar.getId());
+        
+        
+        assert(testCar.equals(sameCar));
+        assert(testCar.getColor().equals(sameCar.getColor()));
+        assert(testCar.getFuel() == sameCar.getFuel());
+        assert(testCar.getId()== sameCar.getId());
+        assert(testCar.getName().equals(sameCar.getName()));
+        assert(testCar.getTransmission() == sameCar.getTransmission());
+        
+    }
+    
+    
+    
+    
 }
