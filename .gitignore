@@ -3,3 +3,4 @@
 .classpath
 /carPark/.settings/
 /carPark/test-output/
+.idea/
