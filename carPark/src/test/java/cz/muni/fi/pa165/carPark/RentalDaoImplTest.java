@@ -5,6 +5,8 @@ import static org.testng.AssertJUnit.assertNotNull;
 import static org.testng.AssertJUnit.assertNotSame;
 import static org.testng.AssertJUnit.fail;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,12 +36,10 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
 	@Autowired
 	private RentalDao DAO;
 	@Autowired
-	private CarDao CDAO;
+	private CarDao cDAO;
 	@Autowired
-	private EmployeeDao EDAO;
-    
-
-    
+	private EmployeeDao eDAO;
+	
     @BeforeTest
     public void before(){
     	
@@ -65,8 +65,9 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     	assertNotNull(rent.getStartingDate());
     	assertNotNull(rent.getEndingDate());
     	
-    	CDAO.createCar(c);
-    	EDAO.createEmployee(e);
+    	cDAO.createCar(c);
+    	eDAO.createEmployee(e);
+    	
     	DAO.create(rent);
     	
     	Rental sameRent = DAO.findByCar(c).get(0);
@@ -93,7 +94,38 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     	try {
     		DAO.create(rent);
             fail("Ex not thrown");
-        } catch (IllegalArgumentException ex) {
+        } catch (ConstraintViolationException ex) {
         }
     }
+    
+    @Test
+    @DirtiesContext
+    public void removeRentalTest(){
+    	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
+    	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
+    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29)); 
+    	Car c2 = TestHelper.car("Skoda Superb2","Black",Fuel.Petrol,Transmission.Automatic);
+    	Employee e2 = TestHelper.employee("Pepa2", DateFormater.newDate(2000, 12, 1), "ABC124");
+    	Rental rent2 = TestHelper.rental(e, c, DateFormater.newDate(2015, 11, 29), DateFormater.newDate(2015, 12, 29)); 
+    	
+    	cDAO.createCar(c);
+    	eDAO.createEmployee(e);
+    	cDAO.createCar(c2);
+    	eDAO.createEmployee(e2);
+    	
+
+    	DAO.create(rent);
+    	DAO.create(rent2);
+
+    	DAO.remove(rent);
+    	
+    	assert(DAO.findAll().size() == 1);
+    	assertEquals(DAO.findByCar(c).get(0), rent2);
+
+    	rent.setId(null);
+    	DAO.create(rent);
+    	assert(DAO.findAll().size() == 2);
+    }
+    
+    
 }
