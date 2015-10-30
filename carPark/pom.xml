@@ -96,6 +96,11 @@
             <artifactId>spring-aop</artifactId>
             <version>4.2.2.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
