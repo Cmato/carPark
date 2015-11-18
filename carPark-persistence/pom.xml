@@ -1,12 +1,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>cz.muni.fi.pa165.carPark</groupId>
-    <artifactId>carPark</artifactId>
+    
+    <parent>
+        <groupId>cz.muni.fi.pa165</groupId>
+        <artifactId>carPark-parent</artifactId>
+	<version>1.0-SNAPSHOT</version>
+    </parent>
+    
+    
+    <groupId>cz.muni.fi.pa165</groupId>
+    <artifactId>carPark-persistence</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>carPark</name>
-    <url>http://maven.apache.org</url>
+    
+    <name>Persistence Layer</name>
+
+
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>

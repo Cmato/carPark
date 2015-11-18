@@ -4,3 +4,4 @@
 /carPark/.settings/
 /carPark/test-output/
 .idea/
+/carPark-persistence/target/
