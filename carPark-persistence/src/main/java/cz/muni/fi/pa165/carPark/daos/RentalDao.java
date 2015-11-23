@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.carPark.daos;
 import cz.muni.fi.pa165.carPark.entities.Rental;
 import cz.muni.fi.pa165.carPark.entities.Car;
 import cz.muni.fi.pa165.carPark.entities.Employee;
+import cz.muni.fi.pa165.carPark.enums.RentalState;
 import java.util.List;
 
 /**
@@ -43,6 +44,13 @@ public interface RentalDao {
      * @return rental with the specific id
      */
     public Rental findById(Long id);
+    
+    /**
+     * Retrieves a rentals with specific state from the database
+     * @param state of the rentals
+     * @return rental with the specific state
+     */
+    public List<Rental> getRentalsWithState(RentalState state);
     
     /**
      * Update specific rental in the database

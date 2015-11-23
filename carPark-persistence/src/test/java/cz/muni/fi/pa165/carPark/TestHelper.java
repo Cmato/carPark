@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.carPark.entities.Employee;
 import cz.muni.fi.pa165.carPark.entities.Rental;
 import cz.muni.fi.pa165.carPark.entities.Reservation;
 import cz.muni.fi.pa165.carPark.enums.Fuel;
+import cz.muni.fi.pa165.carPark.enums.RentalState;
 import cz.muni.fi.pa165.carPark.enums.Transmission;
 
 /*
@@ -33,12 +34,13 @@ public class TestHelper {
 		return out;
 	}
 
-	protected static Rental rental(Employee e, Car c, Date from, Date to) {
+	protected static Rental rental(Employee e, Car c, Date from, Date to, RentalState state) {
 		Rental out = new Rental();
 		out.setEmployee(e);
 		out.setCar(c);
 		out.setStartingDate(from);
 		out.setEndingDate(to);
+                out.setState(state);
 		return out;
 	}
         

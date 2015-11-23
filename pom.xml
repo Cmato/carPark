@@ -12,5 +12,7 @@
      
       <modules>
         <module>carPark-persistence</module>
+        <module>carPark-api</module>
+        <module>carPark-service</module>
       </modules>
     </project>

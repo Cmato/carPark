@@ -1,55 +1,23 @@
-package cz.muni.fi.pa165.carPark.entities;
+package cz.muni.fi.pa165.dto;
 
-import cz.muni.fi.pa165.carPark.enums.RentalState;
+import cz.muni.fi.pa165.enums.RentalState;
 import java.util.Date;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author xhubeny2
  */
-
-@Entity
-public class Rental {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class RentalDTO {
     private Long id;
-    
-    @NotNull
-    @ManyToOne(targetEntity=Employee.class)
-    @JoinColumn(nullable = false)
-    private Employee employee;
-    
-    @NotNull
-    @ManyToOne(targetEntity=Car.class)
-    @JoinColumn(nullable = false)
-    private Car car;
-    
-    @NotNull
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
+
+    private EmployeeDTO employee;
+
+    private CarDTO car;
+
     private Date startingDate;
-    
-    @NotNull
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
+
     private Date endingDate;
     
-    @Enumerated
-    @NotNull
     private RentalState state;
 
     public Long getId() {
@@ -60,19 +28,19 @@ public class Rental {
         this.id = id;
     }
 
-    public Employee getEmployee() {
+    public EmployeeDTO getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
+    public void setEmployee(EmployeeDTO employee) {
         this.employee = employee;
     }
 
-    public Car getCar() {
+    public CarDTO getCar() {
         return car;
     }
 
-    public void setCar(Car car) {
+    public void setCar(CarDTO car) {
         this.car = car;
     }
 
@@ -90,8 +58,8 @@ public class Rental {
 
     public void setEndingDate(Date endingDate) {
         this.endingDate = endingDate;
-    } 
-
+    }
+    
     public RentalState getState() {
         return state;
     }
@@ -119,9 +87,9 @@ public class Rental {
             return true;
 	if (obj == null)
             return false;
-	if (! (obj instanceof Rental))
+	if (! (obj instanceof RentalDTO))
             return false;
-	Rental other = (Rental) obj;
+	RentalDTO other = (RentalDTO) obj;
         if (startingDate == null) {
 			if (other.getStartingDate() != null)
 				return false;
@@ -147,10 +115,10 @@ public class Rental {
         return true;
 	}
     
-    @Override
+    /*@Override
     public String toString(){
         return "Rental " + id + " -- Employee: " + employee.getName() + ", Car: "
                + car.getName() + ", From: " + startingDate + " To: " + endingDate
                + ", State: " + state;
-    }
+    }*/
 }

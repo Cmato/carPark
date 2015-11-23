@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.carPark.daos;
 import cz.muni.fi.pa165.carPark.entities.Car;
 import cz.muni.fi.pa165.carPark.entities.Employee;
 import cz.muni.fi.pa165.carPark.entities.Rental;
+import cz.muni.fi.pa165.carPark.enums.RentalState;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -45,6 +46,18 @@ public class RentalDaoImpl implements RentalDao{
     @Override
     public Rental findById(Long id) {
         return em.find(Rental.class, id);
+    }
+    
+    @Override
+    public List<Rental> getRentalsWithState(RentalState state) {
+        return em.createQuery("SELECT r FROM Rental r WHERE r.state = :state", Rental.class)
+		.setParameter("state", state).getResultList();
+        /*
+        TypedQuery<Rental> query = em.createQuery(
+				"SELECT r FROM Rental r WHERE r.state = :state", Rental.class);
+		query.setParameter("state", state);
+		return query.getResultList();
+        */
     }
 
     @Override
