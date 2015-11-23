@@ -46,11 +46,14 @@ public class Rental {
     @NotNull
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date endingDate;
+    private Date estimatedReturnDate;
+    
+    @Temporal(TemporalType.DATE)
+    private Date returnDate;
     
     @Enumerated
     @NotNull
-    private RentalState state;
+    private RentalState rentalState;
 
     public Long getId() {
         return id;
@@ -84,20 +87,28 @@ public class Rental {
         this.startingDate = startingDate;
     }
 
-    public Date getEndingDate() {
-        return endingDate;
+    public Date getEstimatedReturnDate() {
+        return estimatedReturnDate;
     }
 
-    public void setEndingDate(Date endingDate) {
-        this.endingDate = endingDate;
+    public void setEstimatedReturnDate(Date estimatedReturnDate) {
+        this.estimatedReturnDate = estimatedReturnDate;
     } 
 
-    public RentalState getState() {
-        return state;
+    public RentalState getRentalState() {
+        return rentalState;
     }
 
-    public void setState(RentalState state) {
-        this.state = state;
+    public void setRentalState(RentalState rentalState) {
+        this.rentalState = rentalState;
+    }
+
+    public Date getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
     }
     
     @Override
@@ -105,10 +116,10 @@ public class Rental {
         final int prime = 47;
 	int result = 1;
         result = prime * result + ((startingDate == null) ? 0 : startingDate.hashCode());
-	result = prime * result + ((endingDate == null) ? 0 : endingDate.hashCode());
+	result = prime * result + ((estimatedReturnDate == null) ? 0 : estimatedReturnDate.hashCode());
 	result = prime * result + ((employee == null) ? 0 : employee.hashCode());
         result = prime * result + ((car == null) ? 0 : car.hashCode());
-        result = prime * result + ((state == null) ? 0 : state.hashCode());
+        result = prime * result + ((rentalState == null) ? 0 : rentalState.hashCode());
         //result = prime * result + car.hashCode() + employee.hashCode();
         return result;
     }
@@ -127,10 +138,10 @@ public class Rental {
 				return false;
 		} else if (!startingDate.equals(other.getStartingDate()))
 			return false;
-        if (endingDate == null) {
-			if (other.getEndingDate() != null)
+        if (estimatedReturnDate == null) {
+			if (other.getEstimatedReturnDate() != null)
 				return false;
-		} else if (!endingDate.equals(other.getEndingDate()))
+		} else if (!estimatedReturnDate.equals(other.getEstimatedReturnDate()))
 			return false;
         if (employee == null) {
             if (other.getEmployee() != null)
@@ -142,7 +153,7 @@ public class Rental {
 		return false;
 	} else if (!car.equals(other.getCar()))
             return false;
-        if (state != other.state)
+        if (rentalState != other.rentalState)
             return false;
         return true;
 	}
@@ -150,7 +161,7 @@ public class Rental {
     @Override
     public String toString(){
         return "Rental " + id + " -- Employee: " + employee.getName() + ", Car: "
-               + car.getName() + ", From: " + startingDate + " To: " + endingDate
-               + ", State: " + state;
+               + car.getName() + ", From: " + startingDate + " To: " + estimatedReturnDate
+               + ", State: " + rentalState;
     }
 }

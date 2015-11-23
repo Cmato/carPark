@@ -34,13 +34,13 @@ public class TestHelper {
 		return out;
 	}
 
-	protected static Rental rental(Employee e, Car c, Date from, Date to, RentalState state) {
+	protected static Rental rental(Employee e, Car c, Date from, Date to, RentalState rentalState) {
 		Rental out = new Rental();
 		out.setEmployee(e);
 		out.setCar(c);
 		out.setStartingDate(from);
-		out.setEndingDate(to);
-                out.setState(state);
+		out.setEstimatedReturnDate(to);
+                out.setRentalState(rentalState);
 		return out;
 	}
         

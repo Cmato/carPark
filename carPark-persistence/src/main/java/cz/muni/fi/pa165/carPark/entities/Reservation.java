@@ -114,9 +114,9 @@ public class Reservation {
 		} else if (!startingDate.equals(other.getStartingDate()))
 			return false;
 		if (endingDate == null) {
-			if (other.getEndingDate() != null)
+			if (other.getEstimatedReturnDate() != null)
 				return false;
-		} else if (!endingDate.equals(other.getEndingDate()))
+		} else if (!endingDate.equals(other.getEstimatedReturnDate()))
 			return false;
 		if (employee == null) {
 			if (other.getEmployee() != null)

@@ -49,7 +49,7 @@ public class RentalDaoImpl implements RentalDao{
     }
     
     @Override
-    public List<Rental> getRentalsWithState(RentalState state) {
+    public List<Rental> findRentalsWithState(RentalState state) {
         return em.createQuery("SELECT r FROM Rental r WHERE r.state = :state", Rental.class)
 		.setParameter("state", state).getResultList();
         /*

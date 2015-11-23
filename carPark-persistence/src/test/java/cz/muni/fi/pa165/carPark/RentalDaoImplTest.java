@@ -44,13 +44,13 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     	
     	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
     	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
-    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.Active);
+    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.ACTIVE);
     	
     	//assertNotNull(rent.getId()); // blbost to testovat - priradi se az pri commitu do DB
     	assertNotNull(rent.getEmployee());
     	assertNotNull(rent.getCar());
     	assertNotNull(rent.getStartingDate());
-    	assertNotNull(rent.getEndingDate());
+    	assertNotNull(rent.getEstimatedReturnDate());
     	
     	cDAO.createCar(c);
     	eDAO.createEmployee(e);
@@ -90,10 +90,10 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     public void removeRentalTest(){
     	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
     	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
-    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.Active); 
+    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.ACTIVE); 
     	Car c2 = TestHelper.car("Skoda Fabia","Red",Fuel.Diesel,Transmission.manual);
     	Employee e2 = TestHelper.employee("Pepa2", DateFormater.newDate(2000, 12, 1), "ABC124");
-    	Rental rent2 = TestHelper.rental(e, c, DateFormater.newDate(2015, 11, 29), DateFormater.newDate(2015, 12, 29), RentalState.Active); 
+    	Rental rent2 = TestHelper.rental(e, c, DateFormater.newDate(2015, 11, 29), DateFormater.newDate(2015, 12, 29), RentalState.ACTIVE); 
     	
     	cDAO.createCar(c);
     	eDAO.createEmployee(e);
@@ -121,7 +121,7 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     public void removeWithNullRentalTest(){
     	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
     	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
-    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.Active); 
+    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.ACTIVE); 
     	
     	cDAO.createCar(c);
     	eDAO.createEmployee(e);   	
@@ -155,7 +155,7 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
     	Car c2 = TestHelper.car("Skoda Fabia","Red",Fuel.Diesel,Transmission.manual);
     	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
-    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.Active);
+    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.ACTIVE);
     	
     	cDAO.createCar(c);
     	cDAO.createCar(c2);
@@ -164,7 +164,7 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     	DAO.create(rent);
     	
     	rent.setStartingDate(DateFormater.newDate(2014, 10, 29));
-    	rent.setEndingDate(DateFormater.newDate(1900, 11, 29));
+    	rent.setEstimatedReturnDate(DateFormater.newDate(1900, 11, 29));
     	rent.setCar(c2);
     	
     	DAO.update(rent);
@@ -179,7 +179,7 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     public void updateWithNullRentalTest(){
     	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
     	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
-    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.Active);
+    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.ACTIVE);
     	
     	cDAO.createCar(c);
     	eDAO.createEmployee(e);
@@ -187,7 +187,7 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     	DAO.create(rent);
     	
     	rent.setStartingDate(null);
-    	rent.setEndingDate(null);
+    	rent.setEstimatedReturnDate(null);
     	rent.setCar(null);
     	
     	try{

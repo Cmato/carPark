@@ -50,7 +50,7 @@ public interface RentalDao {
      * @param state of the rentals
      * @return rental with the specific state
      */
-    public List<Rental> getRentalsWithState(RentalState state);
+    public List<Rental> findRentalsWithState(RentalState state);
     
     /**
      * Update specific rental in the database

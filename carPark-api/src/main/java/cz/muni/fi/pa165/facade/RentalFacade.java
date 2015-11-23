@@ -11,8 +11,7 @@ import java.util.List;
 public interface RentalFacade {
     public RentalDTO getRentalById(Long id);
     public void activateRental(Long id);
-    public void reserveRental(Long id);
-    public void cancelRental(Long id);
+    public void delayRental(Long id);
     public void finishRental(Long id);
     public List<RentalDTO> getAllRentals();
     public List<RentalDTO> getRentalsByEmployee(Long employeeId);
