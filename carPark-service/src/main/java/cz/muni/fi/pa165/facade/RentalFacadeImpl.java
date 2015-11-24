@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.facade;
 
+import cz.muni.fi.pa165.dto.RentalCreateDTO;
 import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.dto.RentalDTO;
+import cz.muni.fi.pa165.entities.Rental;
 import cz.muni.fi.pa165.enums.RentalState;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.RentalService;
@@ -31,8 +33,13 @@ public class RentalFacadeImpl implements RentalFacade{
                 RentalDTO.class);
     }
 
-    public void createRental(RentalDTO r) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Long createRental(RentalCreateDTO r) {
+        Rental rental = new Rental();
+        rental.setEmployee(employeeService.getEmployeeById(
+                (r.getEmployee().getId()));
+        rental.setCar(carService.getCarById(
+                (r.getCar().getId()));
+        rentalService.createRental(r);
     }
 
     public void delayRental(Long id) {

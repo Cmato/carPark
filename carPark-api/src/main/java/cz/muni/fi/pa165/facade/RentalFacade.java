@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.facade;
 
+import cz.muni.fi.pa165.dto.RentalCreateDTO;
 import cz.muni.fi.pa165.dto.RentalDTO;
 import cz.muni.fi.pa165.enums.RentalState;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface RentalFacade {
     public RentalDTO getRentalById(Long id);
-    public void createRental(RentalDTO r);
+    public Long createRental(RentalCreateDTO r);
     public void delayRental(Long id);
     public void finishRental(Long id);
     public List<RentalDTO> getAllRentals();

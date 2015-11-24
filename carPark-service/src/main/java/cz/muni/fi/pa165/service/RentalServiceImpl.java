@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Rental;
 import cz.muni.fi.pa165.enums.RentalState;
 import cz.muni.fi.pa165.exceptions.CarParkServiceException;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,7 +27,7 @@ public class RentalServiceImpl implements RentalService {
     @Autowired
     private RentalDao rentalDao;
 
-    public void createOrder(Rental rental) {
+    public void createRental(Rental rental) {
         rentalDao.create(rental);
     }
 
@@ -49,6 +50,9 @@ public class RentalServiceImpl implements RentalService {
     public void finishRental(Rental rental) {
         checkTransition(rental.getRentalState(), RentalState.FINISHED);
         rental.setRentalState(RentalState.FINISHED);
+        
+        Calendar cal = Calendar.getInstance();
+        rental.setReturnDate(cal.getTime());
     }
 
     public void delayRental(Rental rental) {

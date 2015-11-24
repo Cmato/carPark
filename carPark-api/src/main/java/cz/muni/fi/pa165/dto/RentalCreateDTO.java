@@ -1,79 +1,54 @@
-package cz.muni.fi.pa165.entities;
+package cz.muni.fi.pa165.dto;
 
 import cz.muni.fi.pa165.enums.RentalState;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author xhubeny2
  */
-@Entity
-public class Rental {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class RentalCreateDTO {
 
     @NotNull
-    @ManyToOne(targetEntity = Employee.class)
-    @JoinColumn(nullable = false)
-    private Employee employee;
+    private EmployeeDTO employee;
 
     @NotNull
-    @ManyToOne(targetEntity = Car.class)
-    @JoinColumn(nullable = false)
-    private Car car;
+    private CarDTO car;
 
     @NotNull
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date startingDate;
 
     @NotNull
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date estimatedReturnDate;
 
-    @Temporal(TemporalType.DATE)
     private Date returnDate;
 
-    @Enumerated
     @NotNull
     private RentalState rentalState;
 
-    public Long getId() {
-        return id;
+    public RentalCreateDTO(EmployeeDTO employee, CarDTO car, Date startingDate, Date estimatedReturnDate) {
+        this.employee = employee;
+        this.car = car;
+        this.startingDate = startingDate;
+        this.estimatedReturnDate = estimatedReturnDate;
+        this.returnDate = null;
+        this.rentalState = RentalState.ACTIVE;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Employee getEmployee() {
+    public EmployeeDTO getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
+    public void setEmployee(EmployeeDTO employee) {
         this.employee = employee;
     }
 
-    public Car getCar() {
+    public CarDTO getCar() {
         return car;
     }
 
-    public void setCar(Car car) {
+    public void setCar(CarDTO car) {
         this.car = car;
     }
 
@@ -93,20 +68,20 @@ public class Rental {
         this.estimatedReturnDate = estimatedReturnDate;
     }
 
-    public RentalState getRentalState() {
-        return rentalState;
-    }
-
-    public void setRentalState(RentalState rentalState) {
-        this.rentalState = rentalState;
-    }
-
     public Date getReturnDate() {
         return returnDate;
     }
 
     public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public RentalState getRentalState() {
+        return rentalState;
+    }
+
+    public void setRentalState(RentalState rentalState) {
+        this.rentalState = rentalState;
     }
 
     @Override
@@ -118,7 +93,6 @@ public class Rental {
         result = prime * result + ((employee == null) ? 0 : employee.hashCode());
         result = prime * result + ((car == null) ? 0 : car.hashCode());
         result = prime * result + ((rentalState == null) ? 0 : rentalState.hashCode());
-        //result = prime * result + car.hashCode() + employee.hashCode();
         return result;
     }
 
@@ -130,10 +104,10 @@ public class Rental {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof Rental)) {
+        if (!(obj instanceof RentalCreateDTO)) {
             return false;
         }
-        Rental other = (Rental) obj;
+        RentalCreateDTO other = (RentalCreateDTO) obj;
         if (startingDate == null) {
             if (other.getStartingDate() != null) {
                 return false;
@@ -170,8 +144,12 @@ public class Rental {
 
     @Override
     public String toString() {
-        return "Rental " + id + " -- Employee: " + employee.getName() + ", Car: "
-                + car.getName() + ", From: " + startingDate + " To: " + estimatedReturnDate
-                + ", State: " + rentalState;
+        return "RentalCreateDTO{"
+                + ", employee='" + employee + '\''
+                + ", car='" + car + '\''
+                + ", starting date=" + startingDate
+                + ", estimated return date=" + estimatedReturnDate
+                + ", state=" + rentalState.toString()
+                + '}';
     }
 }

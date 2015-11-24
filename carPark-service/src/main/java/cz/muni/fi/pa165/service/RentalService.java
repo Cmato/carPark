@@ -18,7 +18,7 @@ public interface RentalService {
      *
      * @param rental which is created
      */
-    void createOrder(Rental rental);
+    void createRental(Rental rental);
 
     /**
      * Get all rentals belonging to the given employee.

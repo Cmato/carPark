@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.daos.EmployeeDao;
 import cz.muni.fi.pa165.daos.EmployeeDaoImpl;
 import cz.muni.fi.pa165.entities.Employee;
 import java.util.Calendar;
+import java.util.Date;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,11 @@ public class App
 		emWork.persist(c2);
 		
 		emWork.getTransaction().commit();*/
+        
+        /*Calendar cal2 = Calendar.getInstance();
+        //cal2.getTime();
+        Date date = cal2.getTime();
+        System.out.println("Actual time: " + date);*/
 	emf.close();
         
         
