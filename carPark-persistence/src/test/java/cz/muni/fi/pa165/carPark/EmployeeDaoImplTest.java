@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.carPark;
 
-import cz.muni.fi.pa165.carPark.daos.EmployeeDao;
-import cz.muni.fi.pa165.carPark.entities.Employee;
+import cz.muni.fi.pa165.daos.EmployeeDao;
+import cz.muni.fi.pa165.entities.Employee;
 
 
 import java.util.Calendar;
@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import cz.muni.fi.pa165.carPark.utils.DateFormater;
+import cz.muni.fi.pa165.utils.DateFormater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;

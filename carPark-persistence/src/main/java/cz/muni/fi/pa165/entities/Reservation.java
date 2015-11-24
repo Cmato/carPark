@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.carPark.entities;
+package cz.muni.fi.pa165.entities;
 
 import java.util.Date;
 
@@ -14,7 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import cz.muni.fi.pa165.carPark.utils.DateFormater;
+import cz.muni.fi.pa165.utils.DateFormater;
 
 /**
  *

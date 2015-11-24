@@ -1,9 +1,9 @@
-package cz.muni.fi.pa165.carPark.daos;
+package cz.muni.fi.pa165.daos;
 
-import cz.muni.fi.pa165.carPark.entities.Rental;
-import cz.muni.fi.pa165.carPark.entities.Car;
-import cz.muni.fi.pa165.carPark.entities.Employee;
-import cz.muni.fi.pa165.carPark.enums.RentalState;
+import cz.muni.fi.pa165.entities.Rental;
+import cz.muni.fi.pa165.entities.Car;
+import cz.muni.fi.pa165.entities.Employee;
+import cz.muni.fi.pa165.enums.RentalState;
 import java.util.List;
 
 /**

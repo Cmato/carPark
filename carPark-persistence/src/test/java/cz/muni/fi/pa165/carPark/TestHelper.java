@@ -2,13 +2,13 @@ package cz.muni.fi.pa165.carPark;
 
 import java.util.Date;
 
-import cz.muni.fi.pa165.carPark.entities.Car;
-import cz.muni.fi.pa165.carPark.entities.Employee;
-import cz.muni.fi.pa165.carPark.entities.Rental;
-import cz.muni.fi.pa165.carPark.entities.Reservation;
-import cz.muni.fi.pa165.carPark.enums.Fuel;
-import cz.muni.fi.pa165.carPark.enums.RentalState;
-import cz.muni.fi.pa165.carPark.enums.Transmission;
+import cz.muni.fi.pa165.entities.Car;
+import cz.muni.fi.pa165.entities.Employee;
+import cz.muni.fi.pa165.entities.Rental;
+import cz.muni.fi.pa165.entities.Reservation;
+import cz.muni.fi.pa165.enums.Fuel;
+import cz.muni.fi.pa165.enums.RentalState;
+import cz.muni.fi.pa165.enums.Transmission;
 
 /*
  * 

@@ -1,6 +1,6 @@
-package cz.muni.fi.pa165.carPark.entities;
+package cz.muni.fi.pa165.entities;
 
-import cz.muni.fi.pa165.carPark.enums.RentalState;
+import cz.muni.fi.pa165.enums.RentalState;
 import java.util.Date;
 
 import javax.persistence.CascadeType;

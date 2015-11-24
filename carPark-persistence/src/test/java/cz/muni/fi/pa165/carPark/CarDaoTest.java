@@ -1,11 +1,11 @@
 package cz.muni.fi.pa165.carPark;
 
-import cz.muni.fi.pa165.carPark.daos.CarDao;
-import cz.muni.fi.pa165.carPark.daos.EmployeeDao;
-import cz.muni.fi.pa165.carPark.entities.Car;
-import cz.muni.fi.pa165.carPark.entities.Employee;
-import cz.muni.fi.pa165.carPark.enums.Fuel;
-import cz.muni.fi.pa165.carPark.enums.Transmission;
+import cz.muni.fi.pa165.daos.CarDao;
+import cz.muni.fi.pa165.daos.EmployeeDao;
+import cz.muni.fi.pa165.entities.Car;
+import cz.muni.fi.pa165.entities.Employee;
+import cz.muni.fi.pa165.enums.Fuel;
+import cz.muni.fi.pa165.enums.Transmission;
 import java.util.Calendar;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;

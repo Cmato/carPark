@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.service;
 
-import cz.muni.fi.pa165.carPark.enums.RentalState;
+import cz.muni.fi.pa165.enums.RentalState;
 
 /**
  *

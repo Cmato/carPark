@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.carPark.enums;
+package cz.muni.fi.pa165.enums;
 
 /**
  *
