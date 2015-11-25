@@ -30,7 +30,22 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public void createRental(Rental rental) {
-        checkDates(null, null);
+        if (!checkDates(rental.getStartingDate(), rental.getEstimatedReturnDate())) {
+            throw new CarParkServiceException("The starting date is after"
+                    + "estimated return date!");
+        }
+        //kontrola rezervaci
+        /*List<Rental> rentals = getRentalsByCar(null);
+        for (Rental rental1 : rentals) {
+                
+            }*/
+        //kontrola bezicich pujcek
+        List<Rental> rentals = getRentalsByState(RentalState.ACTIVE);
+        rentals.addAll(getRentalsByState(RentalState.DELAYED));
+        for (Rental rental1 : rentals) {
+            if (rental1.getCar().equals(rental.getCar()))
+                throw new CarParkServiceException("The car is already rented.");
+        }
         rentalDao.create(rental);
     }
 
@@ -75,7 +90,7 @@ public class RentalServiceImpl implements RentalService {
     }
     
     @Override
-    public void remove(Rental rental) {
+    public void deleteRental(Rental rental) {
 
     }
 
@@ -105,6 +120,6 @@ public class RentalServiceImpl implements RentalService {
     }
     
     private boolean checkDates(Date starting, Date ending){
-        return !starting.after(ending);
+        return (starting.before(ending) || starting.equals(ending));
     }
 }

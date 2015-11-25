@@ -53,6 +53,18 @@ public class Rental {
     @NotNull
     private RentalState rentalState;
 
+    public Rental() {
+    }
+
+    public Rental(Employee employee, Car car, Date startingDate, Date estimatedReturnDate) {
+        this.employee = employee;
+        this.car = car;
+        this.startingDate = startingDate;
+        this.estimatedReturnDate = estimatedReturnDate;
+        this.returnDate = null;
+        this.rentalState = RentalState.ACTIVE;
+    }
+
     public Long getId() {
         return id;
     }

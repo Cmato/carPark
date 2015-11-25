@@ -78,5 +78,5 @@ public interface RentalService {
      * 
      * @param rental which is removed
      */
-    void remove(Rental rental);
+    void deleteRental(Rental rental);
 }

@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.RentalCreateDTO;
 import cz.muni.fi.pa165.dto.RentalDTO;
+import cz.muni.fi.pa165.dto.RentalCreateDTO;
+import cz.muni.fi.pa165.entities.Car;
+import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Rental;
 import cz.muni.fi.pa165.enums.RentalState;
 import cz.muni.fi.pa165.service.BeanMappingService;
@@ -31,16 +33,20 @@ public class RentalFacadeImpl implements RentalFacade{
                 RentalDTO.class);
     }
 
-    public Long createRental(RentalCreateDTO r) {
-        Rental rental = new Rental();
-        rental.setEmployee(employeeService.getEmployeeById(
-                (r.getEmployee().getId()));
-        rental.setCar(carService.getCarById(
-                (r.getCar().getId()));
-        rental.setStartingDate(r.getStartingDate());
-        rental.setEstimatedReturnDate(r.getEstimatedReturnDate());
+    public void createRental(RentalCreateDTO r) {
+        //Rental rental = new Rental();
+        
+        Employee employee = employeeService.getEmployeeById(
+                (r.getEmployee().getId());
+        Car car = carService.getCarById(
+                (r.getCar().getId());
+        Rental rental = new Rental(
+                employee, car, r.getStartingDate(), r.getEstimatedReturnDate());
         rentalService.createRental(rental);
-        return rental.getId();
+    }
+    
+    public void deleteRental(Long id){
+        rentalService.deleteRental(rentalService.getRentalById(id));
     }
 
     public void delayRental(Long id) {
