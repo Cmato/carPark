@@ -40,12 +40,8 @@ public class RentalServiceImpl implements RentalService {
                 
             }*/
         //kontrola bezicich pujcek
-        List<Rental> rentals = getRentalsByState(RentalState.ACTIVE);
-        rentals.addAll(getRentalsByState(RentalState.DELAYED));
-        for (Rental rental1 : rentals) {
-            if (rental1.getCar().equals(rental.getCar()))
-                throw new CarParkServiceException("The car is already rented.");
-        }
+        CarAvailability ca = new CarAvailability(this);
+        ca.checkRentals(rental);
         rentalDao.create(rental);
     }
 
