@@ -1,13 +1,11 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.RentalCreateDTO;
-import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.dto.RentalDTO;
 import cz.muni.fi.pa165.entities.Rental;
 import cz.muni.fi.pa165.enums.RentalState;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.RentalService;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -39,7 +37,10 @@ public class RentalFacadeImpl implements RentalFacade{
                 (r.getEmployee().getId()));
         rental.setCar(carService.getCarById(
                 (r.getCar().getId()));
-        rentalService.createRental(r);
+        rental.setStartingDate(r.getStartingDate());
+        rental.setEstimatedReturnDate(r.getEstimatedReturnDate());
+        rentalService.createRental(rental);
+        return rental.getId();
     }
 
     public void delayRental(Long id) {

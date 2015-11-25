@@ -72,4 +72,11 @@ public interface RentalService {
      * @return rental whith specific ID
      */
     Rental getRentalById(Long id);
+    
+    /**
+     * Remove specific rental.
+     * 
+     * @param rental which is removed
+     */
+    void remove(Rental rental);
 }
