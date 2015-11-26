@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import cz.muni.fi.pa165.enums.RentalState;
+import cz.muni.fi.pa165.enums.ReservationState;
 import cz.muni.fi.pa165.utils.DateFormater;
 
 /**
@@ -45,6 +48,10 @@ public class Reservation {
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date endingDate;
+	
+	@Enumerated
+    @NotNull
+    private ReservationState reservationState;
 
 	public Long getId() {
 		return id;
@@ -78,14 +85,21 @@ public class Reservation {
 		this.endingDate = endingDate;
 	}
 
-        public Car getCar() {
-            return car;
-        }
+    public Car getCar() {
+        return car;
+    }
 
-        public void setCar(Car car) {
-            this.car = car;
-        }
-        
+    public void setCar(Car car) {
+        this.car = car;
+    }
+    
+    public ReservationState getReservationState() {
+        return reservationState;
+    }
+
+    public void setRentalState(ReservationState reservationState) {
+        this.reservationState = reservationState;
+    }
         
 
 	@Override

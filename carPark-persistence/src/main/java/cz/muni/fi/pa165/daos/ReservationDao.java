@@ -5,6 +5,7 @@ import java.util.List;
 import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Reservation;
+import cz.muni.fi.pa165.enums.ReservationState;
 
 /**
  * Class represents basic CRUD operations with the entity reservation.
@@ -65,4 +66,11 @@ public interface ReservationDao {
 	 * @param reservation to be deleted
 	 */
 	public void remove(Reservation reservation);
+
+	/**
+	 * Find reservation with specific state
+	 * 
+	 * @param reservationState to search
+	 */
+	public List<Reservation> findByState(ReservationState reservationState);
 }

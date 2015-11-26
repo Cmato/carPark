@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;
+import cz.muni.fi.pa165.entities.Rental;
 import cz.muni.fi.pa165.entities.Reservation;
+import cz.muni.fi.pa165.enums.ReservationState;
 
 /**
 *
@@ -59,5 +61,12 @@ public class ReservationDaoImpl implements ReservationDao {
     public void remove(Reservation reservation) {
         em.remove(em.merge(reservation));
     }
+
+	@Override
+	public List<Reservation> findByState(ReservationState reservationState) {
+		return em.createQuery("SELECT r FROM Reservation r WHERE r.state = :state", Reservation.class)
+				.setParameter("state", reservationState).getResultList();
+		
+	}
 
 }
