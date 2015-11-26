@@ -21,6 +21,38 @@ public class CarCreateDTO {
 
     @NotNull
     private Transmission transmission;
+    
+    public String getName() {
+        return name;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public Fuel getFuel() {
+        return fuel;
+    }
+
+    public Transmission getTransmission() {
+        return transmission;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setFuel(Fuel fuel) {
+        this.fuel = fuel;
+    }
+
+    public void setTransmission(Transmission transmission) {
+        this.transmission = transmission;
+    }
 
     @Override
     public int hashCode() {
