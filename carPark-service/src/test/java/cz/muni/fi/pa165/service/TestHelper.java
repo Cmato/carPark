@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.entities.Rental;
 import cz.muni.fi.pa165.entities.Reservation;
 import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.RentalState;
+import cz.muni.fi.pa165.enums.ReservationState;
 import cz.muni.fi.pa165.enums.Transmission;
 
 /*
@@ -44,12 +45,13 @@ public class TestHelper {
 		return out;
 	}
         
-        protected static Reservation reservation(Employee e, Car c, Date from, Date to) {
+        protected static Reservation reservation(Employee e, Car c, Date from, Date to, ReservationState state) {
 		Reservation out = new Reservation();
 		out.setEmployee(e);
 		out.setCar(c);
 		out.setStartingDate(from);
 		out.setEndingDate(to);
+		out.setReservationState(state);
 		return out;
 	}
 
