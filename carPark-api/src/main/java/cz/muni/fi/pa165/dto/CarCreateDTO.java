@@ -25,7 +25,7 @@ public class CarCreateDTO {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -37,8 +37,8 @@ public class CarCreateDTO {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final CarDTO other = (CarDTO) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        final CarCreateDTO other = (CarCreateDTO) obj;
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         return true;
@@ -46,7 +46,7 @@ public class CarCreateDTO {
 
     @Override
     public String toString() {
-        return "CarCreateDTO{" + "id=" + id + ", name=" + name + ", color=" + color + ", fuel=" + fuel + ", transmission=" + transmission + '}';
+        return "CarCreateDTO{ name=" + name + ", color=" + color + ", fuel=" + fuel + ", transmission=" + transmission + '}';
     }
 
 }
