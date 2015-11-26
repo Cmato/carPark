@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Rental;
 import cz.muni.fi.pa165.enums.RentalState;
 import cz.muni.fi.pa165.service.BeanMappingService;
+import cz.muni.fi.pa165.service.EmployeeService;
 import cz.muni.fi.pa165.service.RentalService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,26 +26,24 @@ public class RentalFacadeImpl implements RentalFacade{
     @Autowired
     EmployeeService employeeService;
     
-    @Autowired
+ /*   @Autowired
     CarService carService;
-
+*/
     public RentalDTO getRentalById(Long id) {
         return beanMappingSevice.mapTo(rentalService.getRentalById(id),
                 RentalDTO.class);
     }
 
     public void createRental(RentalCreateDTO r) {
-        //Rental rental = new Rental();
-        
-        Employee employee = employeeService.getEmployeeById(
+    /*    Employee employee = employeeService.getEmployeeById(
                 (r.getEmployee().getId());
         Car car = carService.getCarById(
                 (r.getCar().getId());
         Rental rental = new Rental(
                 employee, car, r.getStartingDate(), r.getEstimatedReturnDate());
-        rentalService.createRental(rental);
+        rentalService.createRental(rental);*/
     }
-    
+
     public void deleteRental(Long id){
         rentalService.deleteRental(rentalService.getRentalById(id));
     }
@@ -65,7 +64,7 @@ public class RentalFacadeImpl implements RentalFacade{
     public List<RentalDTO> getRentalsByEmployee(Long employeeId) {
         
         return beanMappingSevice.mapTo(rentalService.getRentalsByEmployee(
-                employeeService.getEmployeeById(employeeId)), RentalDTO.class);
+                employeeService.findEmployeeById(employeeId)), RentalDTO.class);
     }
 
     public List<RentalDTO> getRentalsByState(RentalState state) {
@@ -74,7 +73,8 @@ public class RentalFacadeImpl implements RentalFacade{
     }
 
     public List<RentalDTO> getRentalsByCar(Long carId) {
-        return beanMappingSevice.mapTo(rentalService.getRentalsByCar(
-                carService.getCarById(carId)), RentalDTO.class);
+        //return beanMappingSevice.mapTo(rentalService.getRentalsByCar(
+        //        carService.getCarById(carId)), RentalDTO.class);
+        throw new UnsupportedOperationException("Not impl.");
     }
 }

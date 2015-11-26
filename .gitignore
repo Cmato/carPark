@@ -7,3 +7,7 @@
 /carPark-persistence/target/
 *org.eclipse.m2e.core.prefs
 *.settings/
+
+/carPark-api/target/
+/carPark-service/target/
+
