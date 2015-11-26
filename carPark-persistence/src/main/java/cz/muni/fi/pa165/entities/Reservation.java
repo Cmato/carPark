@@ -31,10 +31,10 @@ public class Reservation {
 	@JoinColumn(nullable = false)
 	private Employee employee;
         
-        @NotNull
-        @ManyToOne(cascade=CascadeType.PERSIST)
-        @JoinColumn(nullable = false)
-        private Car car;
+    @NotNull
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(nullable = false)
+    private Car car;
 
 	@NotNull
 	@Column(nullable = false)

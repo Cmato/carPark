@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.daos;
 
 import java.util.List;
 
+import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Reservation;
 
@@ -33,6 +34,14 @@ public interface ReservationDao {
 	 * @return List of reservations
 	 */
 	public List<Reservation> findByEmployee(Employee employee);
+	
+	/**
+	 * Retrieves reservations for specific car
+	 * 
+	 * @param car specific for the reservation
+	 * @return List of reservations
+	 */
+	public List<Reservation> findByCar(Car car);
 
 	/**
 	 * Retrieves a reservation with specific id from the database

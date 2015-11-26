@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Reservation;
 
@@ -36,6 +37,12 @@ public class ReservationDaoImpl implements ReservationDao {
     public List<Reservation> findByEmployee(Employee employee) {
         return em.createQuery("SELECT r FROM Reservation r WHERE r.employee.id = :id", Reservation.class)
                 .setParameter("id", employee.getId()).getResultList();
+    }
+    
+    @Override
+    public List<Reservation> findByCar(Car car) {
+        return em.createQuery("SELECT r FROM Reservation r WHERE r.car.id = :id", Reservation.class)
+                .setParameter("id", car.getId()).getResultList();
     }
 
     @Override
