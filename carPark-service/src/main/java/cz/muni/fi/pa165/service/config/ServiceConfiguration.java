@@ -1,8 +1,10 @@
-package cz.muni.fi.pa165.config;
+package cz.muni.fi.pa165.service.config;
 
 import cz.muni.fi.pa165.PersistenceSampleApplicationContext;
 import cz.muni.fi.pa165.dto.RentalDTO;
 import cz.muni.fi.pa165.entities.Rental;
+import cz.muni.fi.pa165.service.RentalServiceImpl;
+import cz.muni.fi.pa165.service.facade.RentalFacadeImpl;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -17,7 +19,8 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import(PersistenceSampleApplicationContext.class)
-@ComponentScan(basePackages = "cz.fi.muni.pa165")
+@ComponentScan("cz.muni.fi.pa165")
+//@ComponentScan(basePackageClasses={RentalServiceImpl.class, RentalFacadeImpl.class})
 public class ServiceConfiguration {
     
     @Bean

@@ -1,14 +1,18 @@
 package cz.muni.fi.pa165.service;
 
-import cz.muni.fi.pa165.config.ServiceConfiguration;
+//import cz.muni.fi.pa165.config.ServiceConfiguration;
+
 import cz.muni.fi.pa165.dto.RentalDTO;
 import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Rental;
 import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.Transmission;
+import cz.muni.fi.pa165.service.config.ServiceConfiguration;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -39,6 +43,8 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests{
     private Date date5;
     private Date date6;
     
+    private List<Rental> rentals;
+    
     @BeforeMethod
     public void createContext(){
         
@@ -62,13 +68,22 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests{
         empl2 = TestHelper.employee("Napoleon Solo", date2, "741369852");
         rental1 = new Rental(empl1, car1, date1, date1);
         rental2 = new Rental(empl2, car2, date3, date4);
+        
+        rentals = new ArrayList<Rental>();
+        rentals.add(rental1);
+        rentals.add(rental2);
     }
     @Test
-    public void mapRentalToRentalDto(){
-        //List<ProductDTO> cdtos = beanMappingService.mapTo(products, ProductDTO.class);
+    public void mapRentalToRentalDto() {
         RentalDTO rentalDTO = beanMappingService.mapTo(rental1, RentalDTO.class);
-    	Assert.assertEquals(rentalDTO.getId(), rental1.getId());
-    	
+        Assert.assertEquals(rental1, beanMappingService.mapTo(rentalDTO, Rental.class),
+                "Rental and RentalDTO are different.");
+    }
+
+    @Test
+    public void mapRentalList() {
+        List<RentalDTO> rentalDtos = beanMappingService.mapTo(rentals, RentalDTO.class);
+        Assert.assertEquals(rentals.size(), rentalDtos.size(), "Different sizes of lists.");
     }
     
 }
