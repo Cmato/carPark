@@ -5,6 +5,8 @@
 package cz.muni.fi.pa165.daos;
 
 import cz.muni.fi.pa165.entities.Car;
+import cz.muni.fi.pa165.enums.Fuel;
+import cz.muni.fi.pa165.enums.Transmission;
 import java.util.List;
 
 /**
@@ -41,6 +43,22 @@ public interface CarDao {
      * @return car with the given id
      */
     Car findCarById(Long id);
+    
+    /**
+     * Retrieves a cars with specific fuel from database
+     * 
+     * @param fuel of the car
+     * @return list of cars with gived fuel
+     */
+    List<Car> findCarByFuel(Fuel fuel);
+    
+    /**
+     * Retrieves a cars with specific transmission from database
+     * 
+     * @param transmission of the car
+     * @return list of cars with gived transmission
+     */
+    List<Car> findCarByTransmission(Transmission transmission);
     
     /**
      * Retrieves all cars from database

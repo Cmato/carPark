@@ -7,6 +7,8 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import cz.muni.fi.pa165.entities.Reservation;
+import cz.muni.fi.pa165.enums.Fuel;
+import cz.muni.fi.pa165.enums.Transmission;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -54,6 +56,18 @@ public class CarDaoImpl implements CarDao{
     @Override
     public List<Car> findAllCars() {
         return em.createQuery("SELECT r FROM Car r", Car.class).getResultList();
+    }
+    
+    @Override
+    public List<Car> findCarByFuel(Fuel fuel) {
+        return em.createQuery("SELECT r FROM Car r WHERE r.car.fuel = :fuel", Car.class)
+                .setParameter("fuel", fuel).getResultList();
+    }
+
+    @Override
+    public List<Car> findCarByTransmission(Transmission transmission) {
+        return em.createQuery("SELECT r FROM Car r WHERE r.car.transmission = :transmission", Car.class)
+                .setParameter("fuel", transmission).getResultList();
     }
     
     private void validateCar(Car car) throws IllegalArgumentException, NullPointerException {
