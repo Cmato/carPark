@@ -2,6 +2,8 @@
 .project
 .classpath
 /carPark/.settings/
-/carPark/test-output/
+*/test-output/
 .idea/
 /carPark-persistence/target/
+*org.eclipse.m2e.core.prefs
+*.settings/
