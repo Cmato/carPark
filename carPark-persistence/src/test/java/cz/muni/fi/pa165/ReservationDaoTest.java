@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.carPark;
+package cz.muni.fi.pa165;
 
 import cz.muni.fi.pa165.daos.CarDao;
 import cz.muni.fi.pa165.daos.EmployeeDao;

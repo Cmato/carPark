@@ -34,14 +34,10 @@ public class RentalServiceImpl implements RentalService {
             throw new CarParkServiceException("The starting date is after"
                     + "estimated return date!");
         }
-        //kontrola rezervaci
-        /*List<Rental> rentals = getRentalsByCar(null);
-        for (Rental rental1 : rentals) {
-                
-            }*/
-        //kontrola bezicich pujcek
-        CarAvailability ca = new CarAvailability(this);
+        //chceck active rentals and reservations
+        CarAvailability ca = new CarAvailability();
         ca.checkRentals(rental);
+        ca.checkReservations(rental);
         rentalDao.create(rental);
     }
 

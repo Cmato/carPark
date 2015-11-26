@@ -5,3 +5,5 @@
 /carPark/test-output/
 .idea/
 /carPark-persistence/target/
+/carPark-api/target/
+/carPark-service/target/

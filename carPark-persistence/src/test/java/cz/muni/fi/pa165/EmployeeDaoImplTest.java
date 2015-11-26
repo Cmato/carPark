@@ -1,5 +1,6 @@
-package cz.muni.fi.pa165.carPark;
+package cz.muni.fi.pa165;
 
+import cz.muni.fi.pa165.PersistenceSampleApplicationContext;
 import cz.muni.fi.pa165.daos.EmployeeDao;
 import cz.muni.fi.pa165.entities.Employee;
 

@@ -1,5 +1,6 @@
-package cz.muni.fi.pa165.carPark;
+package cz.muni.fi.pa165;
 
+import cz.muni.fi.pa165.PersistenceSampleApplicationContext;
 import static org.testng.AssertJUnit.*;
 
 import javax.validation.ConstraintViolationException;

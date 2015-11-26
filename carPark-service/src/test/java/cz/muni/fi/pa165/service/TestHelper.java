@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.carPark;
+package cz.muni.fi.pa165.service;
 
 import java.util.Date;
 

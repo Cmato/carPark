@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.carPark;
+package cz.muni.fi.pa165;
 
 import javax.sql.DataSource;
 

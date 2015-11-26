@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.config;
 
-import cz.muni.fi.pa165.carPark.PersistenceSampleApplicationContext;
+import cz.muni.fi.pa165.PersistenceSampleApplicationContext;
+import cz.muni.fi.pa165.dto.RentalDTO;
+import cz.muni.fi.pa165.entities.Rental;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -28,7 +30,7 @@ public class ServiceConfiguration {
         public class DozerCustomConfig extends BeanMappingBuilder {
 	    @Override
 	    protected void configure() {
-	        //mapping(Category.class, CategoryDTO.class);
+	        mapping(Rental.class, RentalDTO.class);
 	    }
 	}
     

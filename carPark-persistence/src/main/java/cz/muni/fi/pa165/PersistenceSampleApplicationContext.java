@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.carPark;
+package cz.muni.fi.pa165;
 
 import cz.muni.fi.pa165.daos.EmployeeDao;
 import cz.muni.fi.pa165.daos.EmployeeDaoImpl;
@@ -24,7 +24,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @EnableTransactionManagement
 @EnableJpaRepositories
 //@ComponentScan(basePackageClasses={UserDao.class})
-@ComponentScan("cz.muni.fi.pa165.carPark")
+@ComponentScan("cz.muni.fi.pa165")
 public class PersistenceSampleApplicationContext {
 	
 	@Bean 
