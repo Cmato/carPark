@@ -97,7 +97,7 @@ public class Reservation {
         return reservationState;
     }
 
-    public void setRentalState(ReservationState reservationState) {
+    public void setReservationState(ReservationState reservationState) {
         this.reservationState = reservationState;
     }
         
