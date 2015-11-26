@@ -92,7 +92,7 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
     	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
     	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.ACTIVE); 
-    	Car c2 = TestHelper.car("Skoda Fabia","Red",Fuel.Diesel,Transmission.manual);
+    	Car c2 = TestHelper.car("Skoda Fabia","Red",Fuel.Diesel,Transmission.Manual);
     	Employee e2 = TestHelper.employee("Pepa2", DateFormater.newDate(2000, 12, 1), "ABC124");
     	Rental rent2 = TestHelper.rental(e, c, DateFormater.newDate(2015, 11, 29), DateFormater.newDate(2015, 12, 29), RentalState.ACTIVE); 
     	
@@ -154,7 +154,7 @@ public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
     @DirtiesContext
     public void updateRentalTest(){
     	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
-    	Car c2 = TestHelper.car("Skoda Fabia","Red",Fuel.Diesel,Transmission.manual);
+    	Car c2 = TestHelper.car("Skoda Fabia","Red",Fuel.Diesel,Transmission.Manual);
     	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
     	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.ACTIVE);
     	

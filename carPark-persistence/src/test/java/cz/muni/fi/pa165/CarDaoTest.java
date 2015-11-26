@@ -1,21 +1,14 @@
 package cz.muni.fi.pa165;
 
-import cz.muni.fi.pa165.PersistenceSampleApplicationContext;
-import cz.muni.fi.pa165.daos.CarDao;
-import cz.muni.fi.pa165.daos.EmployeeDao;
-import cz.muni.fi.pa165.entities.Car;
-import cz.muni.fi.pa165.entities.Employee;
-import cz.muni.fi.pa165.enums.Fuel;
-import cz.muni.fi.pa165.enums.Transmission;
-import java.util.Calendar;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import cz.muni.fi.pa165.daos.CarDao;
+import cz.muni.fi.pa165.entities.Car;
+import cz.muni.fi.pa165.enums.Fuel;
+import cz.muni.fi.pa165.enums.Transmission;
 
 /**
  *
@@ -35,7 +28,7 @@ public class CarDaoTest extends AbstractTestNGSpringContextTests{
         testCar.setColor("Black");
         testCar.setFuel(Fuel.Diesel);
         testCar.setName("Renault");
-        testCar.setTransmission(Transmission.manual);
+        testCar.setTransmission(Transmission.Manual);
         
         carDao.createCar(testCar);
         Car sameCar = carDao.findCarById(testCar.getId());
@@ -50,7 +43,7 @@ public class CarDaoTest extends AbstractTestNGSpringContextTests{
         testCar.setColor("Black");
         testCar.setFuel(Fuel.Diesel);
         testCar.setName("Renault");
-        testCar.setTransmission(Transmission.manual);
+        testCar.setTransmission(Transmission.Manual);
         
         carDao.createCar(testCar);
         carDao.deleteCar(testCar);
@@ -72,7 +65,7 @@ public class CarDaoTest extends AbstractTestNGSpringContextTests{
         testCar.setColor("Blue");
         testCar.setFuel(Fuel.Petrol);
         testCar.setName("Skoda");
-        testCar.setTransmission(Transmission.manual);
+        testCar.setTransmission(Transmission.Manual);
         
         carDao.updateCar(testCar);
         
@@ -93,7 +86,7 @@ public class CarDaoTest extends AbstractTestNGSpringContextTests{
         testCar.setColor("Blue");
         testCar.setFuel(Fuel.Petrol);
         testCar.setName("Skoda");
-        testCar.setTransmission(Transmission.manual);
+        testCar.setTransmission(Transmission.Manual);
         
         carDao.updateCar(testCar);
         

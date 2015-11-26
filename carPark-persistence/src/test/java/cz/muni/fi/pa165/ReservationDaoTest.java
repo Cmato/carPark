@@ -76,7 +76,7 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests{
         cal1.set(Calendar.DAY_OF_MONTH, 23);*/
         
         car1 = TestHelper.car("Ford Mustang", "Black", Fuel.Diesel, Transmission.Automatic);
-        car2 = TestHelper.car("Porsche 911 Turbo", "Red", Fuel.Petrol, Transmission.manual);
+        car2 = TestHelper.car("Porsche 911 Turbo", "Red", Fuel.Petrol, Transmission.Manual);
         empl1 = TestHelper.employee("Mad Max", date1, "902154798");
         empl2 = TestHelper.employee("Napoleon Solo", date2, "741369852");
         res1 = TestHelper.reservation(empl1, car1, date3, date4);
