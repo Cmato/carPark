@@ -23,13 +23,13 @@ public class CarServiceImpl implements CarService{
     private CarDao carDao;
 
     @Override
-    public void createCar(CarCreateDTO car) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void createCar(Car car) {
+        carDao.createCar(car);
     }
 
     @Override
-    public void removeCar(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeCar(Car car) {
+        carDao.deleteCar(car);
     }
 
     @Override

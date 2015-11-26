@@ -19,15 +19,15 @@ public interface CarService {
     
     /**
      * Creates new Car
-     * @param car 
+     * @param car object
      */
-    public void createCar(CarCreateDTO car);
+    public void createCar(Car car);
     
     /**
      * Removes Car
-     * @param id 
+     * @param car object
      */
-    public void removeCar(Long id);
+    public void removeCar(Car car);
     
     /**
      * Returns finding Car
