@@ -1,13 +1,11 @@
 package cz.muni.fi.pa165.facade;
 
+import java.util.List;
+
 import cz.muni.fi.pa165.dto.CarCreateDTO;
 import cz.muni.fi.pa165.dto.CarDTO;
-import cz.muni.fi.pa165.dto.RentalCreateDTO;
-import cz.muni.fi.pa165.dto.RentalDTO;
 import cz.muni.fi.pa165.enums.Fuel;
-import cz.muni.fi.pa165.enums.RentalState;
 import cz.muni.fi.pa165.enums.Transmission;
-import java.util.List;
 
 /**
  *

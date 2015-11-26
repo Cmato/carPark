@@ -5,12 +5,13 @@
  */
 package cz.muni.fi.pa165.service;
 
-import cz.muni.fi.pa165.daos.EmployeeDao;
-import cz.muni.fi.pa165.dto.EmployeeDTO;
-import cz.muni.fi.pa165.entities.Employee;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import cz.muni.fi.pa165.daos.EmployeeDao;
+import cz.muni.fi.pa165.entities.Employee;
 
 /**
  *

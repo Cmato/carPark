@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;
-import cz.muni.fi.pa165.entities.Rental;
 import cz.muni.fi.pa165.entities.Reservation;
 import cz.muni.fi.pa165.enums.ReservationState;
 

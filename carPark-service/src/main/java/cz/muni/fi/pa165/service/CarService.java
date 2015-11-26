@@ -4,13 +4,13 @@
  */
 package cz.muni.fi.pa165.service;
 
-import cz.muni.fi.pa165.dto.CarCreateDTO;
-import cz.muni.fi.pa165.dto.CarDTO;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.Transmission;
-import java.util.List;
-import org.springframework.stereotype.Service;
 
 /**
  *

@@ -1,15 +1,16 @@
 package cz.muni.fi.pa165.daos;
 
-import cz.muni.fi.pa165.entities.Car;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import cz.muni.fi.pa165.entities.Reservation;
+import org.springframework.stereotype.Repository;
+
+import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.Transmission;
-import org.springframework.stereotype.Repository;
 
 /**
  *

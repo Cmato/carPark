@@ -1,13 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.entities;
 
-import cz.muni.fi.pa165.enums.Fuel;
-import cz.muni.fi.pa165.enums.Transmission;
-import java.io.Serializable;
 import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,12 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import cz.muni.fi.pa165.enums.Fuel;
+import cz.muni.fi.pa165.enums.Transmission;
+
 /**
  *
  * @author xcmarko
  */
 @Entity
-public class Car implements Serializable {
+public class Car {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
