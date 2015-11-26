@@ -13,29 +13,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author ErikHasprun·r
+ * @author ErikHasprun√°r
  */
 public class EmployeeServiceImpl implements EmployeeService{
 
     @Autowired
     private EmployeeDao employeeDao;
     
+    @Override
     public void createEmployee(Employee employee) {
         employeeDao.createEmployee(employee);
     }
 
+    @Override
     public void deleteEmployee(Employee employee) {
         employeeDao.deleteEmployee(employee);
     }
 
+    @Override
     public Employee findEmployeeById(Long id) {
         return employeeDao.findEmployeeById(id);
     }
 
+    @Override
     public List<Employee> findAllEmployees() {
         return findAllEmployees();
     }
 
+    @Override
     public void updateEmployee(Employee employee) {
         employeeDao.updateEmployee(employee);
     }
