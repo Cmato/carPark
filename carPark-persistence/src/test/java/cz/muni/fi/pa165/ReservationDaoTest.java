@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Reservation;
 import cz.muni.fi.pa165.enums.Fuel;
+import cz.muni.fi.pa165.enums.ReservationState;
 import cz.muni.fi.pa165.enums.Transmission;
 import java.util.Calendar;
 import java.util.Date;
@@ -79,8 +80,8 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests{
         car2 = TestHelper.car("Porsche 911 Turbo", "Red", Fuel.Petrol, Transmission.Manual);
         empl1 = TestHelper.employee("Mad Max", date1, "902154798");
         empl2 = TestHelper.employee("Napoleon Solo", date2, "741369852");
-        res1 = TestHelper.reservation(empl1, car1, date3, date4);
-        res2 = TestHelper.reservation(empl2, car2, date5, date6);
+        res1 = TestHelper.reservation(empl1, car1, date3, date4, ReservationState.ACCEPTED);
+        res2 = TestHelper.reservation(empl2, car2, date5, date6, ReservationState.ACCEPTED);
         
         carDao.createCar(car1);
         carDao.createCar(car2);
