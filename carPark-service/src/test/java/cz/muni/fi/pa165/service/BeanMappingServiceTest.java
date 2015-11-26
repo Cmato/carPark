@@ -67,7 +67,7 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests{
     public void mapRentalToRentalDto(){
         //List<ProductDTO> cdtos = beanMappingService.mapTo(products, ProductDTO.class);
         RentalDTO rentalDTO = beanMappingService.mapTo(rental1, RentalDTO.class);
-    	Assert.assertEquals(rentalDTO.getCar(), rental1.getCar());
+    	Assert.assertEquals(rentalDTO.getId(), rental1.getId());
     	
     }
     

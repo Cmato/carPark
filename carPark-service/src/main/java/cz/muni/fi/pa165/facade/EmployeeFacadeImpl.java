@@ -11,11 +11,15 @@ import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.EmployeeService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author xhasprun
  */
+@Service
+@Transactional
 public class EmployeeFacadeImpl implements EmployeeFacade{
 
     @Autowired

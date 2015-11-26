@@ -10,11 +10,14 @@ import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.entities.Employee;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author ErikHasprunár
  */
+
+@Service
 public class EmployeeServiceImpl implements EmployeeService{
 
     @Autowired
