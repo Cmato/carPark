@@ -11,12 +11,15 @@ import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.Transmission;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author xcmarko
  */
+@Service
 public class CarServiceImpl implements CarService{
     
     @Autowired

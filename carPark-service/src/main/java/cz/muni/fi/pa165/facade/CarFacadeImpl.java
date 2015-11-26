@@ -12,12 +12,16 @@ import cz.muni.fi.pa165.enums.Transmission;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.CarService;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author xcmarko
  */
+@Service
+@Transactional
 public class CarFacadeImpl implements CarFacade {
     @Autowired
     BeanMappingService beanMappingSevice;
