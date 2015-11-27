@@ -68,11 +68,14 @@ public class RentalFacadeTest extends AbstractTestNGSpringContextTests {
     private Employee empl1;
     private Date date1;
     private Date date2;
+    private Date date4;
+    private Date date3;
     private RentalDTO rentalDto;
     private CarDTO carDto;
     private EmployeeDTO emplDto;
-    private RentalCreateDTO rentalCreateDto;
-
+    private RentalCreateDTO rentalCreateDto1;
+    private RentalCreateDTO rentalCreateDto2;
+    
     @BeforeMethod
     public void createContext() {
 
@@ -82,18 +85,25 @@ public class RentalFacadeTest extends AbstractTestNGSpringContextTests {
         cal.set(1962, 2, 8);
         date2 = cal.getTime();
         cal.set(1961, 1, 12);
+        date3 = cal.getTime();
+        cal.set(1988, 2, 8);
+        date4 = cal.getTime();
+        cal.set(1989, 1, 12);
        
 
         car1 = TestHelper.car("Ford Mustang", "Black", Fuel.Diesel, Transmission.Automatic);
         empl1 = TestHelper.employee("Mad Max", date1, "902154798");
-        rental1 = new Rental(empl1, car1, date1, date2);
-        rentalDto = bms.mapTo(rental1, RentalDTO.class);
+        //rental1 = new Rental(empl1, car1, date1, date2);
+        //rentalDto = bms.mapTo(rental1, RentalDTO.class);
         carDto = bms.mapTo(car1, CarDTO.class);
         emplDto = bms.mapTo(empl1, EmployeeDTO.class);
-        rentalCreateDto = new RentalCreateDTO(emplDto, carDto, date1, date2);
         
-        //carDao.createCar(car1);
-        //emplDao.createEmployee(empl1);
+        carDao.createCar(car1);
+        emplDao.createEmployee(empl1);
+        carDto.setId(carDao.findAllCars().get(0).getId());
+        emplDto.setId(emplDao.findAllEmployees().get(0).getId());
+        rentalCreateDto1 = new RentalCreateDTO(emplDto, carDto, date1, date2);
+        rentalCreateDto2 = new RentalCreateDTO(emplDto, carDto, date3, date4);
     }
     
     @BeforeClass
@@ -103,16 +113,35 @@ public class RentalFacadeTest extends AbstractTestNGSpringContextTests {
     
     @Test
     @DirtiesContext
-    public void createRentalTest(){
-        rentalFacade.createRental(rentalCreateDto);
-        Assert.assertEquals(rentalDao.findAll().size(), 1);
-        //Assert.assertEquals(rentalDao.findAll().get(0), rental1);
-        
-           
+    public void createRentalTest() {
+        rentalFacade.createRental(rentalCreateDto1);
+        Assert.assertEquals(rentalDao.findAll().size(), 1);  
     }
     
-    /*@Test
-    public void createRentalTest(){
+    @Test
+    public void getRentalByIdTest() {
+        Long createdId = rentalFacade.createRental(rentalCreateDto1);
+        Long foundId = rentalFacade.getRentalById(createdId).getId();
+        Assert.assertEquals(createdId, foundId);
+    }
+    
+    @Test
+    public void finishRentalTest(){
         
-    }*/
+    }
+    
+    @Test
+    public void getAllRentalsTest() {
+        Long createdId = rentalFacade.createRental(rentalCreateDto1);
+        rentalFacade.finishRental(createdId);
+        rentalFacade.createRental(rentalCreateDto2);
+        Assert.assertEquals(rentalFacade.getAllRentals().size(), 2);
+    }
+    
+    @Test
+    public void deleteRentalTest() {
+        Long createdId = rentalFacade.createRental(rentalCreateDto1);
+        rentalFacade.deleteRental(createdId);
+        
+    }
 }
