@@ -43,12 +43,18 @@ public class RentalFacadeImpl implements RentalFacade{
 
     @Override
     public void createRental(RentalCreateDTO r) {
-        Employee employee = employeeService.findEmployeeById(
+        /*Employee employee = employeeService.findEmployeeById(
                 r.getEmployee().getId());
         Car car = carService.getCarById(
                 r.getCar().getId());
         Rental rental = new Rental(
-                employee, car, r.getStartingDate(), r.getEstimatedReturnDate());
+                employee, car, r.getStartingDate(), r.getEstimatedReturnDate());*/
+        Rental rental = new Rental();
+        rental.setCar(beanMappingSevice.mapTo(r.getCar(), Car.class));
+	rental.setEmployee(beanMappingSevice.mapTo(r.getEmployee(), Employee.class));
+	rental.setStartingDate(r.getStartingDate());
+        rental.setEstimatedReturnDate(r.getEstimatedReturnDate());
+        rental.setRentalState(r.getRentalState());
         rentalService.createRental(rental);
     }
 

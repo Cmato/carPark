@@ -148,6 +148,6 @@ public class RentalServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void deleteRentalTest() {
-
+        //rentalService.createRental(rental1);
     }
 }
