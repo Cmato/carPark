@@ -69,11 +69,11 @@ public class ReservationFacadeTest extends AbstractTestNGSpringContextTests{
         date1 = DateFormater.newDate(1990, 12, 10);
         date2 = DateFormater.newDate(2000, 1, 1);
 
-        carDao.createCar(TestHelper.car("Škoda Henlein", "White", Fuel.Petrol, Transmission.Manual));
-        emplDao.createEmployee(TestHelper.employee("Petr Ètrvrtníèek", date1, "123456789"));
-        car = TestHelper.carDTO("Škoda Henlein", "White", Fuel.Petrol, Transmission.Manual);
+        carDao.createCar(TestHelper.car("Schoda Henlein", "White", Fuel.Petrol, Transmission.Manual));
+        emplDao.createEmployee(TestHelper.employee("Petr Ctvrtnicek", date1, "123456789"));
+        car = TestHelper.carDTO("Schoda Henlein", "White", Fuel.Petrol, Transmission.Manual);
         car.setId(carDao.findAllCars().get(0).getId());
-        empl = TestHelper.employeeDTO("Petr Ètrvrtníèek", date1, "123456789");
+        empl = TestHelper.employeeDTO("Petr Ctvrtnicek", date1, "123456789");
         empl.setId(emplDao.findAllEmployees().get(0).getId());
         crDTO = new ReservationCreateDTO(empl, car, date1, date2);
        
