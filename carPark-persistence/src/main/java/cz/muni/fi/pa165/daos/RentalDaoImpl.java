@@ -22,8 +22,10 @@ public class RentalDaoImpl implements RentalDao{
     EntityManager em;
 
     @Override
-    public void create(Rental rental) {
+    public Long create(Rental rental) {
         em.persist(rental);
+        em.flush();
+        return rental.getId();
     }
 
     @Override

@@ -32,7 +32,7 @@ public class RentalServiceImpl implements RentalService {
     private CarAvailability ca;
 
     @Override
-    public void createRental(Rental rental) {
+    public Long createRental(Rental rental) {
         if (!checkDates(rental.getStartingDate(), rental.getEstimatedReturnDate())) {
             throw new CarParkServiceException("The starting date is after"
                     + "estimated return date!");
@@ -41,7 +41,7 @@ public class RentalServiceImpl implements RentalService {
         //CarAvailability ca = new CarAvailability();
         ca.checkRentals(rental);
         ca.checkReservations(rental);
-        rentalDao.create(rental);
+        return rentalDao.create(rental);
     }
 
     @Override

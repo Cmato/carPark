@@ -15,8 +15,9 @@ public interface RentalDao {
     /**
      * Inserts rental into the database
      * @param rental to be inserted
+     * @return ID of the new rental
      */
-    public void create(Rental rental);
+    public Long create(Rental rental);
     
     /**
      * Retrieves all rental from the database

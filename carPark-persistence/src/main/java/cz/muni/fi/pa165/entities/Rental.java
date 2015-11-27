@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.entities;
 
 import cz.muni.fi.pa165.enums.RentalState;
 import java.util.Date;
+import javax.persistence.CascadeType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,12 +28,12 @@ public class Rental {
     private Long id;
 
     @NotNull
-    @ManyToOne(targetEntity = Employee.class)
+    @ManyToOne(targetEntity = Employee.class, cascade=CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     private Employee employee;
 
     @NotNull
-    @ManyToOne(targetEntity = Car.class)
+    @ManyToOne(targetEntity = Car.class, cascade=CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     private Car car;
 

@@ -9,6 +9,9 @@ import cz.muni.fi.pa165.enums.Transmission;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.RentalService;
 import cz.muni.fi.pa165.TestHelper;
+import cz.muni.fi.pa165.daos.CarDao;
+import cz.muni.fi.pa165.daos.EmployeeDao;
+import cz.muni.fi.pa165.daos.RentalDao;
 import cz.muni.fi.pa165.dto.CarDTO;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.dto.RentalCreateDTO;
@@ -23,8 +26,10 @@ import org.mockito.Mock;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -49,6 +54,15 @@ public class RentalFacadeTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private BeanMappingService bms;
     
+    @Autowired
+    private CarDao carDao;
+    
+    @Autowired
+    private EmployeeDao emplDao;
+    
+    @Autowired
+    private RentalDao rentalDao;
+    
     private Rental rental1;
     private Car car1;
     private Employee empl1;
@@ -68,6 +82,7 @@ public class RentalFacadeTest extends AbstractTestNGSpringContextTests {
         cal.set(1962, 2, 8);
         date2 = cal.getTime();
         cal.set(1961, 1, 12);
+       
 
         car1 = TestHelper.car("Ford Mustang", "Black", Fuel.Diesel, Transmission.Automatic);
         empl1 = TestHelper.employee("Mad Max", date1, "902154798");
@@ -76,6 +91,9 @@ public class RentalFacadeTest extends AbstractTestNGSpringContextTests {
         carDto = bms.mapTo(car1, CarDTO.class);
         emplDto = bms.mapTo(empl1, EmployeeDTO.class);
         rentalCreateDto = new RentalCreateDTO(emplDto, carDto, date1, date2);
+        
+        //carDao.createCar(car1);
+        //emplDao.createEmployee(empl1);
     }
     
     @BeforeClass
@@ -84,20 +102,17 @@ public class RentalFacadeTest extends AbstractTestNGSpringContextTests {
     }
     
     @Test
-    public void getRentalByIdTest(){
-        
+    @DirtiesContext
+    public void createRentalTest(){
         rentalFacade.createRental(rentalCreateDto);
-        //rental1.setId(1l);
-        //when(bmsMock.mapTo(rental1, RentalDTO.class)).thenReturn(rentalDto);
-        //when(rentalService.getRentalById(1l)).thenReturn(rental1);   
-        //rentalFacade.getRentalById(1l);
-        //when(rentalService.getRentalById(any(Long.class))).thenReturn(bms.mapTo(, Weapon.class));
-        //weaponFacade.getWeaponById(1l);
-        //verify(weaponService, times(1)).findWeaponById(1l);   
+        Assert.assertEquals(rentalDao.findAll().size(), 1);
+        //Assert.assertEquals(rentalDao.findAll().get(0), rental1);
+        
+           
     }
     
-    @Test
+    /*@Test
     public void createRentalTest(){
         
-    }
+    }*/
 }

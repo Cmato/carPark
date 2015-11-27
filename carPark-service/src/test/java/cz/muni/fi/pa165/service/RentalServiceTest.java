@@ -148,6 +148,14 @@ public class RentalServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void deleteRentalTest() {
-        //rentalService.createRental(rental1);
+        rentalService.createRental(rental1);
+        System.out.println(rentalService.getAllRentals().size());
+        for (Rental rental : rentalService.getAllRentals()) {
+            System.out.println(rental.toString());
+        }
+        /*for (rentalService.getAllRentals() : rents) {
+            
+        }
+        rentalService.getAllRentals();*/
     }
 }
