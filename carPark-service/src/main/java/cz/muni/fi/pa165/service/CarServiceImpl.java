@@ -26,12 +26,15 @@ public class CarServiceImpl implements CarService{
     private CarDao carDao;
 
     @Override
-    public void createCar(Car car) {
+    public Long createCar(Car car) {
+        Long carId = null;
         try {
-            carDao.createCar(car);
+            carId = carDao.createCar(car);
         } catch (IllegalArgumentException | SecurityException e) {
             throw new CarParkServiceException(e);
         }
+        
+        return carId;
     }
 
     @Override

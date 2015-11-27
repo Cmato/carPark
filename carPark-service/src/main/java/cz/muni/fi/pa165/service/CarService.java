@@ -23,7 +23,7 @@ public interface CarService {
      * Creates new Car
      * @param car object
      */
-    public void createCar(Car car);
+    public Long createCar(Car car);
     
     /**
      * Removes Car

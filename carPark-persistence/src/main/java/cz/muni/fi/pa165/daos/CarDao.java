@@ -20,7 +20,7 @@ public interface CarDao {
      * 
      * @param car to be inserted
      */
-    void createCar(Car car);
+    Long createCar(Car car);
     
     /**
      * Deletes a specific car from the database

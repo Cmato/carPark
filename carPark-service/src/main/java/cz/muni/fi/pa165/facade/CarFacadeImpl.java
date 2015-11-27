@@ -36,13 +36,13 @@ public class CarFacadeImpl implements CarFacade {
     }
 
     @Override
-    public void createCar(CarCreateDTO carDTO) {
+    public Long createCar(CarCreateDTO carDTO) {
         Car car = new Car();
         car.setName(carDTO.getName());
         car.setColor(carDTO.getColor());
         car.setFuel(carDTO.getFuel());
         car.setTransmission(carDTO.getTransmission());
-        carService.createCar(car);
+        return carService.createCar(car);
     }
 
     @Override

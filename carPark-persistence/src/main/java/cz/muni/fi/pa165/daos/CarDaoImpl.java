@@ -24,12 +24,14 @@ public class CarDaoImpl implements CarDao{
     private EntityManager em;
 
     @Override
-    public void createCar(Car car) {
+    public Long createCar(Car car) {
         validateCar(car);
         if(car.getId() != null) {
             throw new IllegalArgumentException("Cannot create car with assigned id");
         }
         em.persist(car);
+        em.flush();
+        return car.getId();
     }
 
     @Override
