@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.dto;
 
 import cz.muni.fi.pa165.enums.RentalState;
 import java.util.Date;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -10,24 +9,18 @@ import javax.validation.constraints.NotNull;
  */
 public class RentalDTO {
 
-    @NotNull
     private Long id;
 
-    @NotNull
     private EmployeeDTO employee;
 
-    @NotNull
     private CarDTO car;
 
-    @NotNull
     private Date startingDate;
 
-    @NotNull
     private Date estimatedReturnDate;
 
     private Date returnDate;
 
-    @NotNull
     private RentalState rentalState;
 
     public Long getId() {

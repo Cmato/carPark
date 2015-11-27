@@ -12,12 +12,16 @@ import cz.muni.fi.pa165.service.CarService;
 import cz.muni.fi.pa165.service.EmployeeService;
 import cz.muni.fi.pa165.service.RentalService;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author xhubeny2
  */
+@Service
+@Transactional
 public class RentalFacadeImpl implements RentalFacade{
     @Autowired
     BeanMappingService beanMappingSevice;
