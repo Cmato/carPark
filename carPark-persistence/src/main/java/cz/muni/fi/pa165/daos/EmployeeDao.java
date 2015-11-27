@@ -18,7 +18,7 @@ public interface EmployeeDao {
      * 
      * @param employee employee to insert
      */
-    void createEmployee(Employee employee);
+    Long createEmployee(Employee employee);
 
     /**
      * Deletes a specific employee from the database
@@ -47,5 +47,5 @@ public interface EmployeeDao {
      * 
      * @param employee to be updated
      */
-    void updateEmployee(Employee employee);
+    Employee updateEmployee(Employee employee);
 }

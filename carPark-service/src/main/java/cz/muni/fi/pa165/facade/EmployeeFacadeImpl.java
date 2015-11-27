@@ -29,12 +29,12 @@ public class EmployeeFacadeImpl implements EmployeeFacade{
     BeanMappingService beanMappingSevice;
     
     @Override
-    public void createEmployee(EmployeeDTO employee) {
+    public Long createEmployee(EmployeeDTO employee) {
         Employee employeeEntity = new Employee();
         employeeEntity.setName(employee.getName());
         employeeEntity.setBirth(employee.getBirth());
         employeeEntity.setIdCardNumber(employee.getIdCardNumber());
-        employeeService.createEmployee(employeeEntity);
+        return employeeService.createEmployee(employeeEntity);
     }
 
     @Override
@@ -43,6 +43,7 @@ public class EmployeeFacadeImpl implements EmployeeFacade{
         employeeEntity.setName(employee.getName());
         employeeEntity.setBirth(employee.getBirth());
         employeeEntity.setIdCardNumber(employee.getIdCardNumber());
+        employeeEntity.setId(employee.getId());
         employeeService.deleteEmployee(employeeEntity);
     }
 
@@ -59,12 +60,12 @@ public class EmployeeFacadeImpl implements EmployeeFacade{
     }
 
     @Override
-    public void updateEmployee(EmployeeDTO employee) {
+    public EmployeeDTO updateEmployee(EmployeeDTO employee) {
         Employee employeeEntity = new Employee();
         employeeEntity.setName(employee.getName());
         employeeEntity.setBirth(employee.getBirth());
         employeeEntity.setIdCardNumber(employee.getIdCardNumber());
-        employeeService.updateEmployee(employeeEntity);
+        return beanMappingSevice.mapTo(employeeService.updateEmployee(employeeEntity), EmployeeDTO.class);
     }
     
 }

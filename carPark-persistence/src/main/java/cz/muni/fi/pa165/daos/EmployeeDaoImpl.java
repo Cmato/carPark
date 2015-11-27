@@ -19,8 +19,10 @@ public class EmployeeDaoImpl implements EmployeeDao{
     private EntityManager em;
 
     @Override
-    public void createEmployee(Employee employee) {
+    public Long createEmployee(Employee employee) {
         em.persist(employee);
+        em.flush();
+        return employee.getId();
     }
 
     @Override
@@ -39,8 +41,8 @@ public class EmployeeDaoImpl implements EmployeeDao{
     }
 
     @Override
-    public void updateEmployee(Employee employee) {
-        em.merge(employee);
+    public Employee updateEmployee(Employee employee) {
+        return em.merge(employee);
     }
     
 }

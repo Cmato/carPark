@@ -26,11 +26,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     private EmployeeDao employeeDao;
     
     @Override
-    public void createEmployee(Employee employee) {
+    public Long createEmployee(Employee employee) {
         if (employee.getBirth().after(new Date())) {
             throw new IllegalArgumentException("Employee was not even born yet !!!");
         }
-        employeeDao.createEmployee(employee);
+        return employeeDao.createEmployee(employee);
     }
 
     @Override
@@ -49,11 +49,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public void updateEmployee(Employee employee) {
+    public Employee updateEmployee(Employee employee) {
         if (employee.getBirth().after(new Date())) {
             throw new IllegalArgumentException("Employee was not even born yet !!!");
         }
-        employeeDao.updateEmployee(employee);
+        return employeeDao.updateEmployee(employee);
     }
     
 }

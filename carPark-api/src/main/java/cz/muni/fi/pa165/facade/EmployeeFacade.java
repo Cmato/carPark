@@ -16,7 +16,7 @@ public interface EmployeeFacade {
     /**
      * 
      */
-    void createEmployee(EmployeeDTO employee);
+    Long createEmployee(EmployeeDTO employee);
 
     /**
      * 
@@ -36,5 +36,5 @@ public interface EmployeeFacade {
     /**
      * 
      */
-    void updateEmployee(EmployeeDTO employee);
+    EmployeeDTO updateEmployee(EmployeeDTO employee);
 }

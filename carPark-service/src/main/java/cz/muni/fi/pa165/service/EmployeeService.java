@@ -13,7 +13,7 @@ public interface EmployeeService {
     /**
      * 
      */
-    void createEmployee(Employee employee);
+    Long createEmployee(Employee employee);
 
     /**
      * 
@@ -33,5 +33,5 @@ public interface EmployeeService {
     /**
      * 
      */
-    void updateEmployee(Employee employee);
+    Employee updateEmployee(Employee employee);
 }
