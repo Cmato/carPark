@@ -1,12 +1,5 @@
 package cz.muni.fi.pa165.service;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
-
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -27,6 +20,10 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ *
+ * @author xcmarko
+ */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class CarServiceTest extends AbstractTestNGSpringContextTests
 {
@@ -38,16 +35,14 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests
     private CarService carService;
 
     @BeforeClass
-    public void setup() throws ServiceException
-    {
+    public void setup() throws ServiceException {
         MockitoAnnotations.initMocks(this);
     }
     
     private Car testCar;
-
     
     @BeforeMethod
-    public void prepareTestCar(){
+    public void prepareTestCar() {
     	testCar = new Car();
         testCar.setColor("White");
         testCar.setFuel(Fuel.Diesel);
@@ -92,5 +87,4 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests
         testManualCars.add(testCar);
         Assert.assertEquals(dbManualCars, testManualCars);
     }
-
 }
