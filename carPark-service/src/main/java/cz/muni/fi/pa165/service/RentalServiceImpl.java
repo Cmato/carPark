@@ -27,6 +27,9 @@ public class RentalServiceImpl implements RentalService {
 
     @Autowired
     private RentalDao rentalDao;
+    
+    @Autowired
+    private CarAvailability ca;
 
     @Override
     public void createRental(Rental rental) {
@@ -35,7 +38,7 @@ public class RentalServiceImpl implements RentalService {
                     + "estimated return date!");
         }
         //chceck active rentals and reservations
-        CarAvailability ca = new CarAvailability();
+        //CarAvailability ca = new CarAvailability();
         ca.checkRentals(rental);
         ca.checkReservations(rental);
         rentalDao.create(rental);
@@ -67,6 +70,10 @@ public class RentalServiceImpl implements RentalService {
         rental.setRentalState(RentalState.FINISHED);
         
         Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
         rental.setReturnDate(cal.getTime());
     }
 
@@ -83,7 +90,7 @@ public class RentalServiceImpl implements RentalService {
     
     @Override
     public void deleteRental(Rental rental) {
-
+        rentalDao.remove(rental);
     }
 
     /**

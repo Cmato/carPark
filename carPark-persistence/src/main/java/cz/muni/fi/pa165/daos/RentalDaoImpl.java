@@ -49,9 +49,9 @@ public class RentalDaoImpl implements RentalDao{
     }
     
     @Override
-    public List<Rental> findRentalsWithState(RentalState state) {
-        return em.createQuery("SELECT r FROM Rental r WHERE r.state = :state", Rental.class)
-		.setParameter("state", state).getResultList();
+    public List<Rental> findRentalsWithState(RentalState rentalState) {
+        return em.createQuery("SELECT r FROM Rental r WHERE r.rentalState = :rentalState", Rental.class)
+		.setParameter("rentalState", rentalState).getResultList();
         /*
         TypedQuery<Rental> query = em.createQuery(
 				"SELECT r FROM Rental r WHERE r.state = :state", Rental.class);

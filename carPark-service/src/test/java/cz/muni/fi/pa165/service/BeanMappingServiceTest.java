@@ -24,6 +24,7 @@ import org.testng.annotations.Test;
  *
  * @author xhubeny2
  */
+
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests{
     

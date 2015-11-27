@@ -5,36 +5,31 @@ import cz.muni.fi.pa165.entities.Reservation;
 import cz.muni.fi.pa165.enums.RentalState;
 import cz.muni.fi.pa165.enums.ReservationState;
 import cz.muni.fi.pa165.exceptions.CarParkServiceException;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author xhubeny2
  */
+@Service
 public class CarAvailability {
 
     @Autowired
     private RentalService rentalService;
 
     @Autowired
-    private ReservationService reservationService;
+     private ReservationService reservationService;
      
+    List<Rental> rentals = new ArrayList<Rental>();
+            
     public void checkRentals(Rental rental) {
-        List<Rental> rentals = rentalService.getRentalsByState(RentalState.ACTIVE);
+        rentals = rentalService.getRentalsByState(RentalState.ACTIVE);
         rentals.addAll(rentalService.getRentalsByState(RentalState.DELAYED));
         for (Rental rental1 : rentals) {
             if (rental1.getCar().equals(rental.getCar())) {
-                throw new CarParkServiceException("The car is already rented.");
-            }
-        }
-    }
-    
-    public void checkRentals(Reservation reservation) {
-        List<Rental> rentals = rentalService.getRentalsByState(RentalState.ACTIVE);
-        rentals.addAll(rentalService.getRentalsByState(RentalState.DELAYED));
-        for (Rental rental1 : rentals) {
-            if (rental1.getCar().equals(reservation.getCar())) {
                 throw new CarParkServiceException("The car is already rented.");
             }
         }

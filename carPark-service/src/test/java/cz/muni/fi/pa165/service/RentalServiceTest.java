@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.service;
 
+import cz.muni.fi.pa165.daos.RentalDao;
 import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Rental;
@@ -8,8 +9,8 @@ import cz.muni.fi.pa165.enums.RentalState;
 import cz.muni.fi.pa165.enums.Transmission;
 import cz.muni.fi.pa165.exceptions.CarParkServiceException;
 import cz.muni.fi.pa165.service.config.ServiceConfiguration;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.service.spi.ServiceException;
@@ -17,7 +18,6 @@ import org.mockito.InjectMocks;
 import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,33 +34,26 @@ import org.testng.annotations.Test;
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class RentalServiceTest extends AbstractTestNGSpringContextTests {
-    
-    @Mock
-    private Car car;
-    
-    @Mock
-    private Employee employee;
-    
+
     @Mock
     private Rental rental3;
-    
-    
+
+    @Mock
+    private RentalDao rentalDao;
+
+    @Mock
+    private CarAvailability ca;
+
     @Autowired
     @InjectMocks
     private RentalService rentalService;
-    
+
     private Rental rental1;
-    private Rental rental2;
     private Car car1;
-    private Car car2;
     private Employee empl1;
-    private Employee empl2;
     private Date date1;
     private Date date2;
-    private Date date3;
-    private Date date4;
-    
-    
+
     @BeforeMethod
     public void createContext() {
 
@@ -69,79 +62,91 @@ public class RentalServiceTest extends AbstractTestNGSpringContextTests {
         date1 = cal.getTime();
         cal.set(1962, 2, 8);
         date2 = cal.getTime();
-        cal.set(2014, 9, 19);
-        date3 = cal.getTime();
-        cal.set(2015, 10, 20);
-        date4 = cal.getTime();
-        cal.set(2015, 3, 3);
+        cal.set(1961, 1, 12);
 
         car1 = TestHelper.car("Ford Mustang", "Black", Fuel.Diesel, Transmission.Automatic);
-        car2 = TestHelper.car("Porsche 911 Turbo", "Red", Fuel.Petrol, Transmission.manual);
         empl1 = TestHelper.employee("Mad Max", date1, "902154798");
-        empl2 = TestHelper.employee("Napoleon Solo", date2, "741369852");
-        rental1 = new Rental(empl1, car1, date1, date1);
-        rental2 = new Rental(empl2, car2, date3, date4);
+        rental1 = new Rental(empl1, car1, date1, date2);
     }
-    
+
     @BeforeClass
     public void setup() throws ServiceException {
         MockitoAnnotations.initMocks(this);
     }
 
-    
-    
+    @Test(expectedExceptions = CarParkServiceException.class)
+    public void createRentalWithWrongDatesTest() {
+        when(rental3.getStartingDate()).thenReturn(date2);
+        when(rental3.getEstimatedReturnDate()).thenReturn(date1);
+        rentalService.createRental(rental3);
+    }
+
+    @Test(expectedExceptions = CarParkServiceException.class)
+    public void createRentalWithNotAvailableCarTest() {
+        when(rental3.getStartingDate()).thenReturn(date1);
+        when(rental3.getEstimatedReturnDate()).thenReturn(date2);
+        doThrow(CarParkServiceException.class).when(ca).checkRentals(rental3);
+        rentalService.createRental(rental3);
+    }
 
     @Test
-    public void pokus(){
-        employee.setName("Adam");
-        when(employee.getName()).thenReturn("Adam");
+    public void getRentalsByEmployeeTest() {
+        when(rentalDao.findByEmployee(any(Employee.class))).thenReturn(Collections.singletonList(rental1));
+        List<Rental> list = rentalService.getRentalsByEmployee(empl1);
+        Assert.assertEquals(list.size(), 1);
+        Assert.assertEquals(list.get(0).getEmployee().getName(), empl1.getName());
     }
-    
+
     @Test
-    public void createRentalTest(){
-        
+    public void getRentalsByCarTest() {
+        when(rentalDao.findByCar(any(Car.class))).thenReturn(Collections.singletonList(rental1));
+        List<Rental> list = rentalService.getRentalsByCar(car1);
+        Assert.assertEquals(list.size(), 1);
+        Assert.assertEquals(list.get(0).getCar().getName(), car1.getName());
     }
-    
+
     @Test
-    public List<Rental> getRentalsByEmployeeTest(Employee employee){
-        
+    public void getRentalsByStateTest() {
+        when(rentalDao.findRentalsWithState(any(RentalState.class))).thenReturn(Collections.singletonList(rental1));
+        List<Rental> list = rentalService.getRentalsByState(RentalState.ACTIVE);
+        Assert.assertEquals(list.size(), 1);
+        Assert.assertEquals(list.get(0).getRentalState(), RentalState.ACTIVE);
     }
-    
+
     @Test
-    public List<Rental> getRentalsByCarTest(Car car){
-        
-    }
-    
-    @Test
-    public List<Rental> getRentalsByStateTest(){
-        
-    }
-    
-    @Test
-    public void finishRentalTest(){
-        
-    }
-    
-    @Test
-    public void delayRentalTest(){
-        /*rentalService.delayRental(rental1);
-        //when(rentalService.getRentalById(rental1.getId()).getRentalState()).thenReturn(RentalState.DELAYED);
-        Assert.assertEquals(rental1.getRentalState(), RentalState.DELAYED);
-        try{
-            rentalService.delayRental(rental1);
+    public void finishRentalTest() {
+        Calendar calend = Calendar.getInstance();
+        calend.set(Calendar.HOUR_OF_DAY, 0);
+        calend.set(Calendar.MINUTE, 0);
+        calend.set(Calendar.SECOND, 0);
+        calend.set(Calendar.MILLISECOND, 0);
+
+        rentalService.finishRental(rental1);
+        Assert.assertEquals(rental1.getRentalState(), RentalState.FINISHED);
+        Assert.assertEquals(rental1.getReturnDate(), calend.getTime());
+
+        try {
+            rentalService.finishRental(rental1);
+        } catch (CarParkServiceException e) {
+            Assert.assertEquals(e.getMessage(), "The transition from: FINISHED"
+                    + " to FINISHED is not allowed!");
         }
-        catch(CarParkServiceException e){
+    }
+
+    @Test
+    public void delayRentalTest() {
+        rentalService.delayRental(rental1);
+        Assert.assertEquals(rental1.getRentalState(), RentalState.DELAYED);
+        try {
+            rentalService.delayRental(rental1);
+        } catch (CarParkServiceException e) {
             Assert.assertEquals(e.getMessage(), "The transition from: DELAYED"
                     + " to DELAYED is not allowed!");
-        }*/
-        //when(rentalService.delayRental(rental1), rental1.getRentalState()).
-        //doThrow(CarParkServiceException.class).when(rentalService).delayRental(rental1);
-        //rental1.setRentalState(RentalState.ACTIVE);
-        //rental3
-        //rental3 = new Rental(any(Employee.class), any(Car.class), any(Date.class), any(Date.class));
-        rentalService.delayRental(rental1);
-        when(rental1.getRentalState()).thenReturn(RentalState.DELAYED);
+        }
     }
 
-    
+    @Test
+    public void deleteRentalTest() {
+
+    }
 }

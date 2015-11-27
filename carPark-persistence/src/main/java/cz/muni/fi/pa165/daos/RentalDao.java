@@ -47,10 +47,10 @@ public interface RentalDao {
     
     /**
      * Retrieves a rentals with specific state from the database
-     * @param state of the rentals
+     * @param rentalState of the rentals
      * @return rental with the specific state
      */
-    public List<Rental> findRentalsWithState(RentalState state);
+    public List<Rental> findRentalsWithState(RentalState rentalState);
     
     /**
      * Update specific rental in the database
