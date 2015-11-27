@@ -1,11 +1,6 @@
 package cz.muni.fi.pa165.facade;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.doNothing;
-
 import java.util.Date;
-import java.util.List;
 
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
@@ -21,22 +16,17 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import cz.muni.fi.pa165.TestHelper;
+import cz.muni.fi.pa165.daos.CarDao;
+import cz.muni.fi.pa165.daos.EmployeeDao;
 import cz.muni.fi.pa165.daos.ReservationDao;
 import cz.muni.fi.pa165.dto.CarDTO;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.dto.ReservationCreateDTO;
-import cz.muni.fi.pa165.dto.ReservationDTO;
-import cz.muni.fi.pa165.entities.Car;
-import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Reservation;
 import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.ReservationState;
 import cz.muni.fi.pa165.enums.Transmission;
-import cz.muni.fi.pa165.exceptions.CarParkServiceException;
 import cz.muni.fi.pa165.service.CarAvailability;
-import cz.muni.fi.pa165.service.CarService;
-import cz.muni.fi.pa165.service.EmployeeService;
-import cz.muni.fi.pa165.service.RentalService;
 import cz.muni.fi.pa165.service.config.ServiceConfiguration;
 import cz.muni.fi.pa165.utils.DateFormater;
 
@@ -61,14 +51,11 @@ public class ReservationFacadeTest extends AbstractTestNGSpringContextTests{
     private ReservationFacade facade;
 	
 	@Autowired
-    private RentalService rentalService;
-	
-	@Autowired
-    private CarService cService;
-	@Autowired
-    private EmployeeService eService;
-	
-	private ReservationDTO rDTO;
+    private CarDao carDao;
+    
+    @Autowired
+    private EmployeeDao emplDao;
+    
 	private ReservationCreateDTO crDTO;
 	private Long lastResId;
     private CarDTO car;
@@ -82,8 +69,12 @@ public class ReservationFacadeTest extends AbstractTestNGSpringContextTests{
         date1 = DateFormater.newDate(1990, 12, 10);
         date2 = DateFormater.newDate(2000, 1, 1);
 
+        carDao.createCar(TestHelper.car("Škoda Henlein", "White", Fuel.Petrol, Transmission.Manual));
+        emplDao.createEmployee(TestHelper.employee("Petr Ètrvrtníèek", date1, "123456789"));
         car = TestHelper.carDTO("Škoda Henlein", "White", Fuel.Petrol, Transmission.Manual);
+        car.setId(carDao.findAllCars().get(0).getId());
         empl = TestHelper.employeeDTO("Petr Ètrvrtníèek", date1, "123456789");
+        empl.setId(emplDao.findAllEmployees().get(0).getId());
         crDTO = new ReservationCreateDTO(empl, car, date1, date2);
        
         
@@ -96,14 +87,7 @@ public class ReservationFacadeTest extends AbstractTestNGSpringContextTests{
     
     @Test
     @DirtiesContext
-    public void createReservationTest(){
-    	//doNothing().when(ca).checkRentals(any(Reservation.class));
-    	lastResId = facade.createReservation(crDTO);
-    }
-    
-    @Test
-    @DirtiesContext
-    public void getAllReservationTest(){
+    public void createAndGetAllReservationTest(){
     	lastResId = facade.createReservation(crDTO);
     	Assert.assertEquals(facade.getAllReservations().size(),1);
     }

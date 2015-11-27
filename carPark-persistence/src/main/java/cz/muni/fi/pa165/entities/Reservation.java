@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.entities;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -29,12 +28,12 @@ public class Reservation {
 	private Long id;
 
 	@NotNull
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(targetEntity = Employee.class)
 	@JoinColumn(nullable = false)
 	private Employee employee;
         
     @NotNull
-    @ManyToOne(cascade=CascadeType.PERSIST)
+    @ManyToOne(targetEntity = Car.class)
     @JoinColumn(nullable = false)
     private Car car;
 
