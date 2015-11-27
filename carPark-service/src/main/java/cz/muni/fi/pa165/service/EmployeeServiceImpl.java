@@ -16,7 +16,7 @@ import java.util.Date;
 
 /**
  *
- * @author ErikHasprunár
+ * @author xhasprun
  */
 
 @Service
