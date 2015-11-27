@@ -34,6 +34,16 @@ public class CarAvailability {
             }
         }
     }
+    
+    public void checkRentals(Reservation reservation) {
+        List<Rental> rentals = rentalService.getRentalsByState(RentalState.ACTIVE);
+        rentals.addAll(rentalService.getRentalsByState(RentalState.DELAYED));
+        for (Rental rental1 : rentals) {
+            if (rental1.getCar().equals(reservation.getCar())) {
+                throw new CarParkServiceException("The car is already rented.");
+            }
+        }
+    }
 
     public void checkReservations(Rental rental) {
         List<Reservation> reservations = reservationService.getReservationsByState(ReservationState.ACCEPTED);
