@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.service;
 
+import cz.muni.fi.pa165.TestHelper;
+
 //import cz.muni.fi.pa165.config.ServiceConfiguration;
 
 import cz.muni.fi.pa165.dto.RentalDTO;

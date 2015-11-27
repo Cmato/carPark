@@ -11,6 +11,8 @@ import java.util.Date;
 
 public class DateFormater {
 	
+	private static Calendar c = Calendar.getInstance();
+	
 	/*
 	 * Static method which take Date and return string with format dd-mm-yyyy
 	 * 
@@ -27,7 +29,6 @@ public class DateFormater {
 	 * @return Date cleared of actual time
 	 */
 	public static Date newDate(int year, int month, int day){
-		Calendar c = Calendar.getInstance();
 		c.clear();
 		c.set(year, month, day);
 		return c.getTime();

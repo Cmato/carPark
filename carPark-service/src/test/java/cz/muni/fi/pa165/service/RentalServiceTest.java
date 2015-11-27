@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.service;
 
+import cz.muni.fi.pa165.TestHelper;
 import cz.muni.fi.pa165.daos.RentalDao;
 import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;

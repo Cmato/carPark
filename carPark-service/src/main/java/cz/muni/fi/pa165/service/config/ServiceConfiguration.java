@@ -1,10 +1,5 @@
 package cz.muni.fi.pa165.service.config;
 
-import cz.muni.fi.pa165.PersistenceSampleApplicationContext;
-import cz.muni.fi.pa165.dto.RentalDTO;
-import cz.muni.fi.pa165.entities.Rental;
-import cz.muni.fi.pa165.service.RentalServiceImpl;
-import cz.muni.fi.pa165.service.facade.RentalFacadeImpl;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -12,6 +7,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+
+import cz.muni.fi.pa165.PersistenceSampleApplicationContext;
+import cz.muni.fi.pa165.dto.RentalDTO;
+import cz.muni.fi.pa165.dto.ReservationDTO;
+import cz.muni.fi.pa165.entities.Rental;
+import cz.muni.fi.pa165.entities.Reservation;
 
 /**
  *
@@ -34,6 +35,7 @@ public class ServiceConfiguration {
 	    @Override
 	    protected void configure() {
 	        mapping(Rental.class, RentalDTO.class);
+	        mapping(Reservation.class, ReservationDTO.class);
 	    }
 	}
     
