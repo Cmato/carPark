@@ -13,6 +13,7 @@ import cz.muni.fi.pa165.daos.CarDao;
 import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.Transmission;
+import cz.muni.fi.pa165.exceptions.CarParkServiceException;
 
 /**
  *
@@ -26,12 +27,20 @@ public class CarServiceImpl implements CarService{
 
     @Override
     public void createCar(Car car) {
-        carDao.createCar(car);
+        try {
+            carDao.createCar(car);
+        } catch (IllegalArgumentException | SecurityException e) {
+            throw new CarParkServiceException(e);
+        }
     }
 
     @Override
     public void removeCar(Car car) {
-        carDao.deleteCar(car);
+        try {
+            carDao.deleteCar(car);
+        } catch (IllegalArgumentException | SecurityException e) {
+            throw new CarParkServiceException(e);
+        }
     }
 
     @Override

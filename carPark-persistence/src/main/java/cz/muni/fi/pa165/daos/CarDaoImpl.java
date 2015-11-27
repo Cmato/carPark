@@ -25,27 +25,27 @@ public class CarDaoImpl implements CarDao{
 
     @Override
     public void createCar(Car car) {
-        /*validateCar(car);
+        validateCar(car);
         if(car.getId() != null) {
             throw new IllegalArgumentException("Cannot create car with assigned id");
-        }*/
+        }
         em.persist(car);
     }
 
     @Override
     public void deleteCar(Car car) {
-        /*if (car == null) {
+        if (car == null) {
             throw new NullPointerException("Car is null. Nothing to delete");
         }
         if (car.getId() == null) {
             throw new IllegalArgumentException("Cannot delete car with null id. Nothing to delete");
-        }*/
+        }
         em.remove(em.merge(car));
     }
 
     @Override
     public void updateCar(Car car) {
-        //validateCar(car);
+        validateCar(car);
         em.merge(car);
     }
 
