@@ -27,7 +27,7 @@ public class TestHelper {
 		return out;
 	}
 
-	protected static Employee employee(String name, Date date, String idCardNumber) {
+	public static Employee employee(String name, Date date, String idCardNumber) {
 		Employee out = new Employee();
 		out.setName(name);
 		out.setBirth(date);
@@ -35,7 +35,7 @@ public class TestHelper {
 		return out;
 	}
 
-	protected static Rental rental(Employee e, Car c, Date from, Date to, RentalState rentalState) {
+	public static Rental rental(Employee e, Car c, Date from, Date to, RentalState rentalState) {
 		Rental out = new Rental();
 		out.setEmployee(e);
 		out.setCar(c);
@@ -45,7 +45,7 @@ public class TestHelper {
 		return out;
 	}
         
-        protected static Reservation reservation(Employee e, Car c, Date from, Date to, ReservationState state) {
+        public static Reservation reservation(Employee e, Car c, Date from, Date to, ReservationState state) {
 		Reservation out = new Reservation();
 		out.setEmployee(e);
 		out.setCar(c);
