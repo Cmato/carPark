@@ -46,7 +46,7 @@ public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests{
     Date date3;
     
     @Autowired
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
     
     @Autowired
     private EmployeeDao employeeDAO;
@@ -56,14 +56,13 @@ public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests{
     @BeforeMethod
     public void createContext() {
         date1 = new Date(1980, 1, 1);
-        date1 = new Date(1983, 2, 2);
-        date1 = new Date(1993, 3, 3);
+        date2 = new Date(1983, 2, 2);
+        date3 = new Date(1993, 3, 3);
         
         employee1 = TestHelper.employeeDTO("Petr Trava", date1, "1234");
         employee2 = TestHelper.employeeDTO("Trava Petricek", date2, "5678");
         employee3 = TestHelper.employeeDTO("Travel Plava", date3, "9012");
        
-        
     }
     
     @BeforeClass
@@ -79,18 +78,15 @@ public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests{
 
     @Test
     public void deleteEmployeeTest() {
-        employeeFacade.deleteEmployee(employee1);
+        employee2.setId(employeeFacade.createEmployee(employee2));
+        employeeFacade.deleteEmployee(employee2);
     }
 
-    public void findEmployeeByIdTest(Long id) {
-    
+    @Test
+    public void findEmployeeByIdTest() {
+        employee3.setId(employeeFacade.createEmployee(employee3));
+        Assert.assertEquals(employeeFacade.findEmployeeById(employee3.getId()), employee3);
     }
-
-    public void findAllEmployeesTest() {
-        
-    }
-
-    
     
     
     
