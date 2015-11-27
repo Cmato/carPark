@@ -41,8 +41,8 @@ public class EmployeeServiceTest extends AbstractTestNGSpringContextTests{
     
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void createEmployeeWithWrongDate(){
-        Date birth = new Date();
-        birth.setTime(birth.getTime() + 1000 * 60 * 60 * 7);
+        Date birth = new Date(3000,2,2);
+        //birth.setTime(birth.getTime() + 1000 * 60 * 60 * 7);
         Employee employee = TestHelper.employee("Franta", birth, "123456BR");
         
         employeeService.createEmployee(employee);

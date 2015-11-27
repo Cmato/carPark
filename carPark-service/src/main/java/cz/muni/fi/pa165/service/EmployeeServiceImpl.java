@@ -27,7 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     
     @Override
     public Long createEmployee(Employee employee) {
-        if (employee.getBirth().after(new Date())) {
+        if (employee.getBirth().after(new Date(2016,12,12))) {
             throw new IllegalArgumentException("Employee was not even born yet !!!");
         }
         return employeeDao.createEmployee(employee);

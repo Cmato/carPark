@@ -55,9 +55,9 @@ public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests{
     
     @BeforeMethod
     public void createContext() {
-        date1 = modifyTodaysDatebyDays(20 * 365);
-        date1 = modifyTodaysDatebyDays(30 * 365);
-        date1 = modifyTodaysDatebyDays(40 * 365);
+        date1 = new Date(1980, 1, 1);
+        date1 = new Date(1983, 2, 2);
+        date1 = new Date(1993, 3, 3);
         
         employee1 = TestHelper.employeeDTO("Petr Trava", date1, "1234");
         employee2 = TestHelper.employeeDTO("Trava Petricek", date2, "5678");
