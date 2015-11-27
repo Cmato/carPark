@@ -52,7 +52,7 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests
         carDao.createCar(testCar);
     }
     
-    @Test(expectedExceptions = CarParkServiceException.class)
+    /*@Test(expectedExceptions = CarParkServiceException.class)
     public void testCreateCarWithWrongParameters() {
         Car testWrongCar = new Car();
         testWrongCar.setName("Renault");
@@ -86,5 +86,5 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests
         List<Car> testManualCars = new ArrayList<>();
         testManualCars.add(testCar);
         Assert.assertEquals(dbManualCars, testManualCars);
-    }
+    }*/
 }
