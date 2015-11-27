@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import cz.muni.fi.pa165.daos.EmployeeDao;
 import cz.muni.fi.pa165.entities.Employee;
+import java.util.Date;
 
 /**
  *
@@ -26,6 +27,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     
     @Override
     public void createEmployee(Employee employee) {
+        if (employee.getBirth().after(new Date())) {
+            throw new IllegalArgumentException("Employee was not even born yet !!!");
+        }
         employeeDao.createEmployee(employee);
     }
 
@@ -46,6 +50,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public void updateEmployee(Employee employee) {
+        if (employee.getBirth().after(new Date())) {
+            throw new IllegalArgumentException("Employee was not even born yet !!!");
+        }
         employeeDao.updateEmployee(employee);
     }
     
