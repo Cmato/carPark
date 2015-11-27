@@ -13,7 +13,7 @@ public interface RentalFacade {
 
     public RentalDTO getRentalById(Long id);
 
-    public void createRental(RentalCreateDTO r);
+    public Long createRental(RentalCreateDTO r);
     
     public void deleteRental(Long id);
 

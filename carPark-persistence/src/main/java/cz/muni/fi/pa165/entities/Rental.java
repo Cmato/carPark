@@ -28,12 +28,14 @@ public class Rental {
     private Long id;
 
     @NotNull
-    @ManyToOne(targetEntity = Employee.class, cascade=CascadeType.PERSIST)
+    //@ManyToOne(targetEntity = Employee.class, cascade=CascadeType.PERSIST)
+    @ManyToOne(targetEntity = Employee.class)
     @JoinColumn(nullable = false)
     private Employee employee;
 
     @NotNull
-    @ManyToOne(targetEntity = Car.class, cascade=CascadeType.PERSIST)
+    //@ManyToOne(targetEntity = Car.class, cascade=CascadeType.PERSIST)
+    @ManyToOne(targetEntity = Car.class)
     @JoinColumn(nullable = false)
     private Car car;
 

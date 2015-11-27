@@ -42,7 +42,7 @@ public class RentalFacadeImpl implements RentalFacade{
     }
 
     @Override
-    public void createRental(RentalCreateDTO r) {
+    public Long createRental(RentalCreateDTO r) {
         /*Employee employee = employeeService.findEmployeeById(
                 r.getEmployee().getId());
         Car car = carService.getCarById(
@@ -55,7 +55,7 @@ public class RentalFacadeImpl implements RentalFacade{
 	rental.setStartingDate(r.getStartingDate());
         rental.setEstimatedReturnDate(r.getEstimatedReturnDate());
         rental.setRentalState(r.getRentalState());
-        rentalService.createRental(rental);
+        return rentalService.createRental(rental);
     }
 
     @Override
