@@ -2,6 +2,8 @@ package cz.muni.fi.pa165;
 
 import java.util.Date;
 
+import cz.muni.fi.pa165.dto.CarDTO;
+import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Rental;
@@ -27,6 +29,14 @@ public class TestHelper {
 		return out;
 	}
 	
+	public static CarDTO carDTO(String name, String color, Fuel fuel, Transmission trans) {
+		CarDTO out = new CarDTO();
+		out.setName(name);
+		out.setColor(color);
+		out.setFuel(fuel);
+		out.setTransmission(trans);
+		return out;
+	}
 	/**
 	 * 
 	 * @param name Name
@@ -36,6 +46,21 @@ public class TestHelper {
 	 */
 	public static Employee employee(String name, Date date, String idCardNumber) {
 		Employee out = new Employee();
+		out.setName(name);
+		out.setBirth(date);
+		out.setIdCardNumber(idCardNumber);
+		return out;
+	}
+	
+	/**
+	 * 
+	 * @param name Name
+	 * @param date birthDate
+	 * @param idCardNumber
+	 * @return new Employee
+	 */
+	public static EmployeeDTO employeeDTO(String name, Date date, String idCardNumber) {
+		EmployeeDTO out = new EmployeeDTO();
 		out.setName(name);
 		out.setBirth(date);
 		out.setIdCardNumber(idCardNumber);

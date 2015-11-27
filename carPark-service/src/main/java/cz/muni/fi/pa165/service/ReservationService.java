@@ -19,8 +19,9 @@ public interface ReservationService {
      * Create new reservation.
      *
      * @param reservation which is created
+	 * @return 
      */
-    void createReservation(Reservation reservation);
+    Long createReservation(Reservation reservation);
     
     /**
      * Get all reservation belonging to the given employee.

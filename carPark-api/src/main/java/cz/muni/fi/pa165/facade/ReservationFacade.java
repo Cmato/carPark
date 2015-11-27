@@ -16,7 +16,7 @@ public interface ReservationFacade {
 	
 	public ReservationDTO getReservationById(Long id);
 
-    public void createReservation(ReservationCreateDTO r);
+    public Long createReservation(ReservationCreateDTO r);
     
     public void acceptReservation(Long id);
 

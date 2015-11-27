@@ -47,14 +47,14 @@ public class ReservationFacadeImpl implements ReservationFacade {
 	}
 
 	@Override
-	public void createReservation(ReservationCreateDTO r) {
+	public Long createReservation(ReservationCreateDTO r) {
 		Reservation res = new Reservation();
 		res.setCar(beanMappingSevice.mapTo(r.getCar(), Car.class));
 		res.setEmployee(beanMappingSevice.mapTo(r.getEmployee(), Employee.class));
 		res.setStartingDate(r.getStartingDate());
 		res.setEndingDate(r.getEndingDate());
 		res.setReservationState(r.getReservationState());
-		reservationService.createReservation(res);
+		return reservationService.createReservation(res);
 		
 	}
 

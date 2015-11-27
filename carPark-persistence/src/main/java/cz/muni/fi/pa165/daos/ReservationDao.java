@@ -18,8 +18,9 @@ public interface ReservationDao {
 	 * Inserts reservation into the database
 	 * 
 	 * @param reservation to be inserted
+	 * @return 
 	 */
-	public void create(Reservation reservation);
+	public Long create(Reservation reservation);
 
 	/**
 	 * Retrieves all reservation from the database

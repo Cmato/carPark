@@ -20,16 +20,16 @@ public class ReservationServiceImpl implements ReservationService {
     private ReservationDao reservationDao;
 
 	@Override
-	public void createReservation(Reservation reservation) {
+	public Long createReservation(Reservation reservation) {
 		if (!checkDates(reservation.getStartingDate(), reservation.getEndingDate())) {
             throw new CarParkServiceException("Reservation starting date is after"
                     + "estimated return date!");
         }
-        //chceck active rentals and reservations
+        //check active rentals and reservations
         CarAvailability ca = new CarAvailability();
-        ca.checkRentals(reservation);
-        ca.checkReservations(reservation);
-        reservationDao.create(reservation);
+       // ca.checkRentals(reservation);
+        //ca.checkReservations(reservation);
+        return reservationDao.create(reservation);
 		
 	}
 

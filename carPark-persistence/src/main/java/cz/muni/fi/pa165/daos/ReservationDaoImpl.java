@@ -25,8 +25,10 @@ public class ReservationDaoImpl implements ReservationDao {
     private EntityManager em;
 
     @Override
-    public void create(Reservation reservation) {
+    public Long create(Reservation reservation) {
         em.persist(reservation);
+        em.flush();
+        return reservation.getId();
     }
 
     @Override
@@ -63,7 +65,7 @@ public class ReservationDaoImpl implements ReservationDao {
 
 	@Override
 	public List<Reservation> findByState(ReservationState reservationState) {
-		return em.createQuery("SELECT r FROM Reservation r WHERE r.state = :state", Reservation.class)
+		return em.createQuery("SELECT r FROM Reservation r WHERE r.reservationState = :state", Reservation.class)
 				.setParameter("state", reservationState).getResultList();
 		
 	}
