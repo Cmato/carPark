@@ -8,7 +8,6 @@ import cz.muni.fi.pa165.entities.Reservation;
 import cz.muni.fi.pa165.enums.ReservationState;
 
 /**
- * Class represents basic CRUD operations with the entity reservation.
  * 
  * @author xruzic16
  */
@@ -20,7 +19,22 @@ public interface ReservationDao {
 	 * @param reservation to be inserted
 	 * @return 
 	 */
-	public Long create(Reservation reservation);
+	public Boolean create(Reservation reservation);
+
+	/**
+	 * Delete specific reservation from the database
+	 * 
+	 * @param reservation to be deleted
+	 */
+	public boolean remove(Reservation reservation);
+
+	/**
+	 * Update specific reservation in the database
+	 * 
+	 * @param reservation to be updated
+	 * @return updated reservation
+	 */
+	public Reservation update(Reservation reservation);
 
 	/**
 	 * Retrieves all reservation from the database
@@ -52,21 +66,6 @@ public interface ReservationDao {
 	 * @return reservation with the specific id
 	 */
 	public Reservation findById(Long id);
-
-	/**
-	 * Update specific reservation in the database
-	 * 
-	 * @param reservation to be updated
-	 * @return updated reservation
-	 */
-	public Reservation update(Reservation reservation);
-
-	/**
-	 * Delete specific reservation from the database
-	 * 
-	 * @param reservation to be deleted
-	 */
-	public void remove(Reservation reservation);
 
 	/**
 	 * Find reservation with specific state

@@ -19,7 +19,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import cz.muni.fi.pa165.TestHelper;
 import cz.muni.fi.pa165.daos.ReservationDao;
 import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;
@@ -28,14 +27,14 @@ import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.ReservationState;
 import cz.muni.fi.pa165.enums.Transmission;
 import cz.muni.fi.pa165.exceptions.CarParkServiceException;
-import cz.muni.fi.pa165.service.config.ServiceConfiguration;
+import cz.muni.fi.pa165.service.config.MappingConfiguration;
 import cz.muni.fi.pa165.utils.DateFormater;
 
 /**
 *
 * @author xruzic16
 */
-@ContextConfiguration(classes = ServiceConfiguration.class)
+@ContextConfiguration(classes = MappingConfiguration.class)
 public class ReservationServiceTest extends AbstractTestNGSpringContextTests{
 
 	@Mock
@@ -63,9 +62,9 @@ public class ReservationServiceTest extends AbstractTestNGSpringContextTests{
         date1 = DateFormater.newDate(1990, 12, 10);
         date2 = DateFormater.newDate(2000, 1, 1);
 
-        car = TestHelper.car("Schoda Henlein", "White", Fuel.Petrol, Transmission.Manual);
-        empl = TestHelper.employee("Petr Ctvrtnicek", date1, "123456789");
-        res = TestHelper.reservation(empl, car, date1, date2, ReservationState.NEW);
+        car = new Car("Schoda Henlein", "White", Fuel.Petrol, Transmission.Manual);
+        empl = new Employee("Petr Ctvrtnicek", date1, "123456789");
+        res = new Reservation(empl, car, date1, date2);
     }
 
     @BeforeClass

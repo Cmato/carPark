@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.dto;
 
 import java.util.Date;
-
 import javax.validation.constraints.NotNull;
-
 import cz.muni.fi.pa165.enums.ReservationState;
+import javax.validation.Valid;
 
 /**
  *
@@ -17,13 +11,14 @@ import cz.muni.fi.pa165.enums.ReservationState;
  */
 public class ReservationDTO {
 	
-	@NotNull
     private Long id;
 
     @NotNull
+    @Valid
     private EmployeeDTO employee;
 
     @NotNull
+    @Valid
     private CarDTO car;
 
     @NotNull
@@ -34,13 +29,19 @@ public class ReservationDTO {
 
     @NotNull
     private ReservationState reservationState;
+    
+    public ReservationDTO() {
+    }
+    
+    public ReservationDTO(EmployeeDTO e, CarDTO c, Date startingDate, Date endingDate) {
+        this.employee = e;
+        this.car = c;
+        this.startingDate = startingDate;
+        this.endingDate = endingDate;
+    }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public EmployeeDTO getEmployee() {

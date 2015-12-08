@@ -1,15 +1,9 @@
 package cz.muni.fi.pa165;
 
-import cz.muni.fi.pa165.PersistenceSampleApplicationContext;
 import static org.testng.AssertJUnit.*;
-
-import javax.validation.ConstraintViolationException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.transaction.TransactionSystemException;
 import org.testng.annotations.Test;
 
 import cz.muni.fi.pa165.daos.CarDao;
@@ -22,6 +16,13 @@ import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.RentalState;
 import cz.muni.fi.pa165.enums.Transmission;
 import cz.muni.fi.pa165.utils.DateFormater;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 
 /**
 *
@@ -29,182 +30,234 @@ import cz.muni.fi.pa165.utils.DateFormater;
 */
 
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
-public class RentalDaoImplTest extends AbstractTestNGSpringContextTests{
-	
-	@Autowired
-	private RentalDao DAO;
-	@Autowired
-	private CarDao cDAO;
-	@Autowired
-	private EmployeeDao eDAO;
+@TestExecutionListeners(TransactionalTestExecutionListener.class)
+@Transactional
+public class RentalDaoImplTest extends AbstractTestNGSpringContextTests {
 
-	
-    @Test
-    @DirtiesContext
-    public void createRentalTest(){
-    	
-    	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
-    	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
-    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.ACTIVE);
-    	
-    	//assertNotNull(rent.getId()); // blbost to testovat - priradi se az pri commitu do DB
-    	assertNotNull(rent.getEmployee());
-    	assertNotNull(rent.getCar());
-    	assertNotNull(rent.getStartingDate());
-    	assertNotNull(rent.getEstimatedReturnDate());
-    	
-    	cDAO.createCar(c);
-    	eDAO.createEmployee(e);
-    	
-    	DAO.create(rent);
-    	
-    	Rental sameRent = DAO.findByCar(c).get(0);
-    	
-    	assertNotNull(sameRent.getId());
-    	
-    	assertEquals(rent, sameRent);
-    	assertNotSame(rent, sameRent);    
-    	
-    }
+    @Autowired
+    private EmployeeDao eDAO;
+
+    private Employee ignac;
+    private Employee stefan;
     
+    @Autowired
+    private CarDao cDAO;
+
+    private Car passat;
+    private Car cla;
+
+    @Autowired
+    private RentalDao DAO;
+    
+    private Rental rentalOne;
+    private Rental rentalTwo;
+
+    @BeforeMethod
+    public void setUpClass() {
+        ignac = new Employee("Ignac", DateFormater.newDate(2000, 12, 1), "AA123456");
+        stefan = new Employee("Stefan", DateFormater.newDate(1998, 11, 11), "BB654321");
+        
+        eDAO.createEmployee(ignac);
+        eDAO.createEmployee(stefan);
+
+        passat = new Car("VW Passat", "Black", Fuel.Diesel, Transmission.Manual);
+        cla = new Car("MB CLA", "White peral", Fuel.Diesel, Transmission.Automatic);
+        
+        cDAO.createCar(passat);
+        cDAO.createCar(cla);
+
+        rentalOne = new Rental(ignac, passat, DateFormater.newDate(2015, 11, 1), DateFormater.newDate(2015, 11, 5));
+        rentalTwo = new Rental(stefan, cla, DateFormater.newDate(2015, 11, 2), DateFormater.newDate(2015, 11, 10));
+
+        DAO.create(rentalOne);
+        DAO.create(rentalTwo);
+    }
+
+    /**
+     * Test of findById method, of RentalDao class.
+     */ 
     @Test
-    @DirtiesContext
-    public void createRentalNullTest(){
-    	Rental rent = TestHelper.rental(null,null,null,null,null);
-    	
+    @Transactional
+    public void testFindById() {
+        Rental foundRental = DAO.findById(rentalOne.getId());
+        Assert.assertEquals(rentalOne, foundRental);
+    }
+
+    /**
+     * Test of findAll method, of RentalDao class.
+     */
+    @Test
+    @Transactional
+    public void testFindAll() {
+        List<Rental> foundRentals = DAO.findAll();
+       
+        List<Rental> expectedResult = new ArrayList();
+        expectedResult.add(rentalOne);
+        expectedResult.add(rentalTwo);
+        
+        Assert.assertEquals(foundRentals.size(), expectedResult.size());
+        for(int i = 0; i < expectedResult.size(); i++) {
+            Assert.assertEquals(expectedResult.get(i), foundRentals.get(i));
+        }
+    }
+
+    /**
+     * Test of findByEmployee method, of RentalDao class.
+     */
+    @Test
+    @Transactional
+    public void testFindByEmployee() {
+        List<Rental> foundRentals = DAO.findByEmployee(ignac);
+       
+        List<Rental> expectedResult = new ArrayList();
+        expectedResult.add(rentalOne);
+        
+        Assert.assertEquals(foundRentals.size(), expectedResult.size());
+        for(int i = 0; i < expectedResult.size(); i++) {
+            Assert.assertEquals(expectedResult.get(i), foundRentals.get(i));
+        }
+    }
+
+    /**
+     * Test of findByCar method, of RentalDao class.
+     */
+    @Test
+    @Transactional
+    public void testFindByCar() {
+        List<Rental> foundRentals = DAO.findByCar(passat);
+       
+        List<Rental> expectedResult = new ArrayList();
+        expectedResult.add(rentalOne);
+        
+        Assert.assertEquals(foundRentals.size(), expectedResult.size());
+        for(int i = 0; i < expectedResult.size(); i++) {
+            Assert.assertEquals(expectedResult.get(i), foundRentals.get(i));
+        }
+    }
+
+    /**
+     * Test of findRentalsWithState method, of RentalDao class.
+     */
+    @Test
+    @Transactional
+    public void testFindRentalsWithState() {
+        List<Rental> foundRentals = DAO.findRentalsWithState(RentalState.ACTIVE);
+       
+        List<Rental> expectedResult = new ArrayList();
+        expectedResult.add(rentalOne);
+        expectedResult.add(rentalTwo);
+        
+        Assert.assertEquals(foundRentals.size(), expectedResult.size());
+        for(int i = 0; i < expectedResult.size(); i++) {
+            Assert.assertEquals(expectedResult.get(i), foundRentals.get(i));
+        }
+    }
+
+    /**
+     * Test of create method, of RentalDao class.
+     */
+    @Test
+    @Transactional
+    public void testCreateRental() {    
+        //if create method works, there have to be ignac already created    
+        Rental sameRent = DAO.findById(rentalOne.getId());
+
+        assertEquals(rentalOne, sameRent);   
+    }
+
+    /**
+     * Test of create method, of RentalDao class with null parameters.
+     */
+    @Test
+    @Transactional
+    public void testCreateRentalNull() {
+    	Rental rent = new Rental(null,null,null,null);
     	
     	try {
     		DAO.create(null);
             fail("Ex not thrown");
-        } catch (IllegalArgumentException ex) {
+        } catch (NullPointerException ex) {
         }
     	
     	try {
     		DAO.create(rent);
             fail("Ex not thrown");
-        } catch (ConstraintViolationException ex) {
+        } catch (IllegalArgumentException ex) {
         }
     }
-    
+
+    /**
+     * Test of remove method, of RentalDao class.
+     */  
     @Test
-    @DirtiesContext
-    public void removeRentalTest(){
-    	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
-    	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
-    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.ACTIVE); 
-    	Car c2 = TestHelper.car("Skoda Fabia","Red",Fuel.Diesel,Transmission.Manual);
-    	Employee e2 = TestHelper.employee("Pepa2", DateFormater.newDate(2000, 12, 1), "ABC124");
-    	Rental rent2 = TestHelper.rental(e, c, DateFormater.newDate(2015, 11, 29), DateFormater.newDate(2015, 12, 29), RentalState.ACTIVE); 
-    	
-    	cDAO.createCar(c);
-    	eDAO.createEmployee(e);
-    	cDAO.createCar(c2);
-    	eDAO.createEmployee(e2);
-    	
-
-    	DAO.create(rent);
-    	DAO.create(rent2);
-
-    	DAO.remove(rent); // remove 
-    	
-    	assert(DAO.findAll().size() == 1); //check
-    	assertEquals(DAO.findByCar(c).get(0), rent2);
-
-    	rent.setId(null); // reset index
-    	DAO.create(rent); //imput same thing again
-    	assert(DAO.findAll().size() == 2);
-    	
-    	
+    @Transactional
+    public void testRemoveRental() {
+        DAO.remove(rentalTwo);
+        Rental sameRental = DAO.findById(rentalTwo.getId());
+        assert(!rentalTwo.equals(sameRental) && sameRental == null);
     }
-    
-    @Test
-    @DirtiesContext
-    public void removeWithNullRentalTest(){
-    	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
-    	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
-    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.ACTIVE); 
-    	
-    	cDAO.createCar(c);
-    	eDAO.createEmployee(e);   	
 
-    	DAO.create(rent);
-    	
+    
+    /**
+     * Test of remove method, of RentalDao class with wrong parameters.
+     */  
+    @Test
+    @Transactional
+    public void testRemoveWithNullRental() {    	
     	// try to remove null
     	try {
     		DAO.remove(null);
             fail("Ex not thrown");
-        } catch (IllegalArgumentException ex) {
+        } catch (NullPointerException ex) {
         }
     	
-    	rent.setCar(null);
-    	rent.setEmployee(null);
-    	rent.setId(null);
+    	rentalOne.setCar(null);
     	
     	// try to remove corupted rental
     	try {
-    		DAO.remove(null);
+    		DAO.remove(rentalOne);
             fail("Ex not thrown");
         } catch (IllegalArgumentException ex) {
+            rentalOne.setCar(passat);
         }
-    	assert(DAO.findAll().size() == 1);
-    
+
+    	assert(DAO.findAll().size() == 2);
     }
     
+    /**
+     * Test of update method, of RentalDao class.
+     */  
     @Test
-    @DirtiesContext
-    public void updateRentalTest(){
-    	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
-    	Car c2 = TestHelper.car("Skoda Fabia","Red",Fuel.Diesel,Transmission.Manual);
-    	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
-    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.ACTIVE);
+    @Transactional
+    public void testUpdateRental() {
+        Car bmw = new Car("BMW M3", "Blue", Fuel.Petrol, Transmission.Automatic);
+        cDAO.createCar(bmw);
+        
+    	rentalOne.setStartingDate(DateFormater.newDate(2014, 10, 29));
+    	rentalOne.setEstimatedReturnDate(DateFormater.newDate(2015, 11, 29));
+    	rentalOne.setCar(bmw);
     	
-    	cDAO.createCar(c);
-    	cDAO.createCar(c2);
-    	eDAO.createEmployee(e);
-    	
-    	DAO.create(rent);
-    	
-    	rent.setStartingDate(DateFormater.newDate(2014, 10, 29));
-    	rent.setEstimatedReturnDate(DateFormater.newDate(1900, 11, 29));
-    	rent.setCar(c2);
-    	
-    	DAO.update(rent);
-    	assert(DAO.findByCar(c2).size() == 1);    	
-    	Rental rent2 = DAO.findByCar(c2).get(0);
+    	DAO.update(rentalOne);
+    	assert(DAO.findByCar(bmw).size() == 1);    	
+    	Rental rent2 = DAO.findByCar(bmw).get(0);
     	assertEquals(rent2.getStartingDate(), DateFormater.newDate(2014, 10, 29));
-    	assertEquals(rent2.getCar(), c2);
+    	assertEquals(rent2.getCar(), bmw);
     }
     
+    /**
+     * Test of update method, of RentalDao class with wrong parameters.
+     */  
     @Test
-    @DirtiesContext
-    public void updateWithNullRentalTest(){
-    	Car c = TestHelper.car("Skoda Superb","Black",Fuel.Petrol,Transmission.Automatic);
-    	Employee e = TestHelper.employee("Pepa", DateFormater.newDate(2000, 12, 1), "ABC123");
-    	Rental rent = TestHelper.rental(e, c, DateFormater.newDate(2015, 10, 29), DateFormater.newDate(2015, 11, 29), RentalState.ACTIVE);
-    	
-    	cDAO.createCar(c);
-    	eDAO.createEmployee(e);
-    	
-    	DAO.create(rent);
-    	
-    	rent.setStartingDate(null);
-    	rent.setEstimatedReturnDate(null);
-    	rent.setCar(null);
+    @Transactional
+    public void updateWithNullRentalTest() {
+    	rentalOne.setCar(null);
     	
     	try{
-    		DAO.update(rent);
+    		DAO.update(rentalOne);
     		fail("Ex not thrown");
-    	} catch (TransactionSystemException ex) {
-    		
+    	} catch (IllegalArgumentException ex) {
+    		rentalOne.setCar(passat);
     	}  
-    }
-    
-    @Test
-    public void findNonExistObject(){
-        assertNull((Object)DAO.findById(321231231l));
-    }
-    
-    
-    
+    }    
 }
 

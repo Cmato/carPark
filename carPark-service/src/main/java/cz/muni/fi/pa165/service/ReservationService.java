@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Reservation;
 import cz.muni.fi.pa165.enums.ReservationState;
+import java.util.Date;
 
 /**
  * An interface that defines a service access to the {@link Reservation} entity.
@@ -21,7 +22,7 @@ public interface ReservationService {
      * @param reservation which is created
 	 * @return 
      */
-    Long createReservation(Reservation reservation);
+    public Reservation createReservation(Reservation reservation);
     
     /**
      * Get all reservation belonging to the given employee.
@@ -29,7 +30,7 @@ public interface ReservationService {
      * @param employee which has reservation
      * @return List of reservations
      */
-    List<Reservation> getReservationsByEmployee(Employee employee);
+    public List<Reservation> getReservationsByEmployee(Employee employee);
 
     /**
      * Get all reservations belonging to the given car.
@@ -37,7 +38,7 @@ public interface ReservationService {
      * @param car which was reserved
      * @return List of reservations
      */
-    List<Reservation> getReservationsByCar(Car car);
+    public List<Reservation> getReservationsByCar(Car car);
 
     /**
      * Get all reservations with the given state.
@@ -45,14 +46,14 @@ public interface ReservationService {
      * @param reservationState of reservations
      * @return List of reservations
      */
-    List<Reservation> getReservationsByState(ReservationState reservationState);
+    public List<Reservation> getReservationsByState(ReservationState reservationState);
 
     /**
      * Get all reservations.
      *
      * @return List of all reservations
      */
-    List<Reservation> getAllReservations();
+    public List<Reservation> getAllReservations();
 
     /**
      * Find reservation by ID.
@@ -60,41 +61,82 @@ public interface ReservationService {
      * @param id of the reservation
      * @return reservation with specific ID
      */
-    Reservation getReservationById(Long id);
+    public Reservation getReservationById(Long id);
     
     /**
      * When reservation is accepted and valid state is accepted
      *
      * @param reservation which has been accepted
      */
-    void acceptReservation(Reservation reservation);
+    public void acceptReservation(Reservation reservation);
 
     /**
      * When reservation is denied for some reason - state is denied
      *
-     * @param rental which is denied
+     * @param reservation which is denied
      */
-    void denyReservation(Reservation reservation);
+    public void denyReservation(Reservation reservation);
     
     /**
      * When reservation is cancelled by applicant - state is set to cancelled
      *
-     * @param rental which is cancelled
+     * @param reservation which is cancelled
      */
-    void cancelReservation(Reservation reservation);
+    public void cancelReservation(Reservation reservation);
     
     /**
-     * When reservation time is here it is moved to rental - state is set to done
+     * When reservation time is here it is moved to reservation - state is set to done
      *
-     * @param rental which is done
+     * @param reservation which is done
      */
-    void completeReservation(Reservation reservation);
+    public void completeReservation(Reservation reservation);
     
     /**
      * Set reservation as removed. It can be done by applicant or master - none reservation will be never deleted definitely
      * 
      * @param reservation which will be set as removed
      */
-    void removeReservation(Reservation reservation);
+    public boolean removeReservation(Reservation reservation);
+
+    /**
+     * Update employee of reservation
+     * 
+     * @param udated reservation
+     * @param new employee
+     */
+    public Reservation updateReservationEmployee(Reservation reservation, Employee newEmployee);
+    
+    /**
+     * Update car of reservation
+     * 
+     * @param updated reservation
+     * @param new car
+     */
+    public Reservation updateReservationCar(Reservation reservation, Car newCar);
+    
+    /**
+     * Update starting day of reservation
+     * 
+     * @param updated reservation
+     * @param new starting date
+     */
+    public Reservation updateReservationStartingDate(Reservation reservation, Date newDate);
+    
+    /**
+     * Update ending day of reservation
+     * 
+     * @param updated reservation
+     * @param new ending date
+     */
+    public Reservation updateReservationEndingDate(Reservation reservation, Date newDate);
+
+
+    /**
+     * Update state of reservation
+     * 
+     * @param updated reservation
+     * @param new reservation state
+     */
+    public Reservation updateReservationState(Reservation reservation, ReservationState newState);
 
 }

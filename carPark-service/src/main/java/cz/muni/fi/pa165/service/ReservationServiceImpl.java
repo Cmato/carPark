@@ -20,18 +20,65 @@ public class ReservationServiceImpl implements ReservationService {
     private ReservationDao reservationDao;
 
 	@Override
-	public Long createReservation(Reservation reservation) {
+	public Reservation createReservation(Reservation reservation) {
 		if (!checkDates(reservation.getStartingDate(), reservation.getEndingDate())) {
             throw new CarParkServiceException("Reservation starting date is after"
                     + "estimated return date!");
         }
         //check active rentals and reservations
         CarAvailability ca = new CarAvailability();
-       // ca.checkRentals(reservation);
-        //ca.checkReservations(reservation);
-        return reservationDao.create(reservation);
+
+        if(reservationDao.create(reservation)) {
+            return reservation;
+        }
+        return null;
 		
 	}
+
+	@Override
+    public Reservation updateReservationEmployee(Reservation reservation, Employee newEmployee) {
+        if(reservation != null && newEmployee != null) {
+            reservation.setEmployee(newEmployee);
+            return reservationDao.update(reservation);
+        }
+        return null;
+    }
+
+    @Override
+    public Reservation updateReservationCar(Reservation reservation, Car newCar) {
+        if(reservation != null && newCar != null) {
+            reservation.setCar(newCar);
+            return reservationDao.update(reservation);
+        }
+        return null;
+    }
+
+    @Override
+    public Reservation updateReservationStartingDate(Reservation reservation, Date newDate) {
+        if(reservation != null && newDate != null) {
+            reservation.setStartingDate(newDate);
+            return reservationDao.update(reservation);
+        }
+        return null;
+    }
+
+    @Override
+    public Reservation updateReservationEndingDate(Reservation reservation, Date newDate) {
+        if(reservation != null && newDate != null) {
+            reservation.setEndingDate(newDate);
+            return reservationDao.update(reservation);
+        }
+        return null;
+    }
+
+    @Override
+    public Reservation updateReservationState(Reservation reservation, ReservationState newState) {
+        if(reservation != null && newState != null) {
+            reservation.setReservationState(newState);
+            return reservationDao.update(reservation);
+        }
+        return null;
+    }
 
 	@Override
 	public List<Reservation> getReservationsByEmployee(Employee employee) {
@@ -83,9 +130,9 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public void removeReservation(Reservation reservation) {
+	public boolean removeReservation(Reservation reservation) {
 		reservation.setReservationState(ReservationState.REMOVED);
-		
+                return true;		
 	}
 	
 	private boolean checkDates(Date starting, Date ending){

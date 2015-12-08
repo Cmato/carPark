@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.entities;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -23,6 +22,7 @@ import cz.muni.fi.pa165.utils.DateFormater;
  */
 @Entity
 public class Reservation {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -31,11 +31,11 @@ public class Reservation {
 	@ManyToOne(targetEntity = Employee.class)
 	@JoinColumn(nullable = false)
 	private Employee employee;
-        
-    @NotNull
-    @ManyToOne(targetEntity = Car.class)
-    @JoinColumn(nullable = false)
-    private Car car;
+
+	@NotNull
+	@ManyToOne(targetEntity = Car.class)
+	@JoinColumn(nullable = false)
+	private Car car;
 
 	@NotNull
 	@Column(nullable = false)
@@ -48,8 +48,19 @@ public class Reservation {
 	private Date endingDate;
 	
 	@Enumerated
-    @NotNull
-    private ReservationState reservationState;
+	@NotNull
+	private ReservationState reservationState;
+
+	public Reservation() {
+	}
+
+	public Reservation(Employee employee, Car car, Date startingDate, Date endingDate) {
+		this.employee = employee;
+		this.car = car;
+		this.startingDate = startingDate;
+		this.endingDate = endingDate;
+		this.reservationState = ReservationState.NEW;
+	}
 
 	public Long getId() {
 		return id;
@@ -83,22 +94,21 @@ public class Reservation {
 		this.endingDate = endingDate;
 	}
 
-    public Car getCar() {
-        return car;
-    }
+	public Car getCar() {
+		return car;
+	}
 
-    public void setCar(Car car) {
-        this.car = car;
-    }
-    
-    public ReservationState getReservationState() {
-        return reservationState;
-    }
+	public void setCar(Car car) {
+		this.car = car;
+	}
 
-    public void setReservationState(ReservationState reservationState) {
-        this.reservationState = reservationState;
-    }
-        
+	public ReservationState getReservationState() {
+		return reservationState;
+	}
+
+	public void setReservationState(ReservationState reservationState) {
+		this.reservationState = reservationState;
+	}
 
 	@Override
 	public int hashCode() {
