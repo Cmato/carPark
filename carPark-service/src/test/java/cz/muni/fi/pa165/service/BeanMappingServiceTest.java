@@ -10,7 +10,7 @@ import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Rental;
 import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.Transmission;
-import cz.muni.fi.pa165.service.config.ServiceConfiguration;
+import cz.muni.fi.pa165.service.config.MappingConfiguration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,11 +27,11 @@ import org.testng.annotations.Test;
  * @author xhubeny2
  */
 
-@ContextConfiguration(classes = ServiceConfiguration.class)
+@ContextConfiguration(classes = MappingConfiguration.class)
 public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests{
     
     @Autowired
-    private BeanMappingService beanMappingService;
+    private MappingService mappingService;
     
     private Rental rental1;
     private Rental rental2;
@@ -78,14 +78,14 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests{
     }
     @Test
     public void mapRentalToRentalDto() {
-        RentalDTO rentalDTO = beanMappingService.mapTo(rental1, RentalDTO.class);
-        Assert.assertEquals(rental1, beanMappingService.mapTo(rentalDTO, Rental.class),
+        RentalDTO rentalDTO = mappingService.mapTo(rental1, RentalDTO.class);
+        Assert.assertEquals(rental1, mappingService.mapTo(rentalDTO, Rental.class),
                 "Rental and RentalDTO are different.");
     }
 
     @Test
     public void mapRentalList() {
-        List<RentalDTO> rentalDtos = beanMappingService.mapTo(rentals, RentalDTO.class);
+        List<RentalDTO> rentalDtos = mappingService.mapToCollection(rentals, RentalDTO.class);
         Assert.assertEquals(rentals.size(), rentalDtos.size(), "Different sizes of lists.");
     }
     

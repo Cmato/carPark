@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.daos;
 
 import cz.muni.fi.pa165.entities.Car;
@@ -20,21 +16,22 @@ public interface CarDao {
      * 
      * @param car to be inserted
      */
-    Long createCar(Car car);
+    Boolean createCar(Car car);
     
     /**
      * Deletes a specific car from the database
      * 
      * @param car to be deleted
      */
-    void deleteCar(Car car);
+    boolean deleteCar(Car car);
     
     /**
      * Updates attributes of a specific car in database
      * 
      * @param car to be updated
+     * @param car object
      */
-    void updateCar(Car car);
+    Car updateCar(Car car);
     
     /**
      * Retrieves a car with specific id from database

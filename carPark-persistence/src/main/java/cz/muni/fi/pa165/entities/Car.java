@@ -39,6 +39,16 @@ public class Car {
     @Column(nullable = false)
     private Transmission transmission;
 
+    public Car() {
+    }
+
+    public Car(String name, String color, Fuel fuel, Transmission transmission) {
+        this.name = name;
+        this.color = color;
+        this.fuel = fuel;
+        this.transmission = transmission;
+    }
+
     public Long getId() {
         return id;
     }
@@ -95,7 +105,19 @@ public class Car {
             return false;
         }
         final Car other = (Car) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.id, other.getId())) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.getName())) {
+            return false;
+        }
+        if (!Objects.equals(this.color, other.getColor())) {
+            return false;
+        }
+        if (!Objects.equals(this.fuel, other.getFuel())) {
+            return false;
+        }
+        if (!Objects.equals(this.transmission, other.getTransmission())) {
             return false;
         }
         return true;

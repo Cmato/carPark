@@ -1,8 +1,10 @@
 package cz.muni.fi.pa165.dto;
 
+import javax.validation.constraints.NotNull;
 import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.Transmission;
 import java.util.Objects;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -12,13 +14,28 @@ public class CarDTO {
 
     private Long id;
 
+    @NotNull
+    @Size(min = 3, max = 50)
     private String name;
 
+    @NotNull
     private String color;
 
+    @NotNull
     private Fuel fuel;
 
+    @NotNull
     private Transmission transmission;
+    
+    public CarDTO() {
+    }
+
+    public CarDTO(String name, String color, Fuel fuel, Transmission transmission) {
+        this.name = name;
+        this.color = color;
+        this.fuel = fuel;
+        this.transmission = transmission;
+    }
 
     public Long getId() {
         return id;
@@ -39,10 +56,6 @@ public class CarDTO {
     public Transmission getTransmission() {
         return transmission;
     }
-    
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -62,8 +75,12 @@ public class CarDTO {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.id);
+        int hash = 5;
+        hash = 17 * hash + Objects.hashCode(getName());
+        hash = 17 * hash + Objects.hashCode(getColor());
+        hash = 17 * hash + Objects.hashCode(getFuel());
+        hash = 17 * hash + Objects.hashCode(getTransmission());
+
         return hash;
     }
 
@@ -76,7 +93,16 @@ public class CarDTO {
             return false;
         }
         final CarDTO other = (CarDTO) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.getName(), other.getName())) {
+            return false;
+        }
+        if (!Objects.equals(this.getColor(), other.getColor())) {
+            return false;
+        }
+        if (!Objects.equals(this.getFuel(), other.getFuel())) {
+            return false;
+        }
+        if (!Objects.equals(this.getTransmission(), other.getTransmission())) {
             return false;
         }
         return true;

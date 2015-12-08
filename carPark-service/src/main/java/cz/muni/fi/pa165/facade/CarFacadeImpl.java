@@ -1,19 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.CarCreateDTO;
 import cz.muni.fi.pa165.dto.CarDTO;
 import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.Transmission;
-import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.CarService;
+import cz.muni.fi.pa165.service.MappingService;
 import java.util.List;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,49 +18,67 @@ import org.springframework.stereotype.Service;
 @Service
 @Transactional
 public class CarFacadeImpl implements CarFacade {
-    @Autowired
-    BeanMappingService beanMappingSevice;
-            
-    @Autowired
-    CarService carService;
+
+    @Inject
+    private MappingService mappingService;
+    
+    @Inject
+    private CarService carService;
+
+    @Override
+    public Long createCar(CarDTO carCreateDTO) {
+        Car mappedCar = mappingService.mapTo(carCreateDTO, Car.class);      
+        return carService.createCar(mappedCar).getId();
+    }
+
+    @Override
+    public boolean deleteCar(Long id) {
+        return carService.deleteCar(carService.getCarById(id));
+    }
+
+    @Override
+    public CarDTO updateName(Long id, String newName) {
+        return mappingService.mapTo(carService.updateName(carService.getCarById(id), newName), CarDTO.class);
+    }
+
+    @Override
+    public CarDTO updateColor(Long id, String newColor) {
+        return mappingService.mapTo(carService.updateColor(carService.getCarById(id), newColor), CarDTO.class);
+    }
+
+    @Override
+    public CarDTO updateFuel(Long id, Fuel newFuel) {
+        return mappingService.mapTo(carService.updateFuel(carService.getCarById(id), newFuel), CarDTO.class);
+    }
+
+    @Override
+    public CarDTO updateTransmission(Long id, Transmission newTransmission) {
+        return mappingService.mapTo(carService.updateTransmission(carService.getCarById(id), newTransmission), CarDTO.class);
+    }
 
     @Override
     public CarDTO getCarById(Long id) {
-        return beanMappingSevice.mapTo(carService.getCarById(id),
-                CarDTO.class);
-    }
-
-    @Override
-    public Long createCar(CarCreateDTO carDTO) {
-        Car car = new Car();
-        car.setName(carDTO.getName());
-        car.setColor(carDTO.getColor());
-        car.setFuel(carDTO.getFuel());
-        car.setTransmission(carDTO.getTransmission());
-        return carService.createCar(car);
-    }
-
-    @Override
-    public void removeCar(Long id) {
-        carService.removeCar(carService.getCarById(id));
-    }
-
-    @Override
-    public List<CarDTO> getAllCars() {
-        return beanMappingSevice.mapTo(carService.getAllCars(),
-                CarDTO.class);
+        return mappingService.mapTo(carService.getCarById(id), CarDTO.class);
     }
 
     @Override
     public List<CarDTO> getCarsByFuel(Fuel fuel) {
-        return beanMappingSevice.mapTo(carService.getCarsByFuel(fuel),
-                CarDTO.class);
+        return mappingService.mapToCollection(carService.getCarsByFuel(fuel), CarDTO.class);
     }
 
     @Override
     public List<CarDTO> getCarsByTransmission(Transmission transmission) {
-        return beanMappingSevice.mapTo(carService.getCarsByTransmission(transmission),
-                CarDTO.class);
+        return mappingService.mapToCollection(carService.getCarsByTransmission(transmission), CarDTO.class);
     }
-    
+
+    @Override
+    public List<CarDTO> getAllCars() {
+        return mappingService.mapToCollection(carService.getAllCars(), CarDTO.class);
+    }
+
+    @Override
+    public List<CarDTO> getCarsByTransmissionAndFuel(Transmission transmission, Fuel fuel) {
+        return mappingService.mapToCollection(carService.getCarsByTransmissionAndFuel(transmission, fuel), CarDTO.class);
+    }
+
 }

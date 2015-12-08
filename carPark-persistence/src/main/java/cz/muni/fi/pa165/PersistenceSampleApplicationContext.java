@@ -1,7 +1,5 @@
 package cz.muni.fi.pa165;
 
-import cz.muni.fi.pa165.daos.EmployeeDao;
-import cz.muni.fi.pa165.daos.EmployeeDaoImpl;
 import javax.sql.DataSource;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
@@ -23,7 +21,6 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-//@ComponentScan(basePackageClasses={UserDao.class})
 @ComponentScan("cz.muni.fi.pa165")
 public class PersistenceSampleApplicationContext {
 	
