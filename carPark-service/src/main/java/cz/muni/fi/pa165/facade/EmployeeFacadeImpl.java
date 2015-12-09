@@ -1,16 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.entities.Employee;
-import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.EmployeeService;
+import cz.muni.fi.pa165.service.MappingService;
+import java.util.Date;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,50 +18,51 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class EmployeeFacadeImpl implements EmployeeFacade{
 
-    @Autowired
+    @Inject
+    private MappingService mappingService;
+    
+    @Inject
     EmployeeService employeeService;
-    
-    @Autowired
-    BeanMappingService beanMappingSevice;
-    
+
     @Override
     public Long createEmployee(EmployeeDTO employee) {
-        Employee employeeEntity = new Employee();
-        employeeEntity.setName(employee.getName());
-        employeeEntity.setBirth(employee.getBirth());
-        employeeEntity.setIdCardNumber(employee.getIdCardNumber());
-        return employeeService.createEmployee(employeeEntity);
+        Employee mappedEmployee = mappingService.mapTo(employee, Employee.class);      
+        return employeeService.createEmployee(mappedEmployee).getId();
     }
 
     @Override
-    public void deleteEmployee(EmployeeDTO employee) {
-        Employee employeeEntity = new Employee();
-        employeeEntity.setName(employee.getName());
-        employeeEntity.setBirth(employee.getBirth());
-        employeeEntity.setIdCardNumber(employee.getIdCardNumber());
-        employeeEntity.setId(employee.getId());
-        employeeService.deleteEmployee(employeeEntity);
+    public boolean deleteEmployee(Long id) {
+        return employeeService.deleteEmployee(employeeService.findEmployeeById(id));
+    }
+
+    @Override
+    public EmployeeDTO updateEmployeeName(Long id, String newName) {
+        return mappingService.mapTo(employeeService.updateEmployeeName(employeeService.findEmployeeById(id), newName), EmployeeDTO.class);
+    }
+
+    @Override
+    public EmployeeDTO updateEmployeeBirth(Long id, Date newBirth) {
+        return mappingService.mapTo(employeeService.updateEmployeeBirth(employeeService.findEmployeeById(id), newBirth), EmployeeDTO.class);
+    }
+
+    @Override
+    public EmployeeDTO updateEmployeeIdCardNumber(Long id, String newIdCarNumber) {
+        return mappingService.mapTo(employeeService.updateEmployeeIdCardNumber(employeeService.findEmployeeById(id), newIdCarNumber), EmployeeDTO.class);
     }
 
     @Override
     public EmployeeDTO findEmployeeById(Long id) {
-        return beanMappingSevice.mapTo(employeeService.findEmployeeById(id), 
-                EmployeeDTO.class);
+        return mappingService.mapTo(employeeService.findEmployeeById(id), EmployeeDTO.class);
     }
 
     @Override
     public List<EmployeeDTO> findAllEmployees() {
-        return beanMappingSevice.mapTo(employeeService.findAllEmployees(), 
-                EmployeeDTO.class);
+        return mappingService.mapToCollection(employeeService.findAllEmployees(), EmployeeDTO.class);
     }
 
     @Override
-    public EmployeeDTO updateEmployee(EmployeeDTO employee) {
-        Employee employeeEntity = new Employee();
-        employeeEntity.setName(employee.getName());
-        employeeEntity.setBirth(employee.getBirth());
-        employeeEntity.setIdCardNumber(employee.getIdCardNumber());
-        return beanMappingSevice.mapTo(employeeService.updateEmployee(employeeEntity), EmployeeDTO.class);
+    public List<EmployeeDTO> findEmployeesInBirthRange(Date from, Date to) {
+        return mappingService.mapToCollection(employeeService.findEmployeesInBirthRange(from, to), EmployeeDTO.class);
     }
     
 }

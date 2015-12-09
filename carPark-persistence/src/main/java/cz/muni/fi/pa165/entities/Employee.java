@@ -1,18 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.entities;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -24,26 +19,30 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Employee {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @NotNull
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String name;
     
-    @Temporal(TemporalType.DATE)
     @NotNull
-    @Column(nullable=false)
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date birth;
     
-    @Column(unique=true)
+    @NotNull
+    @Column(unique = true)
     private String idCardNumber;
-    
-    @OneToMany(targetEntity=Reservation.class,mappedBy="employee")
-    List<Reservation> reservations;
-    
-    @OneToMany(targetEntity=Rental.class,mappedBy="employee")
-    List<Rental> rentals;
+
+    public Employee() {
+    }
+
+    public Employee(String name, Date birth, String idCardNumber) {
+        this.name = name;
+        this.birth = birth;
+        this.idCardNumber = idCardNumber;
+    }
 
     public String getName() {
         return name;
@@ -73,48 +72,38 @@ public class Employee {
         return birth;
     }
 
-    public List<Rental> getRentals() {
-        return rentals;
-    }
-
     public void setBirth(Date birth) {
         this.birth = birth;
     }
-    
+
     @Override
-    public boolean equals(Object obj){
-        if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Employee))
-			return false;
-		Employee second = (Employee) obj;
-                //name comparison
-		if (name == null) {
-			if (second.getName() != null)
-				return false;
-		} else if (!name.equals(second.getName()))
-			return false;
-                //birth date comparison
-                if (birth == null) {
-			if (second.getBirth()!= null)
-				return false;
-		} else if (!birth.equals(second.getBirth()))
-			return false;
-                
-		return true;
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Employee other = (Employee) obj;
+        if (!Objects.equals(this.name, other.getName())) {
+            return false;
+        }
+        if (!Objects.equals(this.birth, other.getBirth())) {
+            return false;
+        }
+        if (!Objects.equals(this.idCardNumber, other.getIdCardNumber())) {
+            return false;
+        }
+        return true;
     }
     
     @Override
-    public int hashCode(){
-        //conflict not expected -> might change in future
+    public int hashCode() {
         final int prime = 37;
-	int hash = 1;
-	hash = prime * hash + ((name == null) ? 0 : name.hashCode());
-	hash = prime * hash + ((birth == null) ? 0 : birth.hashCode());
-	return hash;
+        int hash = 1;
+        hash = prime * hash + ((name == null) ? 0 : name.hashCode());
+        hash = prime * hash + ((birth == null) ? 0 : birth.hashCode());
+        return hash;
     }
-    
-    
+
 }

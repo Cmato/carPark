@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.EmployeeDTO;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,28 +9,12 @@ import java.util.List;
  * @author xhasprun
  */
 public interface EmployeeFacade {
-    /**
-     * 
-     */
-    Long createEmployee(EmployeeDTO employee);
-
-    /**
-     * 
-     */
-    void deleteEmployee(EmployeeDTO employee);
-
-    /**
-     * 
-     */
-    EmployeeDTO findEmployeeById(Long id);
-
-    /**
-     * 
-     */
-    List<EmployeeDTO> findAllEmployees();
-    
-    /**
-     * 
-     */
-    EmployeeDTO updateEmployee(EmployeeDTO employee);
+    public Long createEmployee(EmployeeDTO employee);
+    public boolean deleteEmployee(Long id);
+    public EmployeeDTO updateEmployeeName(Long id, String newName);
+    public EmployeeDTO updateEmployeeBirth(Long id, Date newBirth);
+    public EmployeeDTO updateEmployeeIdCardNumber(Long id, String newIdCarNumber);
+    public EmployeeDTO findEmployeeById(Long id);
+    public List<EmployeeDTO> findAllEmployees();
+    public List<EmployeeDTO> findEmployeesInBirthRange(Date from, Date to);
 }

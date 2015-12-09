@@ -1,102 +1,151 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.TestHelper;
 import cz.muni.fi.pa165.daos.EmployeeDao;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
+import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.service.EmployeeService;
-import cz.muni.fi.pa165.service.config.ServiceConfiguration;
+import cz.muni.fi.pa165.service.MappingService;
+import cz.muni.fi.pa165.service.config.MappingConfiguration;
+import cz.muni.fi.pa165.utils.DateFormater;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
+import org.testng.Assert;
+import static org.testng.Assert.assertEquals;
 
 /**
  *
  * @author xhasprun
  */
-@ContextConfiguration(classes = ServiceConfiguration.class)
+@ContextConfiguration(classes = MappingConfiguration.class)
 public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests{
+    
+    @Mock
+    private EmployeeDao employeeDao;
+    
+    @Autowired
+    private EmployeeFacade employeeFacade;
     
     @Autowired
     @InjectMocks
-    EmployeeFacade employeeFacade;
-    
-    EmployeeDTO employee1;
-    EmployeeDTO employee2;
-    EmployeeDTO employee3;
-    
-    Date date1;
-    Date date2;
-    Date date3;
-    
-    @Autowired
     private EmployeeService employeeService;
     
     @Autowired
-    private EmployeeDao employeeDAO;
-    
-    private Long testId;
-    
-    @BeforeMethod
-    public void createContext() {
-        date1 = new Date(1980, 1, 1);
-        date2 = new Date(1983, 2, 2);
-        date3 = new Date(1993, 3, 3);
-        
-        employee1 = TestHelper.employeeDTO("Petr Trava", date1, "1234");
-        employee2 = TestHelper.employeeDTO("Trava Petricek", date2, "5678");
-        employee3 = TestHelper.employeeDTO("Travel Plava", date3, "9012");
-       
-    }
+    private MappingService mappingService;
+
+    private Employee ignac;
+    private EmployeeDTO ignacDTO;
+    private Employee anotherIgnac;
+    private Employee dezo;
+    private Employee baltazar;
     
     @BeforeClass
-    public void setup() throws ServiceException {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
-    }
-    
-    @Test
-    public void createEmployeeDTOTest(){
-        
-        employee1.setId(employeeFacade.createEmployee(employee1));
+
+        ignac = new Employee("Ignac", DateFormater.newDate(2000, 12, 1), "AA123456");
+        anotherIgnac = ignac;
+        ignacDTO = new EmployeeDTO(ignac.getName(), ignac.getBirth(), ignac.getIdCardNumber());
+        dezo = new Employee("Dezko", DateFormater.newDate(1996, 5, 1), "AA654321");
+        baltazar = new Employee("Baltazaris", DateFormater.newDate(1989, 8, 1), "FF789456");
     }
 
     @Test
-    public void deleteEmployeeTest() {
-        employee2.setId(employeeFacade.createEmployee(employee2));
-        employeeFacade.deleteEmployee(employee2);
+    public void testCreateEmployee() {        
+        when(employeeDao.createEmployee(any(Employee.class))).thenReturn(true);
+        when(employeeDao.findEmployeeById(any(Long.class))).thenReturn(ignac);
+        Long createdEmployeeId = employeeFacade.createEmployee(ignacDTO);       
+        assertEquals(null, createdEmployeeId);
     }
 
     @Test
-    public void findEmployeeByIdTest() {
-        employee3.setId(employeeFacade.createEmployee(employee3));
-        Assert.assertEquals(employeeFacade.findEmployeeById(employee3.getId()), employee3);
+    public void testDeleteEmployee() {        
+        when(employeeDao.deleteEmployee(any(Employee.class))).thenReturn(true);
+        when(employeeDao.findEmployeeById(any(Long.class))).thenReturn(dezo);
+        boolean expectedResult = employeeFacade.deleteEmployee(1l);
+        assertEquals(true, expectedResult);
     }
-    
-    
-    
-    private Date modifyTodaysDate(int modifyValue){
-        Date date = new Date();
-        date.setTime(date.getTime() + modifyValue);
-        return date;
+
+    @Test
+    public void testUpdateName() {
+        String expectedName = "Ignacko";
+        anotherIgnac.setName(expectedName);
+        when(employeeDao.updateEmployee(any(Employee.class))).thenReturn(anotherIgnac);
+        when(employeeDao.findEmployeeById(any(Long.class))).thenReturn(ignac);
+        EmployeeDTO updatedResult = employeeFacade.updateEmployeeName(1l, expectedName);
+        assertEquals(expectedName, updatedResult.getName());
     }
-    
-    private Date modifyTodaysDatebyDays(int days){
-        return modifyTodaysDate(days * 1000 * 60 * 60 * 24);
+
+    @Test
+    public void testUpdateEmployeeBirth() {        
+        Date expectedDate = DateFormater.newDate(1999, 12, 1);
+        anotherIgnac.setBirth(expectedDate);
+        when(employeeDao.updateEmployee(any(Employee.class))).thenReturn(anotherIgnac);
+        when(employeeDao.findEmployeeById(any(Long.class))).thenReturn(ignac);
+        EmployeeDTO updatedResult = employeeFacade.updateEmployeeBirth(1l, expectedDate);
+        assertEquals(expectedDate, updatedResult.getBirth());
+    }
+
+    @Test
+    public void testUpdateEmployeeIdCardNumber() {        
+        String expectedIdCardNumber = "BB123456";
+        anotherIgnac.setIdCardNumber(expectedIdCardNumber);
+        when(employeeDao.updateEmployee(any(Employee.class))).thenReturn(anotherIgnac);
+        when(employeeDao.findEmployeeById(any(Long.class))).thenReturn(ignac);
+        EmployeeDTO updatedResult = employeeFacade.updateEmployeeIdCardNumber(1l, expectedIdCardNumber);
+        assertEquals(expectedIdCardNumber, updatedResult.getIdCardNumber());
+    }
+
+    @Test
+    public void testGetEmployeeById() {      
+        when(employeeDao.findEmployeeById(any(Long.class))).thenReturn(anotherIgnac);
+        EmployeeDTO result = employeeFacade.findEmployeeById(1l);
+        assertEquals(mappingService.mapTo(anotherIgnac, EmployeeDTO.class), result);
+    }
+
+    @Test
+    public void testFindAllEmployees() {
+        List<Employee> expectedResult = new ArrayList<>();
+        expectedResult.add(this.ignac);
+        expectedResult.add(this.dezo);
+        expectedResult.add(this.baltazar);
+        when(employeeDao.findAllEmployees()).thenReturn(expectedResult);
+        List<EmployeeDTO> foundEmployees = employeeFacade.findAllEmployees();
+        Assert.assertEquals(expectedResult.size(), foundEmployees.size());
+        for(int i = 0; i < expectedResult.size(); i++) {
+            Assert.assertEquals(mappingService.mapTo(expectedResult.get(i), EmployeeDTO.class), foundEmployees.get(i));
+        }
+    }
+
+    @Test
+    public void testFindEmployeesInBirthRange() {        
+        List<Employee> allEmployees = new ArrayList<>();
+        allEmployees.add(this.ignac);
+        allEmployees.add(this.dezo);
+        allEmployees.add(this.baltazar);
+        List<Employee> expectedResult = new ArrayList<>();
+        expectedResult.add(this.ignac);
+        expectedResult.add(this.dezo);
+
+        Date from = DateFormater.newDate(1990, 1, 1);
+        Date to = DateFormater.newDate(2015, 1, 1);
+
+        when(employeeDao.findAllEmployees()).thenReturn(allEmployees);
+        List<EmployeeDTO> foundEmployees = employeeFacade.findEmployeesInBirthRange(from, to);
+        Assert.assertEquals(expectedResult.size(), foundEmployees.size());
+        for(int i = 0; i < expectedResult.size(); i++) {
+            Assert.assertEquals(mappingService.mapTo(expectedResult.get(i), EmployeeDTO.class), foundEmployees.get(i));
+        }
     }
 }

@@ -1,18 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.service;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import cz.muni.fi.pa165.daos.EmployeeDao;
 import cz.muni.fi.pa165.entities.Employee;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.inject.Inject;
 
 /**
  *
@@ -22,20 +16,47 @@ import java.util.Date;
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 
-    @Autowired
+    @Inject
     private EmployeeDao employeeDao;
     
     @Override
-    public Long createEmployee(Employee employee) {
-        if (employee.getBirth().after(new Date(2016,12,12))) {
-            throw new IllegalArgumentException("Employee was not even born yet !!!");
+    public Employee createEmployee(Employee employee) {
+        if(employeeDao.createEmployee(employee)) {
+            return employee;
         }
-        return employeeDao.createEmployee(employee);
+        return null;
     }
 
     @Override
-    public void deleteEmployee(Employee employee) {
-        employeeDao.deleteEmployee(employee);
+    public boolean deleteEmployee(Employee employee) {
+        return employeeDao.deleteEmployee(employee);
+    }
+
+    @Override
+    public Employee updateEmployeeName(Employee employee, String newName) {
+        if(employee != null && newName != null && !newName.isEmpty()) {
+            employee.setName(newName);
+            return employeeDao.updateEmployee(employee);
+        }
+        return null;
+    }
+
+    @Override
+    public Employee updateEmployeeBirth(Employee employee, Date newBirth) {
+        if(employee != null && newBirth != null) {
+            employee.setBirth(newBirth);
+            return employeeDao.updateEmployee(employee);
+        }
+        return null;
+    }
+
+    @Override
+    public Employee updateEmployeeIdCardNumber(Employee employee, String newIdCarNumber) {
+        if(employee != null && newIdCarNumber != null && !newIdCarNumber.isEmpty()) {
+            employee.setIdCardNumber(newIdCarNumber);
+            return employeeDao.updateEmployee(employee);
+        }
+        return null;
     }
 
     @Override
@@ -45,15 +66,25 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public List<Employee> findAllEmployees() {
-        return findAllEmployees();
-    }
-
-    @Override
-    public Employee updateEmployee(Employee employee) {
-        if (employee.getBirth().after(new Date())) {
-            throw new IllegalArgumentException("Employee was not even born yet !!!");
-        }
-        return employeeDao.updateEmployee(employee);
+        return employeeDao.findAllEmployees();
     }
     
+    @Override
+    public List<Employee> findEmployeesInBirthRange(Date from, Date to) {
+        List<Employee> result = new ArrayList<>();
+        List<Employee> allEmployees = this.findAllEmployees();
+
+        if(allEmployees.isEmpty()) {
+            return result;
+        }
+
+        for(Employee item : allEmployees) {
+            Date itemDate = item.getBirth();
+            if(itemDate.after(from) && itemDate.before(to)) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
+
 }

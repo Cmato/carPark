@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.dto;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
+import java.util.Objects;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -15,22 +12,28 @@ import java.util.List;
 public class EmployeeDTO {
     private Long id;
     
+    @NotNull
+    @Size(min = 3, max = 50)
     private String name;
     
+    @NotNull
     private Date birth;
     
+    @NotNull
+    @Size(min = 8, max = 10)
     private String idCardNumber;
     
-    List<ReservationDTO> reservations;
-    
-    List<RentalDTO> rentals;
+    public EmployeeDTO() {
+    }
+
+    public EmployeeDTO(String name, Date birth, String idCardNumber) {
+        this.name = name;
+        this.birth = birth;
+        this.idCardNumber = idCardNumber;
+    }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -57,56 +60,34 @@ public class EmployeeDTO {
         this.idCardNumber = idCardNumber;
     }
 
-    public List<ReservationDTO> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(List<ReservationDTO> reservations) {
-        this.reservations = reservations;
-    }
-
-    public List<RentalDTO> getRentals() {
-        return rentals;
-    }
-
-    public void setRentals(List<RentalDTO> rentals) {
-        this.rentals = rentals;
-    }
-    
     @Override
-    public boolean equals(Object obj){
-        if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof EmployeeDTO))
-			return false;
-		EmployeeDTO second = (EmployeeDTO) obj;
-                //name comparison
-		if (name == null) {
-			if (second.getName() != null)
-				return false;
-		} else if (!name.equals(second.getName()))
-			return false;
-                //birth date comparison
-                if (birth == null) {
-			if (second.getBirth()!= null)
-				return false;
-		} else if (!birth.equals(second.getBirth()))
-			return false;
-                
-		return true;
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EmployeeDTO other = (EmployeeDTO) obj;
+        if (!Objects.equals(this.getName(), other.getName())) {
+            return false;
+        }
+        if (!Objects.equals(this.getIdCardNumber(), other.getIdCardNumber())) {
+            return false;
+        }
+        if (!Objects.equals(this.getBirth(), other.getBirth())) {
+            return false;
+        }
+        return true;
     }
-    
+
     @Override
-    public int hashCode(){
-        //conflict not expected -> might change in future
-        final int prime = 37;
-	int hash = 1;
-	hash = prime * hash + ((name == null) ? 0 : name.hashCode());
-	hash = prime * hash + ((birth == null) ? 0 : birth.hashCode());
-	return hash;
+    public int hashCode() {
+        int hash = 5;
+        hash = 17 * hash + Objects.hashCode(getName());
+        hash = 17 * hash + Objects.hashCode(getIdCardNumber());
+        hash = 17 * hash + Objects.hashCode(getBirth());
+
+        return hash;
     }
-    
-    
 }
