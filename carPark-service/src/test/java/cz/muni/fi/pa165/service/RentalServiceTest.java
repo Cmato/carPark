@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.service;
 
-import cz.muni.fi.pa165.TestHelper;
 import cz.muni.fi.pa165.daos.RentalDao;
 import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;
@@ -9,7 +8,8 @@ import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.RentalState;
 import cz.muni.fi.pa165.enums.Transmission;
 import cz.muni.fi.pa165.exceptions.CarParkServiceException;
-import cz.muni.fi.pa165.service.config.ServiceConfiguration;
+import cz.muni.fi.pa165.service.config.MappingConfiguration;
+import cz.muni.fi.pa165.utils.DateFormater;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -33,7 +33,7 @@ import org.testng.annotations.Test;
  *
  * @author xhubeny2
  */
-@ContextConfiguration(classes = ServiceConfiguration.class)
+@ContextConfiguration(classes = MappingConfiguration.class)
 public class RentalServiceTest extends AbstractTestNGSpringContextTests {
 
     @Mock
@@ -57,16 +57,11 @@ public class RentalServiceTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void createContext() {
+        date1 = DateFormater.newDate(1950, 5, 23);
+        date2 = DateFormater.newDate(1962, 2, 8);
 
-        Calendar cal = Calendar.getInstance();
-        cal.set(1950, 5, 23);
-        date1 = cal.getTime();
-        cal.set(1962, 2, 8);
-        date2 = cal.getTime();
-        cal.set(1961, 1, 12);
-
-        car1 = TestHelper.car("Ford Mustang", "Black", Fuel.Diesel, Transmission.Automatic);
-        empl1 = TestHelper.employee("Mad Max", date1, "902154798");
+        car1 = new Car("Ford Mustang", "Black", Fuel.Diesel, Transmission.Automatic);
+        empl1 = new Employee("Mad Max", date1, "902154798");
         rental1 = new Rental(empl1, car1, date1, date2);
     }
 

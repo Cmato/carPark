@@ -7,7 +7,6 @@ import cz.muni.fi.pa165.enums.RentalState;
 import java.util.List;
 
 /**
- * Class represents basic CRUD operations with the entity rental.
  * 
  * @author xhubeny2
  */
@@ -17,7 +16,20 @@ public interface RentalDao {
      * @param rental to be inserted
      * @return ID of the new rental
      */
-    public Long create(Rental rental);
+    public Boolean create(Rental rental);
+    
+    /**
+     * Delete specific rental from the database
+     * @param rental to be deleted
+     */
+    public boolean remove(Rental rental);
+
+    /**
+     * Update specific rental in the database
+     * @param rental to be updated
+     * @return updated rental
+     */
+    public Rental update(Rental rental);
     
     /**
      * Retrieves all rental from the database
@@ -52,18 +64,5 @@ public interface RentalDao {
      * @return rental with the specific state
      */
     public List<Rental> findRentalsWithState(RentalState rentalState);
-    
-    /**
-     * Update specific rental in the database
-     * @param rental to be updated
-     * @return updated rental
-     */
-    public Rental update(Rental rental);
-    
-    /**
-     * Delete specific rental from the database
-     * @param rental to be deleted
-     */
-    public void remove(Rental rental);
        
 }

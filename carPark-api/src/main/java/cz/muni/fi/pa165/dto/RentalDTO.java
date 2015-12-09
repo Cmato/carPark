@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.dto;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
 import cz.muni.fi.pa165.enums.RentalState;
 import java.util.Date;
 
@@ -11,24 +13,38 @@ public class RentalDTO {
 
     private Long id;
 
+    @NotNull
+    @Valid
     private EmployeeDTO employee;
 
+    @NotNull
+    @Valid
     private CarDTO car;
 
+    @NotNull
     private Date startingDate;
 
+    @NotNull
     private Date estimatedReturnDate;
 
+    @NotNull
     private Date returnDate;
 
+    @NotNull
     private RentalState rentalState;
+    
+    public RentalDTO() {
+    }
+    
+    public RentalDTO(EmployeeDTO e, CarDTO c, Date startingDate, Date returnDate) {
+        this.employee = e;
+        this.car = c;
+        this.startingDate = startingDate;
+        this.returnDate = returnDate;
+    }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public EmployeeDTO getEmployee() {
@@ -88,7 +104,6 @@ public class RentalDTO {
         result = prime * result + ((employee == null) ? 0 : employee.hashCode());
         result = prime * result + ((car == null) ? 0 : car.hashCode());
         result = prime * result + ((rentalState == null) ? 0 : rentalState.hashCode());
-        //result = prime * result + car.hashCode() + employee.hashCode();
         return result;
     }
 

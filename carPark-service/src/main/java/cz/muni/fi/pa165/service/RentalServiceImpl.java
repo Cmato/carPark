@@ -32,16 +32,73 @@ public class RentalServiceImpl implements RentalService {
     private CarAvailability ca;
 
     @Override
-    public Long createRental(Rental rental) {
+    public Rental createRental(Rental rental) {
         if (!checkDates(rental.getStartingDate(), rental.getEstimatedReturnDate())) {
             throw new CarParkServiceException("The starting date is after"
                     + "estimated return date!");
         }
         //chceck active rentals and reservations
-        //CarAvailability ca = new CarAvailability();
         ca.checkRentals(rental);
         ca.checkReservations(rental);
-        return rentalDao.create(rental);
+
+        if(rentalDao.create(rental)) {
+            return rental;
+        }
+        return null;
+    }
+
+    @Override
+    public Rental updateRentalEmployee(Rental rental, Employee newEmployee) {
+        if(rental != null && newEmployee != null) {
+            rental.setEmployee(newEmployee);
+            return rentalDao.update(rental);
+        }
+        return null;
+    }
+
+    @Override
+    public Rental updateRentalCar(Rental rental, Car newCar) {
+        if(rental != null && newCar != null) {
+            rental.setCar(newCar);
+            return rentalDao.update(rental);
+        }
+        return null;
+    }
+
+    @Override
+    public Rental updateRentalStartingDate(Rental rental, Date newDate) {
+        if(rental != null && newDate != null) {
+            rental.setStartingDate(newDate);
+            return rentalDao.update(rental);
+        }
+        return null;
+    }
+
+    @Override
+    public Rental updateRentalReturnDate(Rental rental, Date newReturnDate) {
+        if(rental != null && newReturnDate != null) {
+            rental.setReturnDate(newReturnDate);
+            return rentalDao.update(rental);
+        }
+        return null;
+    }
+
+    @Override
+    public Rental updateRentalEstimatedReturnDate(Rental rental, Date newEstimatedReturnDate) {
+        if(rental != null && newEstimatedReturnDate != null) {
+            rental.setEstimatedReturnDate(newEstimatedReturnDate);
+            return rentalDao.update(rental);
+        }
+        return null;
+    }
+
+    @Override
+    public Rental updateRentalState(Rental rental, RentalState newRentalState) {
+        if(rental != null && newRentalState != null) {
+            rental.setRentalState(newRentalState);
+            return rentalDao.update(rental);
+        }
+        return null;
     }
 
     @Override
@@ -89,8 +146,8 @@ public class RentalServiceImpl implements RentalService {
     }
     
     @Override
-    public void deleteRental(Rental rental) {
-        rentalDao.remove(rental);
+    public boolean deleteRental(Rental rental) {
+        return rentalDao.remove(rental);
     }
 
     /**
@@ -121,4 +178,5 @@ public class RentalServiceImpl implements RentalService {
     private boolean checkDates(Date starting, Date ending){
         return (starting.before(ending) || starting.equals(ending));
     }
+
 }

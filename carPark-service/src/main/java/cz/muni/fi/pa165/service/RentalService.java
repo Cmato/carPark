@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Rental;
 import cz.muni.fi.pa165.enums.RentalState;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,9 +18,9 @@ public interface RentalService {
      * Create new rental.
      *
      * @param rental which is created
-     * @return ID of the new Rental
+     * @return Rental object
      */
-    Long createRental(Rental rental);
+    public Rental createRental(Rental rental);
 
     /**
      * Get all rentals belonging to the given employee.
@@ -27,7 +28,7 @@ public interface RentalService {
      * @param employee which has rentals
      * @return List of rentals
      */
-    List<Rental> getRentalsByEmployee(Employee employee);
+    public List<Rental> getRentalsByEmployee(Employee employee);
 
     /**
      * Get all rentals belonging to the given car.
@@ -35,7 +36,7 @@ public interface RentalService {
      * @param car which was rented
      * @return List of rentals
      */
-    List<Rental> getRentalsByCar(Car car);
+    public List<Rental> getRentalsByCar(Car car);
 
     /**
      * Get all rentals with the given state.
@@ -43,28 +44,28 @@ public interface RentalService {
      * @param rentalState of rentals
      * @return List of rentals
      */
-    List<Rental> getRentalsByState(RentalState rentalState);
+    public List<Rental> getRentalsByState(RentalState rentalState);
 
     /**
      * Get all rentals.
      *
      * @return List of all rentals
      */
-    List<Rental> getAllRentals();
+    public List<Rental> getAllRentals();
 
     /**
      * When employee return a car, rental state is set to finished.
      *
      * @param rental which has been finished
      */
-    void finishRental(Rental rental);
+    public void finishRental(Rental rental);
 
     /**
      * If the rental is after estimated date, then state is set to delayed.
      *
      * @param rental which is delayed
      */
-    void delayRental(Rental rental);
+    public void delayRental(Rental rental);
 
     /**
      * Find rental by ID.
@@ -72,12 +73,60 @@ public interface RentalService {
      * @param id of the rental
      * @return rental whith specific ID
      */
-    Rental getRentalById(Long id);
+    public Rental getRentalById(Long id);
     
     /**
      * Remove specific rental.
      * 
      * @param rental which is removed
      */
-    void deleteRental(Rental rental);
+    public boolean deleteRental(Rental rental);
+
+    /**
+     * Update employee of rental
+     * 
+     * @param udated rental
+     * @param new employee
+     */
+    public Rental updateRentalEmployee(Rental rental, Employee newEmployee);
+    
+    /**
+     * Update car of rental
+     * 
+     * @param updated rental
+     * @param new car
+     */
+    public Rental updateRentalCar(Rental rental, Car newCar);
+
+    /**
+     * Update starting day of rental
+     * 
+     * @param updated rental
+     * @param new starting date
+     */
+    public Rental updateRentalStartingDate(Rental rental, Date newDate);
+
+    /**
+     * Update return day of rental
+     * 
+     * @param updated rental
+     * @param new return date
+     */
+    public Rental updateRentalReturnDate(Rental rental, Date newReturnDate);
+
+    /**
+     * Update estimated renturn day of rental
+     * 
+     * @param updated rental
+     * @param new estimated return date
+     */
+    public Rental updateRentalEstimatedReturnDate(Rental rental, Date newEstimatedReturnDate);
+
+    /**
+     * Update state of rental
+     * 
+     * @param updated rental
+     * @param new rental state
+     */
+    public Rental updateRentalState(Rental rental, RentalState newRentalState);
 }

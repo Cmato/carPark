@@ -28,13 +28,11 @@ public class Rental {
     private Long id;
 
     @NotNull
-    //@ManyToOne(targetEntity = Employee.class, cascade=CascadeType.PERSIST)
     @ManyToOne(targetEntity = Employee.class)
     @JoinColumn(nullable = false)
     private Employee employee;
 
     @NotNull
-    //@ManyToOne(targetEntity = Car.class, cascade=CascadeType.PERSIST)
     @ManyToOne(targetEntity = Car.class)
     @JoinColumn(nullable = false)
     private Car car;
@@ -133,7 +131,6 @@ public class Rental {
         result = prime * result + ((employee == null) ? 0 : employee.hashCode());
         result = prime * result + ((car == null) ? 0 : car.hashCode());
         result = prime * result + ((rentalState == null) ? 0 : rentalState.hashCode());
-        //result = prime * result + car.hashCode() + employee.hashCode();
         return result;
     }
 

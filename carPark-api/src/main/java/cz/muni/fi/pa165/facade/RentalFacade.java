@@ -1,8 +1,10 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.RentalCreateDTO;
+import cz.muni.fi.pa165.dto.CarDTO;
+import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.dto.RentalDTO;
 import cz.muni.fi.pa165.enums.RentalState;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,11 +13,23 @@ import java.util.List;
  */
 public interface RentalFacade {
 
-    public RentalDTO getRentalById(Long id);
-
-    public Long createRental(RentalCreateDTO r);
+    public Long createRental(RentalDTO r);
     
-    public void deleteRental(Long id);
+    public boolean deleteRental(Long id);
+
+    public RentalDTO updateRentalEmployee(Long id, EmployeeDTO newEmployee);
+    
+    public RentalDTO updateRentalCar(Long id, CarDTO newCar);
+
+    public RentalDTO updateRentalStartingDate(Long id, Date newDate);
+
+    public RentalDTO updateRentalReturnDate(Long id, Date newReturnDate);
+
+    public RentalDTO updateRentalEstimatedReturnDate(Long id, Date newEstimatedReturnDate);
+
+    public RentalDTO updateRentalState(Long id, RentalState newRentalState);
+
+    public RentalDTO getRentalById(Long id);
 
     public void delayRental(Long id);
 
