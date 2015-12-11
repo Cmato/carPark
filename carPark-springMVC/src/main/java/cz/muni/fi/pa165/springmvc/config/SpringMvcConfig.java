@@ -65,7 +65,7 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter{
     }
     
     /**
-     * Localization.
+     * Localisation.
      * @return Message Source with texts in constant TEXTS
      */
     @Bean
