@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class RentalServiceImpl implements RentalService {
 
+    final static Logger log = LoggerFactory.getLogger(CarAvailability.class);
+    
     @Autowired
     private RentalDao rentalDao;
     
@@ -37,9 +41,12 @@ public class RentalServiceImpl implements RentalService {
             throw new CarParkServiceException("The starting date is after"
                     + "estimated return date!");
         }
-        //chceck active rentals and reservations
-        ca.checkRentals(rental);
-        ca.checkReservations(rental);
+        //chceck active rentals and reservations TODO + opravit testy
+        if (ca.checkActualCarAvailability(rental)){
+            log.error("Can't create rental because car is not available.");
+            return null;
+        }
+        //ca.checkReservations(rental);
 
         if(rentalDao.create(rental)) {
             return rental;

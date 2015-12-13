@@ -81,7 +81,7 @@ public class RentalServiceTest extends AbstractTestNGSpringContextTests {
     public void createRentalWithNotAvailableCarTest() {
         when(rental3.getStartingDate()).thenReturn(date1);
         when(rental3.getEstimatedReturnDate()).thenReturn(date2);
-        doThrow(CarParkServiceException.class).when(ca).checkRentals(rental3);
+        //doThrow(CarParkServiceException.class).when(ca).checkRentals(rental3);
         rentalService.createRental(rental3);
     }
 
