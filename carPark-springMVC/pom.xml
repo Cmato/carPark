@@ -16,6 +16,11 @@
     <name>Presentation Layer</name>
     
     <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>carPark-sampleData</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!-- servlet, JSP, JSTL -->
         <!-- must be this instead of javaee-web for the springmvc-tests to succeed -->
         <dependency>

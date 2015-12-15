@@ -13,5 +13,6 @@
         <module>carPark-api</module>
         <module>carPark-service</module>
     <module>carPark-springMVC</module>
-  </modules>
+            <module>carPark-sampleData</module>
+      </modules>
     </project>
