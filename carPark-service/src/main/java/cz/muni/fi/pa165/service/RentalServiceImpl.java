@@ -41,12 +41,11 @@ public class RentalServiceImpl implements RentalService {
             throw new CarParkServiceException("The starting date is after"
                     + "estimated return date!");
         }
-        //chceck active rentals and reservations TODO + opravit testy
+        //TODO opravit testy
         if (ca.checkActualCarAvailability(rental)){
-            log.error("Can't create rental because car is not available.");
+            log.error("Can't create rental because the car is not available.");
             return null;
         }
-        //ca.checkReservations(rental);
 
         if(rentalDao.create(rental)) {
             return rental;
@@ -110,22 +109,40 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public List<Rental> getRentalsByEmployee(Employee employee) {
-        return rentalDao.findByEmployee(employee);
+        List<Rental> rentals = rentalDao.findByEmployee(employee);
+        checkDelayedRentals(rentals);
+        return rentals;
     }
 
     @Override
     public List<Rental> getRentalsByCar(Car car) {
-        return rentalDao.findByCar(car);
+        List<Rental> rentals = rentalDao.findByCar(car);
+        checkDelayedRentals(rentals);
+        return rentals;
+        
     }
 
     @Override
     public List<Rental> getRentalsByState(RentalState rentalState) {
+        checkDelayedRentals(rentalDao.findAll());
         return rentalDao.findRentalsWithState(rentalState);
     }
 
     @Override
     public List<Rental> getAllRentals() {
-        return rentalDao.findAll();
+        List<Rental> rentals = rentalDao.findAll();
+        checkDelayedRentals(rentals);
+        return rentals;
+    }
+
+    private void checkDelayedRentals(List<Rental> rentals) {
+        for (Rental rental : rentals) {
+            if (rental.getRentalState() == RentalState.ACTIVE
+                    && Calendar.getInstance().getTime().after(rental.getEstimatedReturnDate())){
+                rental.setRentalState(RentalState.DELAYED);
+                log.warn(rental.toString() + " is delayed!");
+            }
+        }
     }
 
     @Override

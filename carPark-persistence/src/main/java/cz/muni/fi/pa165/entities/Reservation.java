@@ -59,7 +59,7 @@ public class Reservation {
 		this.car = car;
 		this.startingDate = startingDate;
 		this.endingDate = endingDate;
-		this.reservationState = ReservationState.NEW;
+		this.reservationState = ReservationState.ACTIVE;
 	}
 
 	public Long getId() {

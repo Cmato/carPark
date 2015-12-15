@@ -6,5 +6,5 @@ package cz.muni.fi.pa165.enums;
 */
 
 public enum ReservationState {
-	NEW, ACCEPTED, DENIED, CANCELLED, DONE, REMOVED
+	ACTIVE, CANCELLED
 }

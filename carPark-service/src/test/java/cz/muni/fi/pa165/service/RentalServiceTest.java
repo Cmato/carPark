@@ -77,12 +77,12 @@ public class RentalServiceTest extends AbstractTestNGSpringContextTests {
         rentalService.createRental(rental3);
     }
 
-    @Test(expectedExceptions = CarParkServiceException.class)
+    @Test
     public void createRentalWithNotAvailableCarTest() {
         when(rental3.getStartingDate()).thenReturn(date1);
         when(rental3.getEstimatedReturnDate()).thenReturn(date2);
         //doThrow(CarParkServiceException.class).when(ca).checkRentals(rental3);
-        rentalService.createRental(rental3);
+        Assert.assertNull(rentalService.createRental(rental3));
     }
 
     @Test
