@@ -19,33 +19,57 @@
     </div>
     
     <div class="padd row">
-        <table class="table">
-        <thead>
-        <tr>
-            <th><fmt:message key="example.name"/></th>
-            <th><fmt:message key="example.color"/></th>
-            <th><fmt:message key="example.transmission"/></th>
-            <th><fmt:message key="example.fuel"/></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${allCars}" var="car">
-            <tr>
-                <td><c:out value="${car.name}"/></td>
-                <td><c:out value="${car.color}"/></td>
-                <td><c:out value="${car.transmission}"/></td>
-                <td><c:out value="${car.fuel}"/></td>
-                <td>
-                    <form method="get" action="${pageContext.request.contextPath}/car/detail/${car.id}">
-                    <button type="submit" class="btn btn-primary"><fmt:message key="example.view"/></button>
-                    </form>
-                </td>
-            </tr>
-        </c:forEach>
-           
-        </tbody>
-    </table>
+        
+        <div class="col-md-12">
+            
+            <div class="box">
+                
+                <div class="box-header with-border">
+                    <h3 class="box-title"><fmt:message key="example.allCars"/></h3>
+                </div>
+                
+                <!-- /.box-header -->
+                <div class="box-body">
+                  
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th><fmt:message key="example.name"/></th>
+                                <th><fmt:message key="example.color"/></th>
+                                <th><fmt:message key="example.transmission"/></th>
+                                <th><fmt:message key="example.fuel"/></th>
+                                <th></th>
+                            </tr>
+                            <c:forEach items="${allCars}" var="car">
+                                <tr>
+                                    <td><c:out value="${car.name}"/></td>
+                                    <td><c:out value="${car.color}"/></td>
+                                    <td><c:out value="${car.transmission}"/></td>
+                                    <td><c:out value="${car.fuel}"/></td>
+                                    <td>
+                                        <form method="get" action="${pageContext.request.contextPath}/car/detail/${car.id}">
+                                        <button type="submit" class="btn btn-primary"><fmt:message key="example.view"/></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                      </tbody>
+                      
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="#">«</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+            </div>
+                                
+        </div>
     </div>
 
 </jsp:attribute>
