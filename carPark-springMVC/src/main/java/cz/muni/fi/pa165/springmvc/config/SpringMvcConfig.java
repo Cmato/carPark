@@ -26,7 +26,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @Configuration
 @Import({CarParkWithSampleDataConfiguration.class})
-@ComponentScan(basePackages = "cz.muni.fi.pa165.controllers")
+@ComponentScan(basePackages = "cz.muni.fi.pa165.springmvc.controllers")
 public class SpringMvcConfig extends WebMvcConfigurerAdapter{
     
     public final static Logger log = LoggerFactory.getLogger(SpringMvcConfig.class);
@@ -40,7 +40,8 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter{
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
         log.debug("Mapping url \'/\' to home view.");
-        registry.addViewController("/").setViewName("home");
+        registry.addViewController("/").setViewName("home/home");
+        //registry.addViewController("/car").setViewName("car/index");
     }
     
     /**
