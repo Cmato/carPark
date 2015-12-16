@@ -22,7 +22,7 @@ public class RentalController {
     @Autowired
     private RentalFacade rentalFacade;
     
-    @RequestMapping(value = "/rental", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("rentals", rentalFacade.getAllRentals());
         return "rental/list";
