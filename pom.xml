@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                           http://maven.apache.org/xsd/maven-4.0.0.xsd">
-      <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
      
-      <groupId>cz.muni.fi.pa165</groupId>
-      <artifactId>carPark-parent</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <packaging>pom</packaging>
-      <name>CarPark Parent</name>
+    <groupId>cz.muni.fi.pa165</groupId>
+    <artifactId>carPark-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>CarPark Parent</name>
       
-      <modules>
+    <modules>
         <module>carPark-persistence</module>
         <module>carPark-api</module>
         <module>carPark-service</module>
-    <module>carPark-springMVC</module>
-            <module>carPark-sampleData</module>
-      </modules>
-    </project>
+        <module>carPark-springMVC</module>
+        
+        <module>carPark-sampleData</module>
+    </modules>
+</project>

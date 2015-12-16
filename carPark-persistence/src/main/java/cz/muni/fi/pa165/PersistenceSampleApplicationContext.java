@@ -17,11 +17,16 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import cz.muni.fi.pa165.daos.CarDao;
+import cz.muni.fi.pa165.daos.EmployeeDao;
+import cz.muni.fi.pa165.daos.RentalDao;
+import cz.muni.fi.pa165.daos.ReservationDao;
+
 
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan("cz.muni.fi.pa165")
+@ComponentScan(basePackageClasses = {CarDao.class, EmployeeDao.class, RentalDao.class, ReservationDao.class})
 public class PersistenceSampleApplicationContext {
 	
 	@Bean 

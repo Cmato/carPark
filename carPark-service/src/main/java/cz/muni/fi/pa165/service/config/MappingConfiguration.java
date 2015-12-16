@@ -22,17 +22,15 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @Configuration
 @Import(PersistenceSampleApplicationContext.class)
-@ComponentScan(basePackageClasses={CarServiceImpl.class, CarFacadeImpl.class, 
-    EmployeeServiceImpl.class, EmployeeFacadeImpl.class, 
-    RentalServiceImpl.class, RentalFacadeImpl.class,
-    ReservationServiceImpl.class, ReservationFacadeImpl.class
-})
+@ComponentScan(basePackageClasses = { CarServiceImpl.class, CarFacadeImpl.class, EmployeeServiceImpl.class,
+        EmployeeFacadeImpl.class, RentalServiceImpl.class, RentalFacadeImpl.class, ReservationServiceImpl.class,
+        ReservationFacadeImpl.class })
 public class MappingConfiguration {
-    
+
     @Bean
     public Mapper dozer() {
         DozerBeanMapper mapper = new DozerBeanMapper();
         mapper.addMapping(new EntityDTOMapping());
         return mapper;
-    }  
+    }
 }
