@@ -98,29 +98,16 @@ public class ReservationServiceTest extends AbstractTestNGSpringContextTests{
     @Test
     public void getReservationsByStateTest() {
         when(reservationDao.findByState(any(ReservationState.class))).thenReturn(Collections.singletonList(res));
-        List<Reservation> list = reservationService.getReservationsByState(ReservationState.NEW);
+        List<Reservation> list = reservationService.getReservationsByState(ReservationState.ACTIVE);
         Assert.assertEquals(list.size(), 1);
-        Assert.assertEquals(list.get(0).getReservationState(), ReservationState.NEW);
+        Assert.assertEquals(list.get(0).getReservationState(), ReservationState.ACTIVE);
     }
     
     @Test
     public void tryAllReservationStatesTest() {
-    	Assert.assertEquals(res.getReservationState(), ReservationState.NEW);
-    	
-    	reservationService.acceptReservation(res);
-        Assert.assertEquals(res.getReservationState(), ReservationState.ACCEPTED);
-        
-        reservationService.denyReservation(res);
-        Assert.assertEquals(res.getReservationState(), ReservationState.DENIED);
-        
-        reservationService.completeReservation(res);
-        Assert.assertEquals(res.getReservationState(), ReservationState.DONE);
+    	Assert.assertEquals(res.getReservationState(), ReservationState.ACTIVE);
         
         reservationService.cancelReservation(res);
         Assert.assertEquals(res.getReservationState(), ReservationState.CANCELLED);
-        
-        reservationService.removeReservation(res);
-        Assert.assertEquals(res.getReservationState(), ReservationState.REMOVED);
-
     }
 }

@@ -79,33 +79,9 @@ public class ReservationFacadeImpl implements ReservationFacade {
 	}
 
 	@Override
-	public void acceptReservation(Long id) {
-		reservationService.getReservationById(id).setReservationState(ReservationState.ACCEPTED);
-		
-	}
-
-	@Override
-	public void denyReservation(Long id) {
-		reservationService.getReservationById(id).setReservationState(ReservationState.DENIED);
-		
-	}
-
-	@Override
 	public void cancelReservation(Long id) {
 		reservationService.getReservationById(id).setReservationState(ReservationState.CANCELLED);
 		
-	}
-
-	@Override
-	public void doneReservation(Long id) {
-		reservationService.getReservationById(id).setReservationState(ReservationState.DONE);
-		
-	}
-
-	@Override
-	public boolean removeReservation(Long id) {
-		reservationService.getReservationById(id).setReservationState(ReservationState.REMOVED);
-		return true;
 	}
 
 	@Override

@@ -64,39 +64,11 @@ public interface ReservationService {
     public Reservation getReservationById(Long id);
     
     /**
-     * When reservation is accepted and valid state is accepted
-     *
-     * @param reservation which has been accepted
-     */
-    public void acceptReservation(Reservation reservation);
-
-    /**
-     * When reservation is denied for some reason - state is denied
-     *
-     * @param reservation which is denied
-     */
-    public void denyReservation(Reservation reservation);
-    
-    /**
      * When reservation is cancelled by applicant - state is set to cancelled
      *
      * @param reservation which is cancelled
      */
     public void cancelReservation(Reservation reservation);
-    
-    /**
-     * When reservation time is here it is moved to reservation - state is set to done
-     *
-     * @param reservation which is done
-     */
-    public void completeReservation(Reservation reservation);
-    
-    /**
-     * Set reservation as removed. It can be done by applicant or master - none reservation will be never deleted definitely
-     * 
-     * @param reservation which will be set as removed
-     */
-    public boolean removeReservation(Reservation reservation);
 
     /**
      * Update employee of reservation

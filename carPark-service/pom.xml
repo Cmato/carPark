@@ -8,9 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>cz.muni.fi.pa165</groupId>
     <artifactId>carPark-service</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     
     <name>Service-layer</name>

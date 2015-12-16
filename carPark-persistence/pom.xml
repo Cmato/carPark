@@ -8,14 +8,10 @@
 	<version>1.0-SNAPSHOT</version>
     </parent>
     
-    
-    <groupId>cz.muni.fi.pa165</groupId>
     <artifactId>carPark-persistence</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
     
     <name>DAO Layer</name>
-
 
     <dependencies>
         <dependency>

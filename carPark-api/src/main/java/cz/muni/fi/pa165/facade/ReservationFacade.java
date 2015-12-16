@@ -17,7 +17,7 @@ public interface ReservationFacade {
 
     public Long createReservation(ReservationDTO r);
 
-    public boolean removeReservation(Long id);
+    //public boolean removeReservation(Long id);
 	
 	public ReservationDTO getReservationById(Long id);
 
@@ -31,13 +31,7 @@ public interface ReservationFacade {
 
     public ReservationDTO updateReservationState(Long id, ReservationState newState);
     
-    public void acceptReservation(Long id);
-
-    public void denyReservation(Long id);
-    
     public void cancelReservation(Long id);
-    
-    public void doneReservation(Long id);
 
     public List<ReservationDTO> getAllReservations();
 

@@ -43,7 +43,6 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
     
     final static Logger log = LoggerFactory.getLogger(SampleDataLoadingFacadeImpl.class);
     
-    @Override
     public void loadData() {
         Employee han = employee("Han Solo", "1970MF", toDate(1968, 3, 15));
         Employee luke = employee("Luke Skywalker", "4455TT", toDate(1970, 10, 20));

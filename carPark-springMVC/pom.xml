@@ -8,9 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>cz.muni.fi.pa165</groupId>
     <artifactId>carPark-springMVC</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>Presentation Layer</name>

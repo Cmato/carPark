@@ -4,6 +4,7 @@ package cz.muni.fi.pa165.exceptions;
  *
  * @author xhubeny2
  */
+@SuppressWarnings("serial")
 public class CarParkServiceException extends RuntimeException{
    
     public CarParkServiceException() {
