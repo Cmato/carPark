@@ -76,14 +76,14 @@
                 <!-- Menu Toggle Button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <!-- The user image in the navbar-->
-                  <img src="${pageContext.request.contextPath}/user2-128x128.png" class="user-image" alt="User Image">
+                  <img src="${pageContext.request.contextPath}/static/dist/img/user2-128x128.png" class="user-image" alt="User Image">
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
                   <span class="hidden-xs">Alexander Pierce</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- The user image in the menu -->
                   <li class="user-header">
-                    <img src="${pageContext.request.contextPath}/user2-128x128.png" class="img-circle" alt="User Image">
+                    <img src="${pageContext.request.contextPath}/static/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
                     <p>
                       Alexander Pierce - Web Developer
                       <small>Member since Nov. 2012</small>
@@ -113,7 +113,7 @@
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="${pageContext.request.contextPath}/user2-128x128.png" class="img-circle" alt="User Image">
+              <img src="${pageContext.request.contextPath}/static/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
               <p>Alexander Pierce</p>
@@ -128,9 +128,9 @@
             <!-- Optionally, you can add icons to the links -->
             <li id="dashboardMenuItem" class="active"><a href="${pageContext.request.contextPath}"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
             <li id="carMenuItem"><a href="${pageContext.request.contextPath}/car/list"><i class="fa fa-automobile"></i> <span>Cars</span></a></li>
-            <li id="employeeMenuItem"><a href="#"><i class="fa fa-user" style="margin-right: -1px; margin-left: 1px;"></i> <span>Employees</span></a></li>
+            <li id="employeeMenuItem"><a href="${pageContext.request.contextPath}/employee/list"><i class="fa fa-user" style="margin-right: -1px; margin-left: 1px;"></i> <span>Employees</span></a></li>
             <li id="reservationMenuItem"><a href="#"><i class="fa fa-calendar-o"></i> <span>Reservations</span></a></li>
-            <li id="rentalMenuItem"><a href="#"><i class="fa fa-calendar-check-o"></i> <span>Rentals</span></a></li>
+            <li id="rentalMenuItem"><a href="${pageContext.request.contextPath}/rental/list"><i class="fa fa-calendar-check-o"></i> <span>Rentals</span></a></li>
           </ul><!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->

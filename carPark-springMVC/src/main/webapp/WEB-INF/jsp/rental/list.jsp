@@ -7,37 +7,67 @@
 
 <own:masterpage title="Rentals">
 <jsp:attribute name="body">
-
-    <div class="jumbotron">
-        <h1><fmt:message key="rental.rentals"/></h1>
-    </div>
     
-    <div class="padd row">
-        <table class="table">
-        <thead>
-        <tr>
-            <th><fmt:message key="rental.id"/></th>
-            <th><fmt:message key="rental.employee"/></th>
-            <th><fmt:message key="rental.car"/></th>
-            <th><fmt:message key="rental.from"/></th>
-            <th><fmt:message key="rental.to"/></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${rentals}" var="rental">
-            <tr>
-                <td><c:out value="${rental.id}"/></td>
-                <td><c:out value="${rental.employee}"/></td>
-                <td><c:out value="${rental.car}"/></td>
-                <td><fmt:formatDate value="${rental.from}" pattern="yyyy-MM-dd"/></td>
-                <td><fmt:formatDate value="${rental.to}" pattern="yyyy-MM-dd"/></td>
-            </tr>
-        </c:forEach>
-           
-        </tbody>
-    </table>
-    </div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Rentals
+        <small>Administration of rentals</small>
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">All rentals in system</h3>
+
+              <div class="box-tools">
+                <div class="input-group input-group-sm right" style="width: 48px;">
+                  <button type="button" class="btn btn-info btn-flat" title="Add Rental"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tbody><tr>
+                  <th>ID</th>
+                  <th>Starting Date</th>
+                  <th>Estimated return Date</th>
+                  <th>Return Date</th>
+                  <th>Employee</th>
+                  <th>Car</th>
+                  <th>State</th>
+                  <th>Actions</th>
+                </tr>
+                <c:forEach items="${rentals}" var="rental">
+                    <tr>
+                        <td><c:out value="${rental.id}"/>.</td>
+                        <td><c:out value="${rental.startingDate}"/></td>
+                        <td><fmt:formatDate value="${rental.estimatedReturnDate}"/></td>
+                        <td><fmt:formatDate value="${rental.returnDate}" pattern="yyyy-MM-dd"/></td>
+                        <td><a href="#"><c:out value="${rental.employee.getName()}"/></a></td>
+                        <td><a href="#"><c:out value="${rental.car.getName()}"/></a></td>
+                        <td><c:out value="${rental.rentalState}"/></td>
+                        <td class="actions">
+                          <div class="center">
+                            <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                          </div>
+                        </td>
+                    </tr>
+                </c:forEach>
+              </tbody></table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+    </section><!-- /.content -->
 
 </jsp:attribute>
 </own:masterpage>   

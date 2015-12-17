@@ -53,7 +53,7 @@
             <div class="icon">
               <i class="fa fa-user"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="${pageContext.request.contextPath}/employee/list" class="small-box-footer">
               More info <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -91,7 +91,7 @@
             <div class="icon">
               <i class="fa fa-calendar-check-o"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="${pageContext.request.contextPath}/rental/list" class="small-box-footer">
               More info <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
