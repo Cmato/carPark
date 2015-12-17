@@ -46,6 +46,9 @@
       }
     </style>
     
+    <!-- jQuery 2.1.4 -->
+    <script src="${pageContext.request.contextPath}/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    
     <jsp:invoke fragment="head"/>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -156,9 +159,7 @@
     </div><!-- ./wrapper -->
 
     <!-- REQUIRED JS SCRIPTS -->
-
-    <!-- jQuery 2.1.4 -->
-    <script src="${pageContext.request.contextPath}/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    
     <!-- Bootstrap 3.3.5 -->
     <script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
