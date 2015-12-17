@@ -13,40 +13,131 @@
 
 <own:masterpage>
 <jsp:attribute name="body">
-
-    <div class="jumbotron">
-        <h1><fmt:message key="example.allCars"/></h1>
-    </div>
     
-    <div class="padd row">
-        <table class="table">
-        <thead>
-        <tr>
-            <th><fmt:message key="example.name"/></th>
-            <th><fmt:message key="example.color"/></th>
-            <th><fmt:message key="example.transmission"/></th>
-            <th><fmt:message key="example.fuel"/></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${allCars}" var="car">
-            <tr>
-                <td><c:out value="${car.name}"/></td>
-                <td><c:out value="${car.color}"/></td>
-                <td><c:out value="${car.transmission}"/></td>
-                <td><c:out value="${car.fuel}"/></td>
-                <td>
-                    <form method="get" action="${pageContext.request.contextPath}/car/detail/${car.id}">
-                    <button type="submit" class="btn btn-primary"><fmt:message key="example.view"/></button>
-                    </form>
-                </td>
-            </tr>
-        </c:forEach>
-           
-        </tbody>
-    </table>
-    </div>
+    
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Cars
+        <small>Administration of cars</small>
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">All cars in system</h3>
+
+              <div class="box-tools">
+                <div class="input-group input-group-sm right" style="width: 48px;">
+                  <button type="button" class="btn btn-info btn-flat" title="Add Car"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tbody><tr>
+                  <th>ID</th>
+                  <th><fmt:message key="example.name"/></th>
+                  <th><fmt:message key="example.transmission"/></th>
+                  <th><fmt:message key="example.fuel"/></th>
+                  <th><fmt:message key="example.color"/></th>
+                  <th>Actions</th>
+                </tr>
+                <c:forEach items="${allCars}" var="car">
+                    <tr>
+                        <td><c:out value="${car.id}"/>.</td>
+                        <td><c:out value="${car.name}"/></td>
+                        <td><c:out value="${car.transmission}"/></td>
+                        <td><c:out value="${car.fuel}"/></td>
+                        <td><c:out value="${car.color}"/></td>
+                        <td class="actions">
+                          <div class="center">
+                            <a href="${pageContext.request.contextPath}/car/detail/${car.id}" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                          </div>
+                        </td>
+                    </tr>
+                </c:forEach>
+                
+                
+                <tr>
+                  <td>1.</td>
+                  <td>BMW 3M</td>
+                  <td>Manual</td>
+                  <td>Petrol</td>
+                  <td>Blue M Color</td>
+                  <td class="actions">
+                    <div class="center">
+                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
+                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2.</td>
+                  <td>BMW 3M</td>
+                  <td>Manual</td>
+                  <td>Petrol</td>
+                  <td>Blue M Color</td>
+                  <td class="actions">
+                    <div class="center">
+                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
+                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3.</td>
+                  <td>BMW 3M</td>
+                  <td>Manual</td>
+                  <td>Petrol</td>
+                  <td>Blue M Color</td>
+                  <td class="actions">
+                   <div class="center">
+                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
+                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>4.</td>
+                  <td>BMW 3M</td>
+                  <td>Manual</td>
+                  <td>Petrol</td>
+                  <td>Blue M Color</td>
+                  <td class="actions">
+                    <div class="center">
+                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
+                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>5.</td>
+                  <td>BMW 3M</td>
+                  <td>Manual</td>
+                  <td>Petrol</td>
+                  <td>Blue M Color</td>
+                  <td class="actions">
+                    <div class="center">
+                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
+                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody></table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+    </section><!-- /.content -->
 
 </jsp:attribute>
 </own:masterpage>

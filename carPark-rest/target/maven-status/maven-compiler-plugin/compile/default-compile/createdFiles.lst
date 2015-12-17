@@ -1,0 +1,6 @@
+cz/muni/fi/pa165/rest/ApiUris.class
+cz/muni/fi/pa165/rest/exceptions/ResourceNotFoundException.class
+cz/muni/fi/pa165/RootWebContext.class
+cz/muni/fi/pa165/Initializer.class
+cz/muni/fi/pa165/AllowOriginInterceptor.class
+cz/muni/fi/pa165/rest/controllers/EmployeesController.class

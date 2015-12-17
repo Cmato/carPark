@@ -1,0 +1,6 @@
+/home/xcmarko/java3/carPark/carPark-rest/src/main/java/cz/muni/fi/pa165/rest/ApiUris.java
+/home/xcmarko/java3/carPark/carPark-rest/src/main/java/cz/muni/fi/pa165/Initializer.java
+/home/xcmarko/java3/carPark/carPark-rest/src/main/java/cz/muni/fi/pa165/RootWebContext.java
+/home/xcmarko/java3/carPark/carPark-rest/src/main/java/cz/muni/fi/pa165/rest/exceptions/ResourceNotFoundException.java
+/home/xcmarko/java3/carPark/carPark-rest/src/main/java/cz/muni/fi/pa165/AllowOriginInterceptor.java
+/home/xcmarko/java3/carPark/carPark-rest/src/main/java/cz/muni/fi/pa165/rest/controllers/EmployeesController.java

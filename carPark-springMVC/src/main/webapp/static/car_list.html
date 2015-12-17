@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Car Park | Car Administration</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+
+    <style>
+      .center {
+        margin: auto;
+        width: 90%;
+        padding: 1px;
+      }
+
+      .actions {
+        width: 70px;
+      }
+
+      .actions a {
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+
+      <!-- Main Header -->
+      <header class="main-header">
+
+        <!-- Logo -->
+        <a href="index2.html" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini"><b>A</b>LT</span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>CarPark</b></span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+          <!-- Navbar Right Menu -->
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <!-- User Account Menu -->
+              <li class="dropdown user user-menu">
+                <!-- Menu Toggle Button -->
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <!-- The user image in the navbar-->
+                  <img src="dist/img/user2-128x128.png" class="user-image" alt="User Image">
+                  <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                  <span class="hidden-xs">Alexander Pierce</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- The user image in the menu -->
+                  <li class="user-header">
+                    <img src="dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+                    <p>
+                      Alexander Pierce - Web Developer
+                      <small>Member since Nov. 2012</small>
+                    </p>
+                  </li>
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="#" class="btn btn-default btn-flat">Profile</a>
+                    </div>
+                    <div class="pull-right">
+                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+              <p>Alexander Pierce</p>
+              <!-- Status -->
+              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+          </div>
+
+          <!-- Sidebar Menu -->
+          <ul class="sidebar-menu">
+            <li class="header">Car Park administration</li>
+            <!-- Optionally, you can add icons to the links -->
+            <li class="active"><a href="#"><i class="fa fa-automobile"></i> <span>Cars</span></a></li>
+            <li><a href="#"><i class="fa fa-user" style="margin-right: -1px; margin-left: 1px;"></i> <span>Employees</span></a></li>
+            <li><a href="#"><i class="fa fa-calendar-o"></i> <span>Reservations</span></a></li>
+            <li><a href="#"><i class="fa fa-calendar-check-o"></i> <span>Rentals</span></a></li>
+          </ul><!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Cars
+            <small>Administration of cars</small>
+          </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">All cars in system</h3>
+
+                  <div class="box-tools">
+                    <div class="input-group input-group-sm right" style="width: 48px;">
+                      <button type="button" class="btn btn-info btn-flat" title="Add Car"><span class="glyphicon glyphicon-plus"></span></button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tbody><tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Transmission</th>
+                      <th>Fuel</th>
+                      <th>Color</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr>
+                      <td>1.</td>
+                      <td>BMW 3M</td>
+                      <td>Manual</td>
+                      <td>Petrol</td>
+                      <td>Blue M Color</td>
+                      <td class="actions">
+                        <div class="center">
+                          <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
+                          <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2.</td>
+                      <td>BMW 3M</td>
+                      <td>Manual</td>
+                      <td>Petrol</td>
+                      <td>Blue M Color</td>
+                      <td class="actions">
+                        <div class="center">
+                          <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
+                          <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>3.</td>
+                      <td>BMW 3M</td>
+                      <td>Manual</td>
+                      <td>Petrol</td>
+                      <td>Blue M Color</td>
+                      <td class="actions">
+                       <div class="center">
+                          <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
+                          <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>4.</td>
+                      <td>BMW 3M</td>
+                      <td>Manual</td>
+                      <td>Petrol</td>
+                      <td>Blue M Color</td>
+                      <td class="actions">
+                        <div class="center">
+                          <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
+                          <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>5.</td>
+                      <td>BMW 3M</td>
+                      <td>Manual</td>
+                      <td>Petrol</td>
+                      <td>Blue M Color</td>
+                      <td class="actions">
+                        <div class="center">
+                          <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
+                          <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody></table>
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!-- /.box -->
+            </div>
+          </div>
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- Main Footer -->
+      <footer class="main-footer">
+
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">
+          <a href="https://www.fi.muni.cz" target="_blank">Faculty of Informatics Masaryk University</a>
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2015 <a href="https://github.com/Cmato/carPark">PA165 Dream Team No. 1</a>.</strong> All rights reserved.
+
+      </footer>
+
+    </div><!-- ./wrapper -->
+
+    <!-- REQUIRED JS SCRIPTS -->
+
+    <!-- jQuery 2.1.4 -->
+    <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/app.min.js"></script>
+
+    <!-- Optionally, you can add Slimscroll and FastClick plugins.
+         Both of these plugins are recommended to enhance the
+         user experience. Slimscroll is required when using the
+         fixed layout. -->
+  </body>
+</html>

@@ -36,7 +36,7 @@ public class StartInitializer extends AbstractAnnotationConfigDispatcherServletI
      */
     @Override
     protected String[] getServletMappings() {
-        return new String[]{"/"};
+        return new String[]{"/", "/static/*"};
     }
     
     /**
