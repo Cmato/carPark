@@ -67,6 +67,6 @@
         <module>carPark-service</module>
         <module>carPark-springMVC</module>
         <module>carPark-sampleData</module>
-	<module>carPark-rest</module>
+        <module>carPark-rest</module>
     </modules>
 </project>
