@@ -58,8 +58,12 @@
                         <td><c:out value="${reservation.resevationState}"/></td>
                         <td class="actions">
                           <div class="center">
-                            <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
-                            <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a href="#" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a href="#" title="Remove" class="removeItem">
+                                <span class="glyphicon glyphicon-trash"></span>
+                                <form method="post" action="" style="display: none;">
+                                </form>
+                            </a>
                           </div>
                         </td>
                     </tr>
