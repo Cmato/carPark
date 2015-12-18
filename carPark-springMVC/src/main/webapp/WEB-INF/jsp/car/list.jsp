@@ -33,7 +33,9 @@
 
               <div class="box-tools">
                 <div class="input-group input-group-sm right" style="width: 48px;">
-                  <button type="button" class="btn btn-info btn-flat" title="Add Car"><span class="glyphicon glyphicon-plus"></span></button>
+                  <a href="${pageContext.request.contextPath}/car/detail/">
+                    <button type="button" class="btn btn-info btn-flat" title="Add Car"><span class="glyphicon glyphicon-plus"></span></button>
+                  </a>
                 </div>
               </div>
             </div>

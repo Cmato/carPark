@@ -34,31 +34,29 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form">
+                <form:form method="post" action="${pageContext.request.contextPath}/car/create" modelAttribute="car">
                   <div class="box-body">
                     <div class="form-group">
-                      <label for="carName">Name</label>
-                      <input type="text" class="form-control" id="carName" value="${car.name}" placeholder="Enter car name">
+                      <form:hidden path="id" cssClass="form-control" />
                     </div>
                     <div class="form-group">
-                      <label>Transmission</label>
-                      <select class="form-control">
-                        <option value="Automatic">Automatic</option>
-                        <option value="Mnual">Manual</option>
-                      </select>
+                      <form:label path="name">Name</form:label>
+                      <form:input path="name" cssClass="form-control" placeholder="Enter car name" />
+                      <form:errors path="name" cssClass="help-block"/>
                     </div>
                     <div class="form-group">
-                      <label>Fuel</label>
-                      <select class="form-control">
-                        <option value="Petrol">Petrol</option>
-                        <option value="Diesel">Diesel</option>
-                      </select>
+                      <form:label path="transmission">Transmission</form:label>
+                      <form:select path="transmission" cssClass="form-control" items="${transmissions}" />
                     </div>
                     <div class="form-group">
-                      <label>Color picker with addon:</label>
+                      <form:label path="fuel">Fuel</form:label>
+                      <form:select path="fuel" cssClass="form-control" items="${fuels}" />
+                    </div>
+                    <div class="form-group">
+                      <form:label path="color">Color</form:label>
 
                       <div class="input-group my-colorpicker2 colorpicker-element">
-                        <input type="text" id="carColor" value="${car.color}" class="form-control">
+                        <form:input path="color" cssClass="form-control" />
 
                         <div class="input-group-addon">
                           <i style="background-color: rgb(0, 0, 0);"></i>
@@ -72,7 +70,7 @@
                   <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </div>
-                </form>
+                </form:form>
               </div>
              
             </div>
