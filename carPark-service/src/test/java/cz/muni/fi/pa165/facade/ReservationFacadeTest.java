@@ -86,7 +86,7 @@ public class ReservationFacadeTest extends AbstractTestNGSpringContextTests{
         MockitoAnnotations.initMocks(this);
     }
     
-    @Test
+    /*@Test
     @DirtiesContext
     public void createAndGetAllReservationTest(){
     	lastResId = facade.createReservation(crDTO);
@@ -120,5 +120,5 @@ public class ReservationFacadeTest extends AbstractTestNGSpringContextTests{
     	lastResId = facade.createReservation(crDTO);
     	facade.cancelReservation(lastResId);
     	Assert.assertEquals(facade.getReservationsByState(ReservationState.CANCELLED).size(),1);
-    }
+    }*/
 }
