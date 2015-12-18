@@ -44,6 +44,12 @@
       .actions a {
         margin-right: 5px;
       }
+      
+      .alertCallout {
+          padding-top: 20px;
+          margin-left: 14px;
+          margin-bottom: -10px;
+      }
     </style>
     
     <!-- jQuery 2.1.4 -->
@@ -141,6 +147,39 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
+        <c:if test="${not empty alert_info}">
+          <div class="alertCallout">
+          <div class="callout callout-info">
+            <h4>Info</h4>
+            <c:out value="${alert_info}"/>
+          </div>
+          </div>
+        </c:if>
+        <c:if test="${not empty alert_success}">
+          <div class="alertCallout">
+          <div class="callout callout-success">
+            <h4>Success!</h4>
+            <c:out value="${alert_success}"/>
+          </div>
+          </div>
+        </c:if>
+        <c:if test="${not empty alert_warning}">
+          <div class="alertCallout">
+          <div class="callout callout-warning">
+            <h4>Warning!</h4>
+            <c:out value="${alert_warning}"/>
+          </div>
+          </div>
+        </c:if>
+        <c:if test="${not empty alert_error}">
+          <div class="alertCallout">
+            <div class="callout callout-danger">
+              <h4>Error!</h4>
+              <c:out value="${alert_error}"/>
+            </div>
+          </div>
+        </c:if>
+          
         <jsp:invoke fragment="body"/>
       </div><!-- /.content-wrapper -->
 
@@ -192,6 +231,10 @@
 
       $(document).ready(function() {
         setActiveMenu();
+        
+        if($(".callout").length > 0) {
+            setTimeout(function(){ $(".callout").fadeOut(400); }, 3000);
+        }
       });
     </script>
   </body>
