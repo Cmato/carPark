@@ -19,7 +19,7 @@ public class DateFormater {
 	 * @return string date dd-mm-yyyy
 	 */
 	public static String format(Date date){
-		SimpleDateFormat dt = new SimpleDateFormat("dd-mm-yyyy");
+		SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
 		return dt.format(date);
 	}
 	

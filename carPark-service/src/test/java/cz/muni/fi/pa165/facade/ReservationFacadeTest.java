@@ -70,8 +70,8 @@ public class ReservationFacadeTest extends AbstractTestNGSpringContextTests{
     @BeforeMethod
     public void createContext() {
 
-        date1 = DateFormater.newDate(1990, 12, 10);
-        date2 = DateFormater.newDate(2000, 1, 1);
+        date1 = DateFormater.newDate(1990, 11, 10);
+        date2 = DateFormater.newDate(2000, 3, 1);
 
         carDao.createCar(new Car("Schoda Henlein", "White", Fuel.Petrol, Transmission.Manual));
         emplDao.createEmployee(new Employee("Petr Ctvrtnicek", date1, "123456789"));
@@ -86,7 +86,7 @@ public class ReservationFacadeTest extends AbstractTestNGSpringContextTests{
         MockitoAnnotations.initMocks(this);
     }
     
-    /*@Test
+    @Test
     @DirtiesContext
     public void createAndGetAllReservationTest(){
     	lastResId = facade.createReservation(crDTO);
@@ -97,7 +97,7 @@ public class ReservationFacadeTest extends AbstractTestNGSpringContextTests{
     @DirtiesContext
     public void getByStateReservationTest(){
     	lastResId = facade.createReservation(crDTO);
-    	Assert.assertEquals(facade.getReservationsByState(ReservationState.NEW).size(),1);
+    	Assert.assertEquals(facade.getReservationsByState(ReservationState.ACTIVE).size(),1);
     }
     
     @Test
@@ -116,40 +116,9 @@ public class ReservationFacadeTest extends AbstractTestNGSpringContextTests{
     
     @Test
     @DirtiesContext
-    public void acceptReservationTest(){
-    	lastResId = facade.createReservation(crDTO);
-    	facade.acceptReservation(lastResId);
-    	Assert.assertEquals(facade.getReservationsByState(ReservationState.ACCEPTED).size(),1);
-    }
-    @Test
-    @DirtiesContext
-    public void deniedReservationTest(){
-    	lastResId = facade.createReservation(crDTO);
-    	facade.denyReservation(lastResId);
-    	Assert.assertEquals(facade.getReservationsByState(ReservationState.DENIED).size(),1);
-    }
-    
-    @Test
-    @DirtiesContext
     public void cancelledReservationTest(){
     	lastResId = facade.createReservation(crDTO);
     	facade.cancelReservation(lastResId);
     	Assert.assertEquals(facade.getReservationsByState(ReservationState.CANCELLED).size(),1);
     }
-    
-    @Test
-    @DirtiesContext
-    public void doneReservationTest(){
-    	lastResId = facade.createReservation(crDTO);
-    	facade.doneReservation(lastResId);
-    	Assert.assertEquals(facade.getReservationsByState(ReservationState.DONE).size(),1);
-    }
-    
-    @Test
-    @DirtiesContext
-    public void removedReservationTest(){
-    	lastResId = facade.createReservation(crDTO);
-    	facade.removeReservation(lastResId);
-    	Assert.assertEquals(facade.getReservationsByState(ReservationState.REMOVED).size(),1);
-    }*/
 }

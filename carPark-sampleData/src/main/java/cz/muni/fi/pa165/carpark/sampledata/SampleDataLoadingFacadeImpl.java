@@ -65,10 +65,13 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
         rentalService.updateRentalReturnDate(r1, toDate(2015, 10, 18));
         rentalService.updateRentalState(r3, RentalState.FINISHED);
         Rental r4 = rental(luke, xWing, toDate(2015, 11, 14), toDate(2015, 11, 18));
-        Rental r5 = rental(obiwan, royal, toDate(2015, 11, 7), toDate(2015, 11, 10));
+        //Rental r5 = rental(obiwan, royal, toDate(2015, 11, 7), toDate(2015, 11, 10));
         Rental r6 = rental(r2d2, xWing, toDate(2015, 9, 1), toDate(2015, 9, 25));
         log.info("Loaded rentals.");
-        //log.info("Loaded reservations.");
+        Reservation res1 = reservation(han, royal, toDate(2016, 1, 1),toDate(2016, 2, 1));
+        Reservation res2 = reservation(obiwan, mil, toDate(2016, 2, 5),toDate(2016, 3, 1));
+        Reservation res3 = reservation(r2d2, dStar, toDate(2016, 1, 15),toDate(2016, 3, 1)); 
+        log.info("Loaded reservations.");
     }
     
     private static Date toDate(int year, int month, int day) {

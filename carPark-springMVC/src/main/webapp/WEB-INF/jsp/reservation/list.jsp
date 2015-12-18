@@ -11,7 +11,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<own:masterpage title="Rentals">
+<own:masterpage title="Reservations">
 <jsp:attribute name="body">
     
     <!-- Content Header (Page header) -->
@@ -64,76 +64,6 @@
                         </td>
                     </tr>
                 </c:forEach>
-                <tr>
-                  <td>1.</td>
-                  <td>24. 12. 2015</td>
-                  <td>31. 12. 2015</td>
-                  <td><a href="#">Peter Novák</a></td>
-                  <td><a href="#">BMW M3</a></td>
-                  <td>Confirmed</td>
-                  <td class="actions">
-                    <div class="center">
-                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
-                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>24. 12. 2015</td>
-                  <td>31. 12. 2015</td>
-                  <td><a href="#">Peter Novák</a></td>
-                  <td><a href="#">BMW M3</a></td>
-                  <td>Confirmed</td>
-                  <td class="actions">
-                    <div class="center">
-                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
-                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>3.</td>
-                  <td>24. 12. 2015</td>
-                  <td>31. 12. 2015</td>
-                  <td><a href="#">Peter Novák</a></td>
-                  <td><a href="#">BMW M3</a></td>
-                  <td>Confirmed</td>
-                  <td class="actions">
-                    <div class="center">
-                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
-                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>24. 12. 2015</td>
-                  <td>31. 12. 2015</td>
-                  <td><a href="#">Peter Novák</a></td>
-                  <td><a href="#">BMW M3</a></td>
-                  <td>Confirmed</td>
-                  <td class="actions">
-                    <div class="center">
-                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
-                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>5.</td>
-                  <td>24. 12. 2015</td>
-                  <td>31. 12. 2015</td>
-                  <td><a href="#">Peter Novák</a></td>
-                  <td><a href="#">BMW M3</a></td>
-                  <td>Confirmed</td>
-                  <td class="actions">
-                    <div class="center">
-                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
-                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
-                    </div>
-                  </td>
-                </tr>
               </tbody></table>
             </div>
             <!-- /.box-body -->

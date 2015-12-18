@@ -46,7 +46,7 @@
                 <c:forEach items="${rentals}" var="rental">
                     <tr>
                         <td><c:out value="${rental.id}"/>.</td>
-                        <td><c:out value="${rental.startingDate}"/></td>
+                        <td><fmt:formatDate value="${rental.startingDate}"/></td>
                         <td><fmt:formatDate value="${rental.estimatedReturnDate}"/></td>
                         <td><fmt:formatDate value="${rental.returnDate}" pattern="yyyy-MM-dd"/></td>
                         <td><a href="#"><c:out value="${rental.employee.getName()}"/></a></td>

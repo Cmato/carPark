@@ -38,6 +38,7 @@ public class ReservationDTO {
         this.car = c;
         this.startingDate = startingDate;
         this.endingDate = endingDate;
+        this.reservationState = ReservationState.ACTIVE;
     }
 
     public Long getId() {

@@ -47,66 +47,20 @@
                   <th>Birth Date</th>
                   <th>Actions</th>
                 </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>Peter Novák</td>
-                  <td>AA 123 123</td>
-                  <td>18. 05. 2015</td>
-                  <td class="actions">
-                    <div class="center">
-                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
-                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>Peter Novák</td>
-                  <td>AA 123 123</td>
-                  <td>18. 05. 2015</td>
-                  <td class="actions">
-                    <div class="center">
-                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
-                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>3.</td>
-                  <td>Peter Novák</td>
-                  <td>AA 123 123</td>
-                  <td>18. 05. 2015</td>
-                  <td class="actions">
-                    <div class="center">
-                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
-                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>Peter Novák</td>
-                  <td>AA 123 123</td>
-                  <td>18. 05. 2015</td>
-                  <td class="actions">
-                    <div class="center">
-                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
-                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>5.</td>
-                  <td>Peter Novák</td>
-                  <td>AA 123 123</td>
-                  <td>18. 05. 2015</td>
-                  <td class="actions">
-                    <div class="center">
-                      <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
-                      <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
-                    </div>
-                  </td>
-                </tr>
+                <c:forEach items="${allEmployees}" var="employee">
+                    <tr>
+                        <td><c:out value="${employee.id}"/>.</td>
+                        <td><c:out value="${employee.name}"/></td>
+                        <td><c:out value="${employee.idCardNumber}"/></td>
+                        <td><fmt:formatDate value="${employee.birth}" pattern="yyyy-MM-dd"/></td>
+                        <td class="actions">
+                          <div class="center">
+                            <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                          </div>
+                        </td>
+                    </tr>
+                </c:forEach>
               </tbody></table>
             </div>
             <!-- /.box-body -->

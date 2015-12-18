@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author 
+ * @author xruzic16
  */
 @Controller
 @RequestMapping("/reservation")
