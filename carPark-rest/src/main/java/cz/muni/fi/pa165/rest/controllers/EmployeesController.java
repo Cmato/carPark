@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.facade.EmployeeFacade;
 import cz.muni.fi.pa165.rest.ApiUris;
+import cz.muni.fi.pa165.rest.exceptions.ResourceAlreadyExistingException;
 import cz.muni.fi.pa165.rest.exceptions.ResourceNotFoundException;
 import java.util.Collection;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,5 +55,15 @@ public class EmployeesController {
             throw new ResourceNotFoundException();
         }
 
+    }
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void deleteEmployee(@PathVariable("id") long id) throws Exception {
+        logger.debug("rest deleteEmployee({})", id);
+        try {
+            employeeFacade.deleteEmployee(id);
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException();
+        }
     }
 }
