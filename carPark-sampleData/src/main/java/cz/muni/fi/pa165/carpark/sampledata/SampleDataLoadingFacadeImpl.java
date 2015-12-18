@@ -49,7 +49,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
         Employee luke = employee("Luke Skywalker", "4455TT", toDate(1970, 10, 20), "luke", "password");
         Employee obiwan = employee("Obi-Wan Kenobi", "74125NB", toDate(1954, 6, 5), "obi", "password");
         Employee vader = employee("Darth Vader", "1111DS", toDate(1958, 7, 14), "darth", "password");
-        Employee r2d2 = employee("R2D2", "2288RD", toDate(1920, 4, 24), "r2", "password");
+        Employee filip = employee("Filip Novak", "2288RD", toDate(1920, 4, 24), "filip", "password");
         log.info("Loaded employees.");
         Car mil = car("Millenium Falcon", "grey", Fuel.Diesel, Transmission.Manual);
         Car dStar = car("Death Star", "black", Fuel.Diesel, Transmission.Automatic);
@@ -60,18 +60,19 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
         rentalService.updateRentalReturnDate(r1, toDate(2015, 10, 23));
         rentalService.updateRentalState(r1, RentalState.FINISHED);
         Rental r2 = rental(han, mil, toDate(2015, 11, 10), toDate(2015, 11, 15));
-        rentalService.updateRentalReturnDate(r1, toDate(2015, 11, 18));
+        rentalService.updateRentalReturnDate(r2, toDate(2015, 11, 18));
         rentalService.updateRentalState(r2, RentalState.FINISHED);
         Rental r3 = rental(vader, dStar, toDate(2015, 10, 15), toDate(2015, 10, 18));
-        rentalService.updateRentalReturnDate(r1, toDate(2015, 10, 18));
+        rentalService.updateRentalReturnDate(r3, toDate(2015, 10, 18));
         rentalService.updateRentalState(r3, RentalState.FINISHED);
         Rental r4 = rental(luke, xWing, toDate(2015, 11, 14), toDate(2015, 11, 18));
         Rental r5 = rental(obiwan, royal, toDate(2015, 11, 7), toDate(2015, 11, 10));
-        Rental r6 = rental(r2d2, xWing, toDate(2015, 9, 1), toDate(2015, 9, 25));
+        Rental r6 = rental(filip, xWing, toDate(2015, 9, 1), toDate(2016, 1, 25));
+        Rental r7 = rental(vader, royal, toDate(2015, 10, 1), toDate(2016, 1, 5));
         log.info("Loaded rentals.");
-        Reservation res1 = reservation(han, royal, toDate(2016, 1, 1),toDate(2016, 2, 1));
-        Reservation res2 = reservation(obiwan, mil, toDate(2016, 2, 5),toDate(2016, 3, 1));
-        Reservation res3 = reservation(r2d2, dStar, toDate(2016, 1, 15),toDate(2016, 3, 1)); 
+        Reservation res1 = reservation(han, royal, toDate(2016, 2, 1),toDate(2016, 3, 1));
+        Reservation res2 = reservation(obiwan, mil, toDate(2016, 3, 5),toDate(2016, 4, 1));
+        Reservation res3 = reservation(filip, dStar, toDate(2016, 2, 15),toDate(2016, 4, 1)); 
         log.info("Loaded reservations.");
     }
     

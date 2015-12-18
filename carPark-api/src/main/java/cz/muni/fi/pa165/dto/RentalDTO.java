@@ -27,7 +27,7 @@ public class RentalDTO {
     @NotNull
     private Date estimatedReturnDate;
 
-    @NotNull
+
     private Date returnDate;
 
     @NotNull
@@ -36,11 +36,12 @@ public class RentalDTO {
     public RentalDTO() {
     }
     
-    public RentalDTO(EmployeeDTO e, CarDTO c, Date startingDate, Date returnDate) {
+    public RentalDTO(EmployeeDTO e, CarDTO c, Date startingDate, Date estimatedReturnDate) {
         this.employee = e;
         this.car = c;
         this.startingDate = startingDate;
-        this.estimatedReturnDate = returnDate;
+        this.estimatedReturnDate = estimatedReturnDate;
+        this.returnDate = null;
         this.rentalState = RentalState.ACTIVE;
     }
 
