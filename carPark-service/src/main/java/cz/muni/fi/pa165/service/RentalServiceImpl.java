@@ -42,10 +42,10 @@ public class RentalServiceImpl implements RentalService {
                     + "estimated return date!");
         }
         
-        if (!ca.checkActualCarAvailability(rental)){
+        /*if (!ca.checkActualCarAvailability(rental)){
             log.error("Can't create rental because the car is not available.");
             return null;
-        }
+        }*/
 
         if(rentalDao.create(rental)) {
             return rental;

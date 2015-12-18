@@ -54,8 +54,14 @@
                         <td><c:out value="${rental.rentalState}"/></td>
                         <td class="actions">
                           <div class="center">
-                            <a href="#" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
-                            <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a href="${pageContext.request.contextPath}/rental/detail/${reservation.id}" title="Edit">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a href="#" title="Remove" class="removeItem">
+                                <span class="glyphicon glyphicon-trash"></span>
+                                <form method="post" action="${pageContext.request.contextPath}/rental/delete/${rental.id}" style="display: none;">
+                                </form>
+                            </a>
                           </div>
                         </td>
                     </tr>
