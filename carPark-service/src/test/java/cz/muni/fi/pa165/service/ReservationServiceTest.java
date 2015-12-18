@@ -63,7 +63,7 @@ public class ReservationServiceTest extends AbstractTestNGSpringContextTests{
         date2 = DateFormater.newDate(2000, 1, 1);
 
         car = new Car("Schoda Henlein", "White", Fuel.Petrol, Transmission.Manual);
-        empl = new Employee("Petr Ctvrtnicek", date1, "123456789", "email@gmail.com", "123456");
+        empl = new Employee("Petr Ctvrtnicek", date1, "123456789");
         res = new Reservation(empl, car, date1, date2);
     }
 

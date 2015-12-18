@@ -53,10 +53,8 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests{
         car1 = new Car("Ford Mustang", "Black", Fuel.Diesel, Transmission.Automatic);
         car2 = new Car("Porsche 911 Turbo", "Red", Fuel.Petrol, Transmission.Manual);
 
-        empl1 = new Employee("Mad Max", DateFormater.newDate(1950, 5, 23), "902154798", "email@gmail.com", "123456");
-        empl2 = new Employee("Napoleon Solo", DateFormater.newDate(1962, 2, 8), "741369852", "email1@gmail.com", "654321");
-        //empl1 = new Employee("Mad Max", DateFormater.newDate(1950, 5, 23), "902154798");
-        //empl2 = new Employee("Napoleon Solo", DateFormater.newDate(1962, 2, 8), "741369852");
+        empl1 = new Employee("Mad Max", DateFormater.newDate(1950, 5, 23), "902154798");
+        empl2 = new Employee("Napoleon Solo", DateFormater.newDate(1962, 2, 8), "741369852");
 
         res1 = new Reservation(empl1, car1, DateFormater.newDate(2014, 9, 19), DateFormater.newDate(2015, 10, 20));
         res2 = new Reservation(empl2, car2, DateFormater.newDate(2015, 3, 3), DateFormater.newDate(2015, 3, 5));

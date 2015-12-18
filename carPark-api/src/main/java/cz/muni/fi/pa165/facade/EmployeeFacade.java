@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.EmployeeAuthenticateDTO;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import java.util.Date;
 import java.util.List;
@@ -16,16 +15,6 @@ public interface EmployeeFacade {
     public EmployeeDTO updateEmployeeBirth(Long id, Date newBirth);
     public EmployeeDTO updateEmployeeIdCardNumber(Long id, String newIdCarNumber);
     public EmployeeDTO findEmployeeById(Long id);
-    public EmployeeDTO findEmployeeByEmail(String email);
     public List<EmployeeDTO> findAllEmployees();
     public List<EmployeeDTO> findEmployeesInBirthRange(Date from, Date to);
-    /**
-    * Try to authenticate a user. Return true only if the hashed password matches the records.
-    */
-    boolean authenticate(EmployeeAuthenticateDTO employee);
-
-    /**
-    * Check if the given user is admin.
-    */
-    boolean isAdmin(EmployeeDTO employee);
 }

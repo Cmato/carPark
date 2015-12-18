@@ -55,13 +55,6 @@ public interface EmployeeService {
      * @return Employee object
      */
     public Employee findEmployeeById(Long id);
-    
-    /**
-     * Returns finding employee
-     * @param email Employee email
-     * @return Employee object
-     */
-    public Employee findEmployeeByEmail(String email);
 
     /**
      * Finds list of all Employees
@@ -76,14 +69,4 @@ public interface EmployeeService {
      * @return List of Employee objects
      */
     public List<Employee> findEmployeesInBirthRange(Date from, Date to);
-    
-    /**
-     * Try to authenticate a user. Return true only if the hashed password matches the records.
-     */
-    boolean authenticate(Employee employee, String password);
-
-    /**
-     * Check if the given user is admin.
-     */
-    boolean isAdmin(Employee employee);
 }

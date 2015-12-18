@@ -17,12 +17,6 @@ public class EmployeeDTO {
     private String name;
     
     @NotNull
-    private String email;
-    
-    @NotNull
-    private String password;
-    
-    @NotNull
     private Date birth;
     
     @NotNull
@@ -32,28 +26,10 @@ public class EmployeeDTO {
     public EmployeeDTO() {
     }
 
-    public EmployeeDTO(String name, Date birth, String idCardNumber, String email, String password) {
+    public EmployeeDTO(String name, Date birth, String idCardNumber) {
         this.name = name;
         this.birth = birth;
         this.idCardNumber = idCardNumber;
-        this.email = email;
-        this.password = password;
-    }
-    
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Long getId() {

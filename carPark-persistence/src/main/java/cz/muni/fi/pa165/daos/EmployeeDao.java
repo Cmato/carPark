@@ -38,14 +38,6 @@ public interface EmployeeDao {
      * @return employee with given id
      */
     Employee findEmployeeById(Long id);
-    
-    /**
-     * Retrieves an employee with specific id from database
-     * 
-     * @param email email of the searched employee
-     * @return employee with given id
-     */
-    Employee findEmployeeByEmail(String email);
 
     /**
      * Retrieves an employee with specific id card number from database

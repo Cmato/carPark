@@ -67,17 +67,15 @@ public class RentalFacadeTest extends AbstractTestNGSpringContextTests {
         date4 = DateFormater.newDate(1988, 2, 8);
 
         car1 = new Car("Ford Mustang", "Black", Fuel.Diesel, Transmission.Automatic);
-        empl1 = new Employee("Mad Max", date1, "902154798", "email@gmail.com", "123456");
+        empl1 = new Employee("Mad Max", date1, "902154798");
         carDto = new CarDTO(car1.getName(), car1.getColor(), car1.getFuel(), car1.getTransmission());
-        
-        emplDto = new EmployeeDTO(empl1.getName(), empl1.getBirth(), empl1.getIdCardNumber(), empl1.getEmail(), empl1.getPassword());
+        emplDto = new EmployeeDTO(empl1.getName(), empl1.getBirth(), empl1.getIdCardNumber());
         
         cfacade.createCar(carDto);
         efacade.createEmployee(emplDto);
         
         rentalCreateDto1 = new RentalDTO(efacade.findEmployeeById(new Long(1)), cfacade.getCarById(new Long(1)), date1, date2);
         rentalCreateDto2 = new RentalDTO(efacade.findEmployeeById(new Long(1)), cfacade.getCarById(new Long(1)), date3, date4);
-
     }
 
     @Test

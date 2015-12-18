@@ -69,7 +69,7 @@ public class ReservationFacadeTest extends AbstractTestNGSpringContextTests{
         date2 = DateFormater.newDate(2000, 3, 1);
         
         car = new CarDTO("Schoda Henlein", "White", Fuel.Petrol, Transmission.Manual);
-        empl = new EmployeeDTO("Petr Ctvrtnicek", date1, "123456789", "email@gmail.com", "123456");
+        empl = new EmployeeDTO("Petr Ctvrtnicek", date1, "123456789");
         
         cfacade.createCar(car);
         efacade.createEmployee(empl);

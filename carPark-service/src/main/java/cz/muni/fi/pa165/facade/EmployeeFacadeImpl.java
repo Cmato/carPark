@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.EmployeeAuthenticateDTO;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.service.EmployeeService;
@@ -64,22 +63,6 @@ public class EmployeeFacadeImpl implements EmployeeFacade{
     @Override
     public List<EmployeeDTO> findEmployeesInBirthRange(Date from, Date to) {
         return mappingService.mapToCollection(employeeService.findEmployeesInBirthRange(from, to), EmployeeDTO.class);
-    }
-
-    @Override
-    public EmployeeDTO findEmployeeByEmail(String email) {
-        return mappingService.mapTo(employeeService.findEmployeeByEmail(email), EmployeeDTO.class);
-    }
-
-    @Override
-    public boolean authenticate(EmployeeAuthenticateDTO employee) {
-        return employeeService.authenticate(
-                employeeService.findEmployeeById(employee.getUserId()), employee.getPassword());
-    }
-
-    @Override
-    public boolean isAdmin(EmployeeDTO employee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
