@@ -35,14 +35,14 @@ public class EmployeesController {
     private EmployeeFacade employeeFacade;
     
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Collection<EmployeeDTO> getUsers() throws JsonProcessingException {
+    public final Collection<EmployeeDTO> getEmployees() throws JsonProcessingException {
         
         logger.debug("rest getEmployees()");
         return employeeFacade.findAllEmployees();
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final EmployeeDTO getUser(@PathVariable("id") long id) throws Exception {
+    public final EmployeeDTO getEmployee(@PathVariable("id") long id) throws Exception {
 
         logger.debug("rest getEmployee({})", id);
 
