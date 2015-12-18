@@ -41,8 +41,8 @@ public class RentalServiceImpl implements RentalService {
             throw new CarParkServiceException("The starting date is after"
                     + "estimated return date!");
         }
-        //TODO opravit testy
-        if (ca.checkActualCarAvailability(rental)){
+        
+        if (!ca.checkActualCarAvailability(rental)){
             log.error("Can't create rental because the car is not available.");
             return null;
         }

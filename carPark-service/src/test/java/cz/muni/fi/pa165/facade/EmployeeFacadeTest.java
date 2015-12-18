@@ -1,15 +1,13 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.daos.EmployeeDao;
-import cz.muni.fi.pa165.dto.EmployeeDTO;
-import cz.muni.fi.pa165.entities.Employee;
-import cz.muni.fi.pa165.service.EmployeeService;
-import cz.muni.fi.pa165.service.MappingService;
-import cz.muni.fi.pa165.service.config.MappingConfiguration;
-import cz.muni.fi.pa165.utils.DateFormater;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
+import static org.testng.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -19,10 +17,14 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
-import org.testng.Assert;
-import static org.testng.Assert.assertEquals;
+
+import cz.muni.fi.pa165.daos.EmployeeDao;
+import cz.muni.fi.pa165.dto.EmployeeDTO;
+import cz.muni.fi.pa165.entities.Employee;
+import cz.muni.fi.pa165.service.EmployeeService;
+import cz.muni.fi.pa165.service.MappingService;
+import cz.muni.fi.pa165.service.config.MappingConfiguration;
+import cz.muni.fi.pa165.utils.DateFormater;
 
 /**
  *
