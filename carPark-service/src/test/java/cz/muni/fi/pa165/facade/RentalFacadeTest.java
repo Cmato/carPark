@@ -1,23 +1,7 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.entities.Car;
-import cz.muni.fi.pa165.entities.Employee;
-import cz.muni.fi.pa165.enums.Fuel;
-import cz.muni.fi.pa165.enums.Transmission;
-import cz.muni.fi.pa165.TestHelper;
-import cz.muni.fi.pa165.daos.CarDao;
-import cz.muni.fi.pa165.daos.EmployeeDao;
-import cz.muni.fi.pa165.daos.RentalDao;
-import cz.muni.fi.pa165.dto.CarDTO;
-import cz.muni.fi.pa165.dto.EmployeeDTO;
-import cz.muni.fi.pa165.dto.RentalDTO;
-import cz.muni.fi.pa165.enums.RentalState;
-import cz.muni.fi.pa165.service.MappingService;
-import cz.muni.fi.pa165.service.RentalService;
-import cz.muni.fi.pa165.service.config.MappingConfiguration;
-import cz.muni.fi.pa165.utils.DateFormater;
-import java.util.Calendar;
 import java.util.Date;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +11,19 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import cz.muni.fi.pa165.daos.RentalDao;
+import cz.muni.fi.pa165.dto.CarDTO;
+import cz.muni.fi.pa165.dto.EmployeeDTO;
+import cz.muni.fi.pa165.dto.RentalDTO;
+import cz.muni.fi.pa165.entities.Car;
+import cz.muni.fi.pa165.entities.Employee;
+import cz.muni.fi.pa165.enums.Fuel;
+import cz.muni.fi.pa165.enums.RentalState;
+import cz.muni.fi.pa165.enums.Transmission;
+import cz.muni.fi.pa165.service.RentalService;
+import cz.muni.fi.pa165.service.config.MappingConfiguration;
+import cz.muni.fi.pa165.utils.DateFormater;
 
 /**
  *
@@ -39,20 +36,16 @@ public class RentalFacadeTest extends AbstractTestNGSpringContextTests {
     private RentalFacade rentalFacade;
 
     @Autowired
-    private MappingService bms;
-
-    @Autowired
-    private CarDao carDao;
-
-    @Autowired
-    private EmployeeDao emplDao;
-
-    @Mock
     private RentalDao rentalDao;
     
     @Autowired
     @InjectMocks
     private RentalService rentalService;
+    
+    @Autowired
+    private CarFacade cfacade;
+    @Autowired
+    private EmployeeFacade efacade;
 
     private Car car1;
     private Employee empl1;
@@ -77,14 +70,15 @@ public class RentalFacadeTest extends AbstractTestNGSpringContextTests {
         empl1 = new Employee("Mad Max", date1, "902154798");
         carDto = new CarDTO(car1.getName(), car1.getColor(), car1.getFuel(), car1.getTransmission());
         emplDto = new EmployeeDTO(empl1.getName(), empl1.getBirth(), empl1.getIdCardNumber());
-
-        carDao.createCar(car1);
-        emplDao.createEmployee(empl1);
-        rentalCreateDto1 = new RentalDTO(emplDto, carDto, date1, date2);
-        rentalCreateDto2 = new RentalDTO(emplDto, carDto, date3, date4);
+        
+        cfacade.createCar(carDto);
+        efacade.createEmployee(emplDto);
+        
+        rentalCreateDto1 = new RentalDTO(efacade.findEmployeeById(new Long(1)), cfacade.getCarById(new Long(1)), date1, date2);
+        rentalCreateDto2 = new RentalDTO(efacade.findEmployeeById(new Long(1)), cfacade.getCarById(new Long(1)), date3, date4);
     }
 
-    /*@Test
+    @Test
     @DirtiesContext
     public void createRentalTest() {
         rentalFacade.createRental(rentalCreateDto1);
@@ -142,7 +136,7 @@ public class RentalFacadeTest extends AbstractTestNGSpringContextTests {
         Long createdId = rentalFacade.createRental(rentalCreateDto1);
         rentalFacade.finishRental(createdId);
         rentalFacade.createRental(rentalCreateDto2);
-        Assert.assertEquals(rentalFacade.getRentalsByCar(carDto.getId()).size(), 2);
+        Assert.assertEquals(rentalFacade.getRentalsByCar(cfacade.getCarById(new Long(1)).getId()).size(), 2);
     }
 
     @Test
@@ -151,7 +145,7 @@ public class RentalFacadeTest extends AbstractTestNGSpringContextTests {
         Long createdId = rentalFacade.createRental(rentalCreateDto1);
         rentalFacade.finishRental(createdId);
         rentalFacade.createRental(rentalCreateDto2);
-        Assert.assertEquals(rentalFacade.getRentalsByEmployee(emplDto.getId()).size(), 2);
+        Assert.assertEquals(rentalFacade.getRentalsByEmployee(efacade.findEmployeeById(new Long(1)).getId()).size(), 2);
     }
 
     @Test
@@ -160,7 +154,8 @@ public class RentalFacadeTest extends AbstractTestNGSpringContextTests {
         Long createdId = rentalFacade.createRental(rentalCreateDto1);
         rentalFacade.finishRental(createdId);
         rentalFacade.createRental(rentalCreateDto2);
-        Assert.assertEquals(rentalFacade.getRentalsByState(RentalState.ACTIVE).size(), 1);
+        // old rentals can be updated and delayed automatically
+        Assert.assertEquals(rentalFacade.getRentalsByState(RentalState.ACTIVE).size()+rentalFacade.getRentalsByState(RentalState.DELAYED).size(), 1);
         Assert.assertEquals(rentalFacade.getRentalsByState(RentalState.FINISHED).size(), 1);
-    }*/
+    }
 }

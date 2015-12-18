@@ -35,17 +35,19 @@ public class CarAvailability {
         rentals.addAll(rentalService.getRentalsByState(RentalState.DELAYED));
         for (Rental rental1 : rentals) {
             if (rental1.getCar().equals(rental.getCar())) {
-                return false;
+                //if rental exist you can't rent car at all
+                        return false;
             }
         }
         // check active reservations
         List<Reservation> reservations = reservationService.getReservationsByState(ReservationState.ACTIVE);
         for (Reservation res1 : reservations){
             if (res1.getCar().equals(rental.getCar())){
-                return isPossibleToRent(rental.getStartingDate(),
+                if(!isPossibleToRent(rental.getStartingDate(),
                         rental.getEstimatedReturnDate(),
                         res1.getStartingDate(),
-                        res1.getEndingDate());
+                        res1.getEndingDate()))
+                    return false;
             }
         }
         return true;
@@ -62,22 +64,26 @@ public class CarAvailability {
         rentals.addAll(rentalService.getRentalsByState(RentalState.DELAYED));
         for (Rental rental1 : rentals) {
             if (rental1.getCar().equals(res.getCar())) {
-                return isPossibleToRent(res.getStartingDate(),
+                if(!isPossibleToRent(res.getStartingDate(),
                         res.getEndingDate(),
                         rental1.getStartingDate(),
-                        rental1.getEstimatedReturnDate());
+                        rental1.getEstimatedReturnDate()))
+                        return false;
             }
         }
+        
         // check active reservations
         List<Reservation> reservations = reservationService.getReservationsByState(ReservationState.ACTIVE);
         for (Reservation res1 : reservations){
             if (res1.getCar().equals(res.getCar())){
-                return isPossibleToRent(res.getStartingDate(),
+                if(!isPossibleToRent(res.getStartingDate(),
                         res.getEndingDate(),
                         res1.getStartingDate(),
-                        res1.getEndingDate());
+                        res1.getEndingDate()))
+                    return false;
             }
         }
+        
         return true;
     }
     /**

@@ -15,14 +15,10 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import cz.muni.fi.pa165.daos.CarDao;
-import cz.muni.fi.pa165.daos.EmployeeDao;
 import cz.muni.fi.pa165.daos.ReservationDao;
 import cz.muni.fi.pa165.dto.CarDTO;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.dto.ReservationDTO;
-import cz.muni.fi.pa165.entities.Car;
-import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Reservation;
 import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.ReservationState;
@@ -49,16 +45,15 @@ public class ReservationFacadeTest extends AbstractTestNGSpringContextTests{
 	
     @Autowired
     private ReservationFacade facade;
+    
+    @Autowired
+    private CarFacade cfacade;
+    @Autowired
+    private EmployeeFacade efacade;
         
     @Autowired
     @InjectMocks
     private ReservationFacade reservationService;
-	
-    @Autowired
-    private CarDao carDao;
-    
-    @Autowired
-    private EmployeeDao emplDao;
     
     private ReservationDTO crDTO;
     private Long lastResId;
@@ -72,12 +67,14 @@ public class ReservationFacadeTest extends AbstractTestNGSpringContextTests{
 
         date1 = DateFormater.newDate(1990, 11, 10);
         date2 = DateFormater.newDate(2000, 3, 1);
-
-        carDao.createCar(new Car("Schoda Henlein", "White", Fuel.Petrol, Transmission.Manual));
-        emplDao.createEmployee(new Employee("Petr Ctvrtnicek", date1, "123456789"));
+        
         car = new CarDTO("Schoda Henlein", "White", Fuel.Petrol, Transmission.Manual);
         empl = new EmployeeDTO("Petr Ctvrtnicek", date1, "123456789");
-        crDTO = new ReservationDTO(empl, car, date1, date2);
+        
+        cfacade.createCar(car);
+        efacade.createEmployee(empl);
+        
+        crDTO = new ReservationDTO(efacade.findEmployeeById(new Long(1)), cfacade.getCarById(new Long(1)), date1, date2);
         
     }
 

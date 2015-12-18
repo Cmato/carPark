@@ -40,7 +40,8 @@ public class RentalDTO {
         this.employee = e;
         this.car = c;
         this.startingDate = startingDate;
-        this.returnDate = returnDate;
+        this.estimatedReturnDate = returnDate;
+        this.rentalState = RentalState.ACTIVE;
     }
 
     public Long getId() {

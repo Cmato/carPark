@@ -32,7 +32,7 @@ public class ReservationServiceImpl implements ReservationService {
             throw new CarParkServiceException("Reservation starting date is after" + "estimated return date!");
         }
         // check active rentals and reservations
-        if (ca.checkActualCarAvailability(reservation)) {
+        if (!ca.checkActualCarAvailability(reservation)) {
             log.error("Can't create reservation because the car is not available.");
             return null;
         }
