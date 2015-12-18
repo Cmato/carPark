@@ -58,10 +58,10 @@
                         <td><c:out value="${reservation.reservationState}"/></td>
                         <td class="actions">
                           <div class="center">
-                            <a href="#" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a href="${pageContext.request.contextPath}/reservation/detail/${reservation.id}" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
                             <a href="#" title="Remove" class="removeItem">
                                 <span class="glyphicon glyphicon-trash"></span>
-                                <form method="post" action="" style="display: none;">
+                                <form method="post" action="${pageContext.request.contextPath}/reservation/delete/${reservation.id}" style="display: none;">
                                 </form>
                             </a>
                           </div>
