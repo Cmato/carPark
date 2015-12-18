@@ -33,8 +33,11 @@ public class EmployeeDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void setUpClass() {
-        ignac = new Employee("Ignac", DateFormater.newDate(2000, 12, 1), "AA123456");
-        stefan = new Employee("Stefan", DateFormater.newDate(1998, 11, 11), "BB654321");
+        ignac = new Employee("Ignac", DateFormater.newDate(2000, 12, 1), "AA123456", "email@gmail.com", "123456");
+        stefan = new Employee("Stefan", DateFormater.newDate(1998, 11, 11), "BB654321", "email1@gmail.com", "654321");
+        
+        //ignac = new Employee("Ignac", DateFormater.newDate(2000, 12, 1), "AA123456");
+        //stefan = new Employee("Stefan", DateFormater.newDate(1998, 11, 11), "BB654321");
         
         DAO.createEmployee(ignac);
         DAO.createEmployee(stefan);

@@ -49,10 +49,10 @@ public class EmployeeServiceTest extends AbstractTransactionalTestNGSpringContex
     public void setUp() throws ServiceException {
         MockitoAnnotations.initMocks(this);
 
-        ignac = new Employee("Ignac", DateFormater.newDate(2000, 12, 1), "AA123456");
+        ignac = new Employee("Ignac", DateFormater.newDate(2000, 12, 1), "AA123456", "email@gmail.com", "123456");
         anotherIgnac = ignac;
-        dezo = new Employee("Dezko", DateFormater.newDate(1996, 5, 1), "AA654321");
-        baltazar = new Employee("Baltazaris", DateFormater.newDate(1989, 8, 1), "FF789456");
+        dezo = new Employee("Dezko", DateFormater.newDate(1996, 5, 1), "AA654321", "email1@gmail.com", "654321");
+        baltazar = new Employee("Baltazaris", DateFormater.newDate(1989, 8, 1), "FF789456", "email2@gmail.com", "111222");
     }
     
     @Test

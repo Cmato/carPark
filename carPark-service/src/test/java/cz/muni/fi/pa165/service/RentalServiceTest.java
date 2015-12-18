@@ -61,7 +61,7 @@ public class RentalServiceTest extends AbstractTestNGSpringContextTests {
         date2 = DateFormater.newDate(1962, 2, 8);
 
         car1 = new Car("Ford Mustang", "Black", Fuel.Diesel, Transmission.Automatic);
-        empl1 = new Employee("Mad Max", date1, "902154798");
+        empl1 = new Employee("Mad Max", date1, "902154798", "email@gmail.com", "123456");
         rental1 = new Rental(empl1, car1, date1, date2);
     }
 
