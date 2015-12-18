@@ -4,6 +4,9 @@
  */
 package cz.muni.fi.pa165.springmvc.security;
 
+import cz.muni.fi.pa165.dto.EmployeeDTO;
+import cz.muni.fi.pa165.dto.EmployeeAuthenticateDTO;
+import cz.muni.fi.pa165.facade.EmployeeFacade;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -24,7 +27,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @author xcmarko
  */
 @WebFilter(urlPatterns = {"/car/*", "/employee/*", "/home/*", "/rental/*", "/reservations/*"})
-public class protectFilter  implements Filter {
+public class ProtectFilter  implements Filter {
     
     final static Logger log = LoggerFactory.getLogger(ProtectFilter.class);
 
@@ -44,22 +47,22 @@ public class protectFilter  implements Filter {
         String password = creds[1];
 
         //get Spring context and UserFacade from it
-        EmployeeFacade userFacade = WebApplicationContextUtils.getWebApplicationContext(r.getServletContext()).getBean(UserFacade.class);
-        EmployeeDTO matchingUser = userFacade.findUserByEmail(logname);
+        EmployeeFacade employeeFacade = WebApplicationContextUtils.getWebApplicationContext(r.getServletContext()).getBean(EmployeeFacade.class);
+        EmployeeDTO matchingUser = employeeFacade.findEmployeeByEmail(logname);
         if(matchingUser==null) {
             log.warn("no user with email {}", logname);
             response401(response);
             return;
         }
-        UserAuthenticateDTO userAuthenticateDTO = new UserAuthenticateDTO();
+        EmployeeAuthenticateDTO userAuthenticateDTO = new EmployeeAuthenticateDTO();
         userAuthenticateDTO.setUserId(matchingUser.getId());
         userAuthenticateDTO.setPassword(password);
-        if (!userFacade.isAdmin(matchingUser)) {
+        if (!employeeFacade.isAdmin(matchingUser)) {
             log.warn("user not admin {}", matchingUser);
             response401(response);
             return;
         }
-        if (!userFacade.authenticate(userAuthenticateDTO)) {
+        if (!employeeFacade.authenticate(userAuthenticateDTO)) {
             log.warn("wrong credentials: user={} password={}", creds[0], creds[1]);
             response401(response);
             return;
