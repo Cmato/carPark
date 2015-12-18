@@ -106,4 +106,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
             throw new IllegalArgumentException("Birth date of employee cannot be null. Expected Date");
         }
     }
+
+    @Override
+    public Employee findEmployeeByEmail(String email) {
+        if (email == null) {
+            throw new IllegalArgumentException("Cannot find Employee. Wrong email parameter given");
+        }
+        return em.createQuery("SELECT e FROM Employee e WHERE e.email = :email", Employee.class)
+                .setParameter("email", email).getSingleResult();
+    }
 }

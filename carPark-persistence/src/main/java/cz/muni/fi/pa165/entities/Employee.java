@@ -27,6 +27,14 @@ public class Employee {
     private String name;
     
     @NotNull
+    @Column(unique = true)
+    private String email;
+    
+    @NotNull
+    @Column(nullable = false)
+    private String password;
+    
+    @NotNull
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date birth;
@@ -34,14 +42,35 @@ public class Employee {
     @NotNull
     @Column(unique = true)
     private String idCardNumber;
+    
+    @NotNull
+    private boolean isAdmin;
 
     public Employee() {
     }
 
-    public Employee(String name, Date birth, String idCardNumber) {
+    public Employee(String name, Date birth, String idCardNumber, String email, String password) {
         this.name = name;
         this.birth = birth;
         this.idCardNumber = idCardNumber;
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -50,6 +79,14 @@ public class Employee {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public String getIdCardNumber() {
@@ -92,6 +129,12 @@ public class Employee {
             return false;
         }
         if (!Objects.equals(this.idCardNumber, other.getIdCardNumber())) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.getEmail())) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.getPassword())) {
             return false;
         }
         return true;
