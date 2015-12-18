@@ -11,8 +11,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Rentals
-        <small>Administration of rentals</small>
+        <fmt:message key="rental.rentals"/>
+        <small><fmt:message key="rental.admin"/></small>
       </h1>
     </section>
 
@@ -22,7 +22,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">All rentals in system</h3>
+              <h3 class="box-title"><fmt:message key="rental.allRentals"/></h3>
 
               <div class="box-tools">
                 <div class="input-group input-group-sm right" style="width: 48px;">
@@ -34,21 +34,21 @@
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <tbody><tr>
-                  <th>ID</th>
-                  <th>Starting Date</th>
-                  <th>Estimated return Date</th>
-                  <th>Return Date</th>
-                  <th>Employee</th>
-                  <th>Car</th>
-                  <th>State</th>
+                  <th><fmt:message key="rental.id"/></th>
+                  <th><fmt:message key="rental.from"/></th>
+                  <th><fmt:message key="rental.to"/></th>
+                  <th><fmt:message key="rental.returnDate"/></th>
+                  <th><fmt:message key="rental.employee"/></th>
+                  <th><fmt:message key="rental.car"/></th>
+                  <th><fmt:message key="rental.state"/></th>
                   <th>Actions</th>
                 </tr>
                 <c:forEach items="${rentals}" var="rental">
                     <tr>
                         <td><c:out value="${rental.id}"/>.</td>
-                        <td><fmt:formatDate value="${rental.startingDate}"/></td>
-                        <td><fmt:formatDate value="${rental.estimatedReturnDate}"/></td>
-                        <td><fmt:formatDate value="${rental.returnDate}" pattern="yyyy-MM-dd"/></td>
+                        <td><fmt:formatDate value="${rental.startingDate}" pattern="dd-MM-YYYY"/></td>
+                        <td><fmt:formatDate value="${rental.estimatedReturnDate}" pattern="dd-MM-YYYY"/></td>
+                        <td><fmt:formatDate value="${rental.returnDate}" pattern="dd-MM-YYYY"/></td>
                         <td><a href="#"><c:out value="${rental.employee.getName()}"/></a></td>
                         <td><a href="#"><c:out value="${rental.car.getName()}"/></a></td>
                         <td><c:out value="${rental.rentalState}"/></td>
