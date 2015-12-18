@@ -29,9 +29,6 @@ public class EmployeeDTO {
     @Size(min = 8, max = 10)
     private String idCardNumber;
     
-    @NotNull
-    private boolean isAdmin;
-    
     public EmployeeDTO() {
     }
 
@@ -73,14 +70,6 @@ public class EmployeeDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-    
-    public boolean getIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
     }
 
     public Date getBirth() {
