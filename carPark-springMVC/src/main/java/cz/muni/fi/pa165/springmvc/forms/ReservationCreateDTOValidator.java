@@ -1,10 +1,9 @@
 package cz.muni.fi.pa165.springmvc.forms;
 
-import cz.muni.fi.pa165.dto.CarDTO;
-import cz.muni.fi.pa165.dto.ReservationDTO;
-
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
+import cz.muni.fi.pa165.dto.ReservationDTO;
 
 /**
  *
@@ -19,9 +18,6 @@ public class ReservationCreateDTOValidator  implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         ReservationDTO resDTO = (ReservationDTO) target;
-        /*if (resDTO.getName() == null) return;
-        if (resDTO.getTransmission() == null) return;
-        if (resDTO.getFuel() == null) return;
-        if (resDTO.getColor() == null) return;*/
+        if (resDTO.getCar() == null) return;
     }
 }

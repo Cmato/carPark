@@ -32,6 +32,8 @@ public interface ReservationFacade {
     public ReservationDTO updateReservationState(Long id, ReservationState newState);
     
     public void cancelReservation(Long id);
+    
+    public void removeReservation(Long id);
 
     public List<ReservationDTO> getAllReservations();
 

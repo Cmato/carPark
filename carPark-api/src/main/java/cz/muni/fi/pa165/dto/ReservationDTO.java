@@ -154,7 +154,7 @@ public class ReservationDTO {
                 + ", car='" + car + '\''
                 + ", starting date= " + startingDate
                 + ", ending date= " + endingDate
-                + ", state= " + reservationState.toString()
+                + ", state= " + reservationState
                 + '}';
     }
 }

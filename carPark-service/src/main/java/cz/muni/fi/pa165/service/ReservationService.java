@@ -71,6 +71,14 @@ public interface ReservationService {
     public void cancelReservation(Reservation reservation);
 
     /**
+     * Remove reservation from DB
+     *
+     * @param reservation which will be removed
+     */
+    public void removeReservation(Reservation reservation);
+    public void removeReservation(Long id);
+    
+    /**
      * Update employee of reservation
      * 
      * @param udated reservation

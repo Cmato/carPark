@@ -44,13 +44,13 @@ public class ReservationFacadeImpl implements ReservationFacade {
         return reservationService.createReservation(mappedReservation).getId();		
 	}
 
-    @Override
+	@Override
     public ReservationDTO updateReservationEmployee(Long id, EmployeeDTO newEmployee) {
         Employee mappedEmployee = mappingService.mapTo(newEmployee, Employee.class);
         return mappingService.mapTo(reservationService.updateReservationEmployee(reservationService.getReservationById(id), mappedEmployee), ReservationDTO.class);
     }
 
-    @Override
+	@Override
     public ReservationDTO updateReservationCar(Long id, CarDTO newCar) {
         Car mappedCar = mappingService.mapTo(newCar, Car.class);
         return mappingService.mapTo(reservationService.updateReservationCar(reservationService.getReservationById(id), mappedCar), ReservationDTO.class);
@@ -83,6 +83,12 @@ public class ReservationFacadeImpl implements ReservationFacade {
 		reservationService.getReservationById(id).setReservationState(ReservationState.CANCELLED);
 		
 	}
+	
+	@Override
+    public void removeReservation(Long id) {
+        reservationService.removeReservation(id);
+        
+    }
 
 	@Override
 	public List<ReservationDTO> getAllReservations() {

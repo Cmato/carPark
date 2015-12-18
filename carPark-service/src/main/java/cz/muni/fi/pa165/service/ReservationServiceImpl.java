@@ -119,6 +119,18 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setReservationState(ReservationState.CANCELLED);
 
     }
+    
+    @Override
+    public void removeReservation(Reservation reservation) {
+        reservationDao.remove(reservation);
+
+    }
+    
+    @Override
+    public void removeReservation(Long id) {
+        reservationDao.remove(reservationDao.findById(id));
+
+    }
 
     private boolean checkDates(Date starting, Date ending) {
         return (starting.before(ending) || starting.equals(ending));

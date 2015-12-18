@@ -34,19 +34,20 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form:form method="post" action="${pageContext.request.contextPath}/car/create" modelAttribute="reservation">
+                <form:form method="post" action="${pageContext.request.contextPath}/reservation/create" modelAttribute="reservation">
                   <div class="box-body">
                     <div class="form-group">
                       <form:hidden path="id" cssClass="form-control" />
                     </div>
                     <div class="form-group">
-                      <form:label path="employee.name">Employee</form:label>
-                      <form:select path="employee.name" cssClass="form-control" items="${employees}" />
+                      <form:label path="employee">Employee</form:label>
+                      <form:select path="employee" cssClass="form-control" items="${employees}" />
                     </div>
                     <div class="form-group">
-                      <form:label path="car.name">Car</form:label>
-                      <form:select path="car.name" cssClass="form-control" items="${cars}" />
+                      <form:label path="car">Car</form:label>
+                      <form:select path="car" cssClass="form-control" items="${cars}" />
                     </div>
+                    
                     <div class="form-group">
                         <form:label path="startingDate">Start Date</form:label>
                         <div class="input-group">
@@ -63,6 +64,7 @@
                             <form:input path="startingDate" value="${theFormattedDate}" data-inputmask="'alias': 'dd-mm-yyyy'" type="text" class="form-control my-little-date-mask"/>
                         </div>
                     </div>
+                    
                     <div class="form-group">
                       <form:label path="endingDate">End Date</form:label>
                         <div class="input-group">
@@ -77,6 +79,10 @@
                             <form:input path="endingDate" value="${theFormattedDate2}" data-inputmask="'alias': 'dd-mm-yyyy'" type="text" class="form-control my-little-date-mask"/>
                         </div>
                       <!-- /.input group -->
+                    </div>
+                    <div class="form-group">
+                      <form:label path="reservationState">ReservationState</form:label>
+                      <form:select path="reservationState" cssClass="form-control" items="${state}" />
                     </div>
                   </div>
                   <!-- /.box-body -->
