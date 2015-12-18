@@ -45,11 +45,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
     
     @Override
     public void loadData() {
-        Employee han = employee("Han Solo", "1970MF", toDate(1968, 3, 15));
-        Employee luke = employee("Luke Skywalker", "4455TT", toDate(1970, 10, 20));
-        Employee obiwan = employee("Obi-Wan Kenobi", "74125NB", toDate(1954, 6, 5));
-        Employee vader = employee("Darth Vader", "1111DS", toDate(1958, 7, 14));
-        Employee r2d2 = employee("R2D2", "2288RD", toDate(1920, 4, 24));
+        Employee han = employee("Han Solo", "1970MF", toDate(1968, 3, 15), "han", "password");
+        Employee luke = employee("Luke Skywalker", "4455TT", toDate(1970, 10, 20), "luke", "password");
+        Employee obiwan = employee("Obi-Wan Kenobi", "74125NB", toDate(1954, 6, 5), "obi", "password");
+        Employee vader = employee("Darth Vader", "1111DS", toDate(1958, 7, 14), "darth", "password");
+        Employee r2d2 = employee("R2D2", "2288RD", toDate(1920, 4, 24), "r2", "password");
         log.info("Loaded employees.");
         Car mil = car("Millenium Falcon", "grey", Fuel.Diesel, Transmission.Manual);
         Car dStar = car("Death Star", "black", Fuel.Diesel, Transmission.Automatic);
@@ -82,11 +82,14 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
         return d;
     }
     
-    private Employee employee(String name, String IdCardNo, Date birth){
+    private Employee employee(String name, String IdCardNo, Date birth, String email, String password){
         Employee e = new Employee();
         e.setName(name);
         e.setIdCardNumber(IdCardNo);
         e.setBirth(birth);
+        e.setEmail(email);
+        e.setPassword(password);
+        e.setIsAdmin(false);
         employeeService.createEmployee(e);
         return e;
     }
