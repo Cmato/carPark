@@ -20,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 @Configuration
 @Import({MappingConfiguration.class, CarParkWithSampleDataConfiguration.class})
-@ComponentScan(basePackages = {"cz.fi.muni.pa165.rest.controllers", "cz.fi.muni.pa165.rest.assemblers"})
+@ComponentScan(basePackages = {"cz.muni.fi.pa165.rest.controllers", "cz.muni.fi.pa165.rest.assemblers"})
 public class RootWebContext extends WebMvcConfigurerAdapter {
 
     @Override
