@@ -9,14 +9,17 @@ import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.Transmission;
 import cz.muni.fi.pa165.facade.CarFacade;
 import cz.muni.fi.pa165.springmvc.forms.CarCreateDTOValidator;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +32,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.NestedServletException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
@@ -53,9 +57,14 @@ public class CarController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         CarDTO car = carFacade.getCarById(id);
-        carFacade.deleteCar(id);
-        log.debug("delete({})", id);
-        redirectAttributes.addFlashAttribute("alert_success", "Product \"" + car.getName() + "\" was deleted.");
+        try{
+            carFacade.deleteCar(id);
+            log.debug("delete({})", id);
+            redirectAttributes.addFlashAttribute("alert_success", "Car \"" + car.getName() + "\" was deleted.");
+        } catch (JpaSystemException ex) {
+            redirectAttributes.addFlashAttribute("alert_error", "Can not delete. Car \"" + car.getName() + "\" is used in Rental.");
+        }
+            
         return "redirect:" + uriBuilder.path("/car/list").toUriString();
     }
     
@@ -129,7 +138,7 @@ public class CarController {
             updateOrCreate = "updated";
         }
         //report success
-        redirectAttributes.addFlashAttribute("alert_success", "Car " + id + " was " + updateOrCreate);
+        redirectAttributes.addFlashAttribute("alert_success", "Car \"" + formBean.getName() + "\" was " + updateOrCreate);
         return "redirect:" + uriBuilder.path("/car/detail/{id}").buildAndExpand(id).encode().toUriString();
     }
     

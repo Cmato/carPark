@@ -228,13 +228,26 @@
 
         $("#dashboardMenuItem").addClass("active");
       }
+      
+      function bindRemoveItem() {
+          if($(".removeItem").length > 0) {
+              $("body").delegate(".removeItem", "click", function() {
+                  if(confirm("Do you want to delete this item?"))
+                    $(this).find("form").submit();
+                
+                  return false;
+              });
+          }
+      }
 
       $(document).ready(function() {
         setActiveMenu();
         
         if($(".callout").length > 0) {
-            setTimeout(function(){ $(".callout").fadeOut(400); }, 3000);
+            setTimeout(function(){ $(".callout").fadeOut(400); }, 5000);
         }
+        
+        bindRemoveItem();
       });
     </script>
   </body>

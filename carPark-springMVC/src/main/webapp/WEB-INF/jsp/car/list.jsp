@@ -59,8 +59,12 @@
                         <td><c:out value="${car.color}"/></td>
                         <td class="actions">
                           <div class="center">
-                            <a href="${pageContext.request.contextPath}/car/detail/${car.id}" title="edit"><span class="glyphicon glyphicon-edit"></span></a>
-                            <a href="#" title="remove"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a href="${pageContext.request.contextPath}/car/detail/${car.id}" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a href="#" title="Remove" class="removeItem">
+                                <span class="glyphicon glyphicon-trash"></span>
+                                <form method="post" action="${pageContext.request.contextPath}/car/delete/${car.id}" style="display: none;">
+                                </form>
+                            </a>
                           </div>
                         </td>
                     </tr>
