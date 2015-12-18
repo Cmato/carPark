@@ -41,8 +41,8 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter{
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
         log.debug("Mapping url \'/\' to home view.");
-        //registry.addViewController("/").setViewName("home/home");
-        //registry.addViewController("/car").setViewName("car/index");
+        registry.addViewController("/").setViewName("public/login");
+        //registry.addViewController("/car").setViewName("admin/car/list");
     }
     
     /**

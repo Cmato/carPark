@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author xcmarko
  */
 @Controller
-@RequestMapping("/")
-public class indexController {
+@RequestMapping("/home")
+public class HomeController {
     @Autowired
     private CarFacade carFacade;
     
@@ -33,13 +33,13 @@ public class indexController {
     @Autowired
     private RentalFacade rentalFacade;
     
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
         
         model.addAttribute("carsNumber", carFacade.getAllCars().size());
         model.addAttribute("employeeNumber", employeeFacade.findAllEmployees().size());
         model.addAttribute("reservationNumber", reservationFacade.getAllReservations().size());
         model.addAttribute("rentalNumber", rentalFacade.getAllRentals().size());
-        return "home/home";
+        return "home/index";
     }
 }

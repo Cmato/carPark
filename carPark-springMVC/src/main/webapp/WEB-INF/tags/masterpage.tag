@@ -135,7 +135,7 @@
           <ul class="sidebar-menu">
             <li class="header">Car Park administration</li>
             <!-- Optionally, you can add icons to the links -->
-            <li id="dashboardMenuItem" class="active"><a href="${pageContext.request.contextPath}"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+            <li id="dashboardMenuItem" class="active"><a href="${pageContext.request.contextPath}/home"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
             <li id="carMenuItem"><a href="${pageContext.request.contextPath}/car/list"><i class="fa fa-automobile"></i> <span>Cars</span></a></li>
             <li id="employeeMenuItem"><a href="${pageContext.request.contextPath}/employee/list"><i class="fa fa-user" style="margin-right: -1px; margin-left: 1px;"></i> <span>Employees</span></a></li>
             <li id="reservationMenuItem"><a href="${pageContext.request.contextPath}/reservation/list"><i class="fa fa-calendar-o"></i> <span>Reservations</span></a></li>
