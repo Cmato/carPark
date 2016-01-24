@@ -37,6 +37,12 @@ public class EmployeeController {
     @Autowired
     private EmployeeFacade employeeFacade;
     
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String index(Model model) {
+        
+        return "employee/index";
+    }
+    
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         
@@ -66,7 +72,7 @@ public class EmployeeController {
         } else {
             model.addAttribute("employee", employeeFacade.findEmployeeById(id.get()));
         }
-        return "car/detail";
+        return "employee/detail";
     }
     
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -101,4 +107,6 @@ public class EmployeeController {
         redirectAttributes.addFlashAttribute("alert_success", "Employee \"" + formBean.getName() + "\" was " + updateOrCreate);
         return "redirect:" + uriBuilder.path("/employee/detail/{id}").buildAndExpand(id).encode().toUriString();
     }
+    
+    
 }

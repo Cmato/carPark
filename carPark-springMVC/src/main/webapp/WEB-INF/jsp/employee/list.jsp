@@ -1,7 +1,7 @@
 <%-- 
     Document   : list.jsp
     Created on : 17.12.2015, 17:50:12
-    Author     : xcmarko
+    Author     : xhasprun
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" session="false" %>
