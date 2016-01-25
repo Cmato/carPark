@@ -10,17 +10,17 @@ package cz.muni.fi.pa165.dto;
  */
 public class EmployeeAuthenticateDTO {
     
-    private Long userId;
+    private String email;
     private String password;
 
-    public Long getUserId()
+    public String getEmail()
     {
-        return userId;
+        return email;
     }
 
-    public void setUserId(Long userId)
+    public void setEmail(String email)
     {
-        this.userId = userId;
+        this.email = email;
     }
 
     public String getPassword()

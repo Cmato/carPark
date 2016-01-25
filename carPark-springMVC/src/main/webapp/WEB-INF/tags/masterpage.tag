@@ -64,7 +64,7 @@
       <header class="main-header">
 
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="#" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A</b>LT</span>
           <!-- logo for regular state and mobile devices -->
@@ -124,10 +124,17 @@
             <div class="pull-left image">
               <img src="${pageContext.request.contextPath}/static/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
             </div>
-            <div class="pull-left info">
-              <p>Alexander Pierce</p>
-              <!-- Status -->
-              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            <div class="pull-left info">    
+            <p>a ${authenticatedUser.email} 
+            a <c:out value="${authenticatedUser.email}"/> a</p>
+	            <c:if test="${empty sessionScope.authenticatedUser}">
+	               <p><a href="${pageContext.request.contextPath}/login">Login</a></p>
+                   </c:if>        
+                 <c:if test="${not empty authenticatedUser}">
+                        <p>${authenticatedUser.email}</p>
+                      <!-- Status -->
+                      <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                 </c:if>
             </div>
           </div>
 
