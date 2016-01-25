@@ -14,3 +14,4 @@ $ curl -i -X GET http://localhost:8080/rest/employees
 
 Delete employee:
 $ curl -i -X DELETE http://localhost:8080/rest/employees/{id}
+(In sample data, only employee with id 6 can be deleted, because he has no rentals.)
