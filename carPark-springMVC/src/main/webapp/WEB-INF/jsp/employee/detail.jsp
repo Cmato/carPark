@@ -53,7 +53,7 @@
                       <form:select path="email" cssClass="form-control" placeholder="Enter the employee's password"/>
                     </div>
                     <div class="form-group">
-                        <form:label path="startingDate">Birth Date</form:label>
+                        <form:label path="birth">Birth Date</form:label>
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
