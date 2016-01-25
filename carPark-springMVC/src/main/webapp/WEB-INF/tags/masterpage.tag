@@ -147,7 +147,7 @@
 	               <p><a href="${pageContext.request.contextPath}/login">Login</a></p>
                    </c:if>        
                  <c:if test="${not empty authenticatedUser}">
-                        <p>${authenticatedUser.name}</p>
+                        <p>${authenticatedUser.name} <c:if test="${authenticatedUser.isAdmin==true}"> <small><i> (Admin)</i>  </small></c:if></p>
                       <!-- Status -->
                       <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                  </c:if>

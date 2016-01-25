@@ -33,7 +33,9 @@
 
               <div class="box-tools">
                 <div class="input-group input-group-sm right" style="width: 48px;">
+                  <c:if test="${authenticatedUser.isAdmin==true}">
                   <button type="button" class="btn btn-info btn-flat" title="Add Employee"><span class="glyphicon glyphicon-plus"></span></button>
+                  </c:if>
                 </div>
               </div>
             </div>
@@ -45,7 +47,7 @@
                   <th>Name</th>
                   <th>Id Card Number</th>
                   <th>Birth Date</th>
-                  <th>Actions</th>
+                  <c:if test="${authenticatedUser.isAdmin==true}"><th>Actions</th></c:if>
                 </tr>
                 <c:forEach items="${allEmployees}" var="employee">
                     <tr>
@@ -53,7 +55,7 @@
                         <td><c:out value="${employee.name}"/></td>
                         <td><c:out value="${employee.idCardNumber}"/></td>
                         <td><fmt:formatDate value="${employee.birth}" pattern="yyyy-MM-dd"/></td>
-                        <td class="actions">
+                        <c:if test="${authenticatedUser.isAdmin==true}"><td class="actions">
                           <div class="center">
                             <a href="${pageContext.request.contextPath}/employee/detail/${employee.id}" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
                             <a href="#" title="Remove" class="removeItem">
@@ -62,7 +64,7 @@
                                 </form>
                             </a>
                           </div>
-                        </td>
+                        </td></c:if>
                     </tr>
                 </c:forEach>
               </tbody></table>

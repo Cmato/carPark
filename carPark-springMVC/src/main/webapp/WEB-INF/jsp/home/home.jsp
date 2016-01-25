@@ -29,8 +29,8 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>${carsNumber}</h3>
-
+              <h3><c:if test="${not empty authenticatedUser}">${carsNumber}</c:if>
+              <c:if test="${empty authenticatedUser}">N/A</c:if></h3>
               <p>Cars</p>
             </div>
             <div class="icon">
@@ -46,8 +46,9 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>${employeeNumber}</h3>
-
+              <h3><c:if test="${not empty authenticatedUser}">${employeeNumber}</c:if>
+              <c:if test="${empty authenticatedUser}">N/A</c:if></h3>
+            
               <p>Employees</p>
             </div>
             <div class="icon">
@@ -67,8 +68,10 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>${reservationNumber}</h3>
-
+              <h3><c:if test="${not empty authenticatedUser}">${reservationNumber}</c:if>
+              <c:if test="${empty authenticatedUser}">N/A</c:if></h3>
+            
+            
               <p>Employee Reservations</p>
             </div>
             <div class="icon">
@@ -84,8 +87,10 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>${rentalNumber}</h3>
-
+            
+              <h3><c:if test="${not empty authenticatedUser}">${rentalNumber}</c:if>
+              <c:if test="${empty authenticatedUser}">N/A</c:if></h3>
+            
               <p>Employee Rentals</p>
             </div>
             <div class="icon">
