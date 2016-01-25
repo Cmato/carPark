@@ -167,7 +167,7 @@ public class RentalDTO {
                 + ", starting date= " + startingDate
                 + ", estimated return date= " + estimatedReturnDate
                 + ", return date= " + returnDate
-                + ", state= " + rentalState.toString()
+                + ", state= " + rentalState
                 + '}';
     }
 }
