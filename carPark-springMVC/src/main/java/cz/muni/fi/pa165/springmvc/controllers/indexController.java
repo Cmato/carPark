@@ -104,4 +104,12 @@ public class indexController {
         log.debug("User logged in: " + formBean.getEmail());
         return "redirect:/";
     }
+    
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(Model model, HttpServletRequest request) {
+        log.debug("logout");
+        request.getSession().removeAttribute("authenticatedUser");
+        model.addAttribute("alert_success", "You have been logged out.");
+        return "home/home";
+    }
 }

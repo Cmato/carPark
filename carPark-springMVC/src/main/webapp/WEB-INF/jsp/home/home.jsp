@@ -1,10 +1,10 @@
 <%-- 
-    Document   : list
+    Document   : home
     Created on : Dec 16, 2015, 18:21:32 PM
     Author     : xcmarko
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" session="true"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="own" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>

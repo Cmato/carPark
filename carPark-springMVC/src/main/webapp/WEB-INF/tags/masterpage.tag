@@ -12,6 +12,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="${pageContext.request.locale}">
   <head>
@@ -80,36 +82,52 @@
           <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+                <li class="dropdown user user-menu">
+            <c:if test="${empty authenticatedUser}">
+            <a href="${pageContext.request.contextPath}/login">
+                  <!-- The user image in the navbar-->
+                  <img src="${pageContext.request.contextPath}/static/dist/img/user2-128x128.png" class="user-image" alt="User Image">
+                  <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                  <span class="hidden-xs">Login</span>
+                </a>
+                   </c:if>        
+                 <c:if test="${not empty authenticatedUser}">
+            
               <!-- User Account Menu -->
+              
+                
               <li class="dropdown user user-menu">
                 <!-- Menu Toggle Button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <!-- The user image in the navbar-->
                   <img src="${pageContext.request.contextPath}/static/dist/img/user2-128x128.png" class="user-image" alt="User Image">
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                  <span class="hidden-xs">Alexander Pierce</span>
+                  <span class="hidden-xs">${authenticatedUser.name}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- The user image in the menu -->
                   <li class="user-header">
                     <img src="${pageContext.request.contextPath}/static/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
                     <p>
-                      Alexander Pierce - Web Developer
-                      <small>Member since Nov. 2012</small>
+                      ${authenticatedUser.name}
+                      <small>${authenticatedUser.email}</small>
+                      <small><fmt:formatDate value="${authenticatedUser.birth}" pattern="yyyy-MM-dd"/></small>
                     </p>
                   </li>
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    <div class="pull-left">
+                    <!-- <div class="pull-left">
                       <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
+                    </div> -->
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                      <a href="${pageContext.request.contextPath}/logout" class="btn btn-default btn-flat">Log out</a>
                     </div>
                   </li>
                 </ul>
+                 </c:if>
               </li>
             </ul>
+            
           </div>
         </nav>
       </header>
@@ -129,7 +147,7 @@
 	               <p><a href="${pageContext.request.contextPath}/login">Login</a></p>
                    </c:if>        
                  <c:if test="${not empty authenticatedUser}">
-                        <p>${authenticatedUser.email}</p>
+                        <p>${authenticatedUser.name}</p>
                       <!-- Status -->
                       <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                  </c:if>
@@ -140,7 +158,7 @@
           <ul class="sidebar-menu">
             <li class="header">Car Park administration</li>
             <!-- Optionally, you can add icons to the links -->
-            <li id="dashboardMenuItem" class="active"><a href="${pageContext.request.contextPath}"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+            <li id="dashboardMenuItem" class="active"><a href="${pageContext.request.contextPath}/"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
             <li id="carMenuItem"><a href="${pageContext.request.contextPath}/car/list"><i class="fa fa-automobile"></i> <span>Cars</span></a></li>
             <li id="employeeMenuItem"><a href="${pageContext.request.contextPath}/employee/list"><i class="fa fa-user" style="margin-right: -1px; margin-left: 1px;"></i> <span>Employees</span></a></li>
             <li id="reservationMenuItem"><a href="${pageContext.request.contextPath}/reservation/list"><i class="fa fa-calendar-o"></i> <span>Reservations</span></a></li>
