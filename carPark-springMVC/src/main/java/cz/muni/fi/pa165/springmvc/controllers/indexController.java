@@ -33,7 +33,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/")
 public class indexController {
     
-    final static Logger log = LoggerFactory.getLogger(CarController.class);
+    final static Logger log = LoggerFactory.getLogger(indexController.class);
     
     @Autowired
     private CarFacade carFacade;

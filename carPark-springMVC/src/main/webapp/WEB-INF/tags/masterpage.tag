@@ -4,7 +4,7 @@
     Author     : xcmarko
 --%>
 
-<%@ tag pageEncoding="utf-8" dynamic-attributes="dynattrs" trimDirectiveWhitespaces="true"  %>
+<%@ tag pageEncoding="utf-8" dynamic-attributes="dynattrs" trimDirectiveWhitespaces="true" %>
 <%@ attribute name="title" required="false" %>
 <%@ attribute name="head" fragment="true" %>
 <%@ attribute name="body" fragment="true" required="true" %>
@@ -125,8 +125,6 @@
               <img src="${pageContext.request.contextPath}/static/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">    
-            <p>a ${authenticatedUser.email} 
-            a <c:out value="${authenticatedUser.email}"/> a</p>
 	            <c:if test="${empty sessionScope.authenticatedUser}">
 	               <p><a href="${pageContext.request.contextPath}/login">Login</a></p>
                    </c:if>        
