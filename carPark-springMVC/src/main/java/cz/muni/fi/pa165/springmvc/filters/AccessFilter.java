@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-@WebFilter(urlPatterns = { "/car/*"})
+@WebFilter(urlPatterns = { "/car/*", "/employee/*", "/rental/*", "/reservation/*", "/logout"})
 public class AccessFilter implements Filter {
 
     final static Logger log = LoggerFactory.getLogger(AccessFilter.class);

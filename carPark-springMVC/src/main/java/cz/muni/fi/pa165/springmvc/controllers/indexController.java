@@ -33,7 +33,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/")
 public class indexController {
     
-    final static Logger log = LoggerFactory.getLogger(CarController.class);
+    final static Logger log = LoggerFactory.getLogger(indexController.class);
     
     @Autowired
     private CarFacade carFacade;
@@ -103,5 +103,13 @@ public class indexController {
         request.getSession().setAttribute("authenticatedUser", employeeFacade.findEmployeeByEmail(formBean.getEmail()));
         log.debug("User logged in: " + formBean.getEmail());
         return "redirect:/";
+    }
+    
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(Model model, HttpServletRequest request) {
+        log.debug("logout");
+        request.getSession().removeAttribute("authenticatedUser");
+        model.addAttribute("alert_success", "You have been logged out.");
+        return "home/home";
     }
 }
