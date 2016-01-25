@@ -18,13 +18,18 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>carPark-sampleData</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.el</groupId>
+                    <artifactId>javax.el-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- servlet, JSP, JSTL -->
         <!-- must be this instead of javaee-web for the springmvc-tests to succeed -->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-api</artifactId>
-            <version>8.0.29</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -37,7 +42,7 @@
             <artifactId>taglibs-standard-impl</artifactId>
             <version>1.2.5</version>
         </dependency>
-
+        
         <!-- Spring MVC -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -48,19 +53,16 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>1.1.0.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.2.2.Final</version>
         </dependency>
         
         <!-- must provide logging implementation, this is a runnable project -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>
-            <version>1.3.0.RELEASE</version>
         </dependency>
 
         <!-- libraries needed for unit tests -->
@@ -68,7 +70,6 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <scope>test</scope>
-            <version>6.9.9</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -81,7 +82,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    
     <build>
         <!-- what to do when only "mvn" is run -->
         <defaultGoal>tomcat7:run</defaultGoal>
