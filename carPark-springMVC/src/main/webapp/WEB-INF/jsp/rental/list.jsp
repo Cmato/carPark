@@ -26,7 +26,9 @@
 
               <div class="box-tools">
                 <div class="input-group input-group-sm right" style="width: 48px;">
-                  <button type="button" class="btn btn-info btn-flat" title="Add Rental"><span class="glyphicon glyphicon-plus"></span></button>
+                    <a href="${pageContext.request.contextPath}/rental/detail/">
+                        <button type="button" class="btn btn-info btn-flat" title="Add Rental"><span class="glyphicon glyphicon-plus"></span></button>
+                    </a>
                 </div>
               </div>
             </div>
@@ -49,12 +51,12 @@
                         <td><fmt:formatDate value="${rental.startingDate}" pattern="dd-MM-YYYY"/></td>
                         <td><fmt:formatDate value="${rental.estimatedReturnDate}" pattern="dd-MM-YYYY"/></td>
                         <td><fmt:formatDate value="${rental.returnDate}" pattern="dd-MM-YYYY"/></td>
-                        <td><a href="#"><c:out value="${rental.employee.getName()}"/></a></td>
-                        <td><a href="#"><c:out value="${rental.car.getName()}"/></a></td>
+                        <td><c:out value="${rental.employee.getName()}"/></td>
+                        <td><c:out value="${rental.car.getName()}"/></td>
                         <td><c:out value="${rental.rentalState}"/></td>
                         <td class="actions">
                           <div class="center">
-                            <a href="${pageContext.request.contextPath}/rental/detail/${reservation.id}" title="Edit">
+                            <a href="${pageContext.request.contextPath}/rental/detail/${rental.id}" title="Edit">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
                             <a href="#" title="Remove" class="removeItem">

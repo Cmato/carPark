@@ -3,10 +3,14 @@ package cz.muni.fi.pa165.springmvc.controllers;
 import cz.muni.fi.pa165.dto.CarDTO;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.dto.RentalDTO;
+import cz.muni.fi.pa165.enums.RentalState;
 import cz.muni.fi.pa165.facade.CarFacade;
 import cz.muni.fi.pa165.facade.EmployeeFacade;
 import cz.muni.fi.pa165.facade.RentalFacade;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -68,20 +72,36 @@ public class RentalController {
         return "rental/detail";
     }
     
-    @ModelAttribute("employees")
+    /*@ModelAttribute("employees")
     public List<String> employees() {
         List<String> names = new ArrayList<>();
         for(EmployeeDTO empl: emplFacade.findAllEmployees())
             names.add(empl.getName());
         return names;
+    }*/
+    @ModelAttribute("employees")
+    public List<EmployeeDTO> employees() {
+        List<EmployeeDTO> employees = emplFacade.findAllEmployees();
+        return employees;
     }
     
-    @ModelAttribute("cars")
+    /*@ModelAttribute("cars")
     public List<String> cars() {
         List<String> cars = new ArrayList<>();
         for(CarDTO car: carFacade.getAllCars())
             cars.add(car.getName());
         return cars;
+    }*/
+    @ModelAttribute("cars")
+    public List<CarDTO> cars() {
+        List<CarDTO> cars = carFacade.getAllCars();
+        return cars;
+    }
+    
+    @ModelAttribute("rentalStates")
+    public List<RentalState> rentalStates() {
+        List<RentalState> rentalStates = new ArrayList<>(EnumSet.allOf(RentalState.class));
+        return rentalStates;
     }
     
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -89,7 +109,7 @@ public class RentalController {
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         log.debug("create(rental={})", formBean);
         //in case of validation error forward back to the the form
-        if (bindingResult.hasErrors()) {
+        /*if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
                 log.trace("ObjectError: {}", ge);
             }
@@ -97,12 +117,20 @@ public class RentalController {
                 model.addAttribute(fe.getField() + "_error", true);
                 log.trace("FieldError: {}", fe);
             }
-            return "rental/list";
-        }
+            return "rental/detail";
+        }*/
         Long id = null;
         String updateOrCreate = "created";
         if(formBean.getId() == null) {
             //create car
+            /*Calendar c = Calendar.getInstance();
+            c.set(1990, 3, 2);
+            Date d = c.getTime();
+            formBean.setStartingDate(d);
+            c.set(1990, 3, 3);
+            d = c.getTime();
+            formBean.setEstimatedReturnDate(d);
+            formBean.setRentalState(RentalState.ACTIVE);*/
             id = rentalFacade.createRental(formBean);
         } else {
             //update car
@@ -117,7 +145,7 @@ public class RentalController {
         }
         //report success
         redirectAttributes.addFlashAttribute("alert_success", "Reservation was " + updateOrCreate);
-        return "redirect:" + uriBuilder.path("/rental/detail/{id}").buildAndExpand(id).encode().toUriString();
+        return "redirect:" + uriBuilder.path("/rental/list").toUriString();
     }
     
 }

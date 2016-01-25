@@ -40,12 +40,20 @@
                       <form:hidden path="id" cssClass="form-control" />
                     </div>
                     <div class="form-group">
-                      <form:label path="employee.name">Employee</form:label>
-                      <form:select path="employee.name" cssClass="form-control" items="${employees}" />
+                      <form:label path="employee.id">Employee</form:label>
+                        <form:select path="employee.id" cssClass="form-control">
+                            <c:forEach items="${employees}" var="employee">
+                                <form:option value="${employee.id}">${employee.name}</form:option>
+                            </c:forEach>
+                        </form:select>
                     </div>
                     <div class="form-group">
-                      <form:label path="car.name">Car</form:label>
-                      <form:select path="car.name" cssClass="form-control" items="${cars}" />
+                      <form:label path="car.id">Car</form:label>
+                        <form:select path="car.id" cssClass="form-control">
+                            <c:forEach items="${cars}" var="car">
+                                <form:option value="${car.id}">${car.name}</form:option>
+                            </c:forEach>
+                        </form:select>
                     </div>
                     <div class="form-group">
                         <form:label path="startingDate">Start Date</form:label>
@@ -77,6 +85,10 @@
                             <form:input path="estimatedReturnDate" value="${theFormattedDate2}" data-inputmask="'alias': 'dd-mm-yyyy'" type="text" class="form-control my-little-date-mask"/>
                         </div>
                       <!-- /.input group -->
+                    </div>
+                    <div class="form-group">
+                      <form:label path="rentalState">Rental State</form:label>
+                      <form:select path="rentalState" cssClass="form-control" items="${rentalStates}" />
                     </div>
                   </div>
                   <!-- /.box-body -->
