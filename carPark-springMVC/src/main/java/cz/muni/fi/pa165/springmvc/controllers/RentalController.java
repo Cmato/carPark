@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.enums.RentalState;
 import cz.muni.fi.pa165.facade.CarFacade;
 import cz.muni.fi.pa165.facade.EmployeeFacade;
 import cz.muni.fi.pa165.facade.RentalFacade;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,11 +18,14 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -104,12 +108,19 @@ public class RentalController {
         return rentalStates;
     }
     
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+    
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("rental") RentalDTO formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         log.debug("create(rental={})", formBean);
         //in case of validation error forward back to the the form
-        /*if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
                 log.trace("ObjectError: {}", ge);
             }
@@ -118,20 +129,11 @@ public class RentalController {
                 log.trace("FieldError: {}", fe);
             }
             return "rental/detail";
-        }*/
+        }
         Long id = null;
         String updateOrCreate = "created";
         if(formBean.getId() == null) {
-            //create car
-            /*Calendar c = Calendar.getInstance();
-            c.set(1990, 3, 2);
-            Date d = c.getTime();
-            formBean.setStartingDate(d);
-            c.set(1990, 3, 3);
-            d = c.getTime();
-            formBean.setEstimatedReturnDate(d);
-            formBean.setRentalState(RentalState.ACTIVE);*/
-            id = rentalFacade.createRental(formBean);
+            rentalFacade.createRental(formBean);
         } else {
             //update car
             id = formBean.getId();
