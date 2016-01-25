@@ -50,6 +50,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
         Employee obiwan = employee("Obi-Wan Kenobi", "74125NB", toDate(1954, 6, 5), "obi@mail.com", "password",false);
         Employee vader = employee("Darth Vader", "1111DS", toDate(1958, 7, 14), "darth@mail.com", "password",false);
         Employee filip = employee("Filip Novak", "2288RD", toDate(1920, 4, 24), "filip@mail.com", "password",false);
+        Employee smazatelny = employee("Pepa pepovic", "11111RD", toDate(1921, 4, 24), "pepa@mail.com", "password",false);
         log.info("Loaded employees.");
         Car mil = car("Millenium Falcon", "grey", Fuel.Diesel, Transmission.Manual);
         Car dStar = car("Death Star", "black", Fuel.Diesel, Transmission.Automatic);

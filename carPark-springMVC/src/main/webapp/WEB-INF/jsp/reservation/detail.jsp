@@ -61,7 +61,7 @@
 				                pattern="dd-MM-yyyy"
 				                var="theFormattedDate" />
                         
-                            <form:input path="startingDate" value="${theFormattedDate}" data-inputmask="'alias': 'dd-mm-yyyy'" type="text" class="form-control my-little-date-mask"/>
+                            <form:input path="startingDate" id="startingDate" value="${theFormattedDate}" data-inputmask="'alias': 'dd-mm-yyyy'" type="text" class="form-control my-little-date-mask"/>
                         </div>
                     </div>
                     
