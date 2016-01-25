@@ -61,7 +61,7 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <fmt:formatDate value="${startingDate}" pattern="yyyy-MM-dd"/>
+                            <!-- fmt:formatDate value="${startingDate}" pattern="dd-MM-yyyy"/> -->
                             
                             <fmt:formatDate value="${rental.startingDate}"  
 				                type="date" 
