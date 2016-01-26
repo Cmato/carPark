@@ -41,12 +41,15 @@ public class RentalServiceImpl implements RentalService {
             throw new CarParkServiceException("The starting date is after"
                     + " estimated return date!");
         }
+        /*
+        List<Rental> rentals = getRentalsByState(RentalState.ACTIVE);
+        rentals.addAll(getRentalsByState(RentalState.DELAYED));
         
-        /*if (!ca.checkActualCarAvailability(rental)){
+        if (!ca.checkActualCarAvailability(rental, rentals)){
             log.error("Can't create rental because the car is not available.");
             throw new CarParkServiceException("The car is not available.");
-        }*/
-
+        }
+        */
         if(rentalDao.create(rental)) {
             return rental;
         }

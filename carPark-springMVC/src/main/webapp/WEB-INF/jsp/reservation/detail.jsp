@@ -16,8 +16,8 @@
     <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Reservation
-            <small>Administration of reservations</small>
+            <fmt:message key="res.reservs"/>
+            <small><fmt:message key="res.admin"/></small>
           </h1>
         </section>
 
@@ -30,11 +30,11 @@
             <div class="col-md-8">
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Reservation edit</h3>
+                  <h3 class="box-title"><fmt:message key="res.edit"/></h3>
                   <c:choose>
                       <c:when test="${reservation.reservationState=='ACTIVE'}">
                           <form method="post" action="${pageContext.request.contextPath}/reservation/cancel/${reservation.id}">
-                              <button type="submit" class="btn btn-primary">Cancel</button>
+                              <button type="submit" class="btn btn-primary"><fmt:message key="res.cancel"/></button>
                           </form>
                       </c:when>
                   </c:choose>
@@ -47,7 +47,7 @@
                       <form:hidden path="id" cssClass="form-control" />
                     </div>
                     <div class="form-group">
-                      <form:label path="employee.id">Employee</form:label>
+                      <form:label path="employee.id"><fmt:message key="res.employee"/></form:label>
                         <form:select path="employee.id" cssClass="form-control">
                             <c:forEach items="${employees}" var="employee">
                                 <form:option value="${employee.id}">${employee.name}</form:option>
@@ -64,7 +64,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <form:label path="startingDate">Start Date</form:label>
+                        <form:label path="startingDate"><fmt:message key="res.from"/></form:label>
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
@@ -80,7 +80,7 @@
                     </div>
                     
                     <div class="form-group">
-                      <form:label path="endingDate">End Date</form:label>
+                      <form:label path="endingDate"><fmt:message key="res.to"/></form:label>
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
@@ -98,7 +98,7 @@
                   <!-- /.box-body -->
 
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary"><fmt:message key="res.submit"/></button>
                   </div>
                 </form:form>
               </div>

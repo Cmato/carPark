@@ -17,8 +17,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Reservations
-        <small>Administration of reservations</small>
+        <fmt:message key="res.reservs"/>
+        <small><fmt:message key="res.admin"/></small>
       </h1>
     </section>
 
@@ -28,7 +28,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">All reservations in system</h3>
+              <h3 class="box-title"><fmt:message key="res.allResvs"/></h3>
 
               <div class="box-tools">
                 <div class="input-group input-group-sm right" style="width: 48px;">
@@ -42,13 +42,13 @@
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <tbody><tr>
-                  <th>ID</th>
-                  <th>Starting Date</th>
-                  <th>Ending Date</th>
-                  <th>Employee</th>
-                  <th>Car</th>
-                  <th>State</th>
-                  <th>Actions</th>
+                  <th><fmt:message key="res.id"/></th>
+                  <th><fmt:message key="res.from"/></th>
+                  <th><fmt:message key="res.to"/></th>
+                  <th><fmt:message key="res.employee"/></th>
+                  <th><fmt:message key="res.car"/></th>
+                  <th><fmt:message key="res.state"/></th>
+                  <th><fmt:message key="res.actions"/></th>
                 </tr>
                 <c:forEach items="${reservations}" var="reservation">
                     <tr>

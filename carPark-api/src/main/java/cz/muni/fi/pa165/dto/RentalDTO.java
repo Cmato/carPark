@@ -34,7 +34,7 @@ public class RentalDTO {
     private RentalState rentalState;
     
     public RentalDTO() {
-        this.rentalState = RentalState.ACTIVE;
+        //this.rentalState = RentalState.ACTIVE;
     }
     
     public RentalDTO(EmployeeDTO e, CarDTO c, Date startingDate, Date estimatedReturnDate) {

@@ -65,13 +65,13 @@ public class RentalController {
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        /*EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
         if(user.getIsAdmin() == false) {
             RentalDTO rent = rentalFacade.getRentalById(id);
             Long rentId = rent.getEmployee().getId();
             if(rentId != id)
                 return "home/404";
-        }
+        }*/
         
         RentalDTO rental = rentalFacade.getRentalById(id);
         rentalFacade.deleteRental(id);
@@ -82,13 +82,13 @@ public class RentalController {
     
     @RequestMapping(value = {"/detail/{id}", "/detail/"}, method = RequestMethod.GET)
     public String detail(@PathVariable Optional<Long> id, Model model, HttpServletRequest request) {
-        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        /*EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
         if(id.isPresent() && user.getIsAdmin() == false) {
             RentalDTO rent = rentalFacade.getRentalById(id.get());
             Long rentId = rent.getEmployee().getId();
             if(!rentId.equals((Long)id.get()))
                 return "home/404";
-        }
+        }*/
 
         if(!id.isPresent()) {
             model.addAttribute("rental", new RentalDTO());
@@ -165,13 +165,13 @@ public class RentalController {
     
     @RequestMapping(value = "/finish/{id}", method = RequestMethod.POST)
     public String finish(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        /*EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
         if(user.getIsAdmin() == false) {
             RentalDTO rent = rentalFacade.getRentalById(id);
             Long rentId = rent.getEmployee().getId();
             if(rentId != id)
                 return "home/404";
-        }
+        }*/
         
         try {
             rentalFacade.finishRental(id);
