@@ -17,8 +17,8 @@
     <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Employees
-            <small>Administration of employees</small>
+            <fmt:message key="employee.employees"/>
+            <small><fmt:message key="employee.admin"/></small>
           </h1>
         </section>
 
@@ -40,7 +40,7 @@
                       <form:hidden path="id" cssClass="form-control" />
                     </div>
                     <div class="form-group">
-                      <form:label path="name">Name</form:label>
+                      <form:label path="name"><fmt:message key="example.name"/></form:label>
                       <form:input path="name" cssClass="form-control" placeholder="Enter employee name" />
                       <form:errors path="name" cssClass="help-block"/>
                     </div>
@@ -49,11 +49,11 @@
                       <form:select path="email" cssClass="form-control" placeholder="Enter the employee's e-mail"/>
                     </div>
                     <div class="form-group">
-                      <form:label path="email">Password</form:label>
+                      <form:label path="email"><fmt:message key="employee.password"/></form:label>
                       <form:select path="email" cssClass="form-control" placeholder="Enter the employee's password"/>
                     </div>
                     <div class="form-group">
-                        <form:label path="birth">Birth Date</form:label>
+                        <form:label path="birth"><fmt:message key="employee.birthDate"/></form:label>
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
@@ -69,15 +69,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                      <form:label path="idCardNumber">Card ID</form:label>
-                      <form:input path="idCardNumber" cssClass="form-control" placeholder="Enter card ID" />
+                      <form:label path="idCardNumber"><fmt:message key="employee.idCard"/></form:label>
+                      <form:input path="idCardNumber" cssClass="form-control" placeholder='<fmt:message key="employee.enterIdCard"/>' />
                       <form:errors path="idCardNumber" cssClass="help-block"/>
                     </div>
                   </div>
                   <!-- /.box-body -->
 
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary"><fmt:message key="rental.submit"/></button>
                   </div>
                 </form:form>
               </div>

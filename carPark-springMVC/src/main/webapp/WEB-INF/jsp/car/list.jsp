@@ -18,8 +18,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Cars
-        <small>Administration of cars</small>
+        <fmt:message key="car.cars"/>
+        <small><fmt:message key="car.admin"/></small>
       </h1>
     </section>
 
@@ -29,12 +29,12 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">All cars in system</h3>
+              <h3 class="box-title"><fmt:message key="car.allCars"/></h3>
 
               <div class="box-tools">
                 <div class="input-group input-group-sm right" style="width: 48px;">
                   <a href="${pageContext.request.contextPath}/car/detail/">
-                    <button type="button" class="btn btn-info btn-flat" title="Add Car"><span class="glyphicon glyphicon-plus"></span></button>
+                    <button type="button" class="btn btn-info btn-flat" title='<fmt:message key="car.add"/>'><span class="glyphicon glyphicon-plus"></span></button>
                   </a>
                 </div>
               </div>
@@ -48,7 +48,7 @@
                   <th><fmt:message key="example.transmission"/></th>
                   <th><fmt:message key="example.fuel"/></th>
                   <th><fmt:message key="example.color"/></th>
-                  <th>Actions</th>
+                  <c:if test="${authenticatedUser.isAdmin==true}"><th><fmt:message key="example.actions"/></th></c:if>
                 </tr>
                 <c:forEach items="${allCars}" var="car">
                     <tr>
@@ -57,16 +57,17 @@
                         <td><c:out value="${car.transmission}"/></td>
                         <td><c:out value="${car.fuel}"/></td>
                         <td><c:out value="${car.color}"/></td>
-                        <td class="actions">
+                        <c:if test="${authenticatedUser.isAdmin==true}"><td class="actions">
                           <div class="center">
-                            <a href="${pageContext.request.contextPath}/car/detail/${car.id}" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
-                            <a href="#" title="Remove" class="removeItem">
+                            <a href="${pageContext.request.contextPath}/car/detail/${car.id}" title='<fmt:message key="employee.edit"/>'><span class="glyphicon glyphicon-edit"></span></a>
+                            <a href="#" title='<fmt:message key="employee.remove"/>' class="removeItem">
                                 <span class="glyphicon glyphicon-trash"></span>
                                 <form method="post" action="${pageContext.request.contextPath}/car/delete/${car.id}" style="display: none;">
                                 </form>
                             </a>
                           </div>
                         </td>
+                        </c:if>
                     </tr>
                 </c:forEach>
               </tbody></table>
