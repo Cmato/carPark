@@ -32,6 +32,7 @@ import cz.muni.fi.pa165.enums.ReservationState;
 import cz.muni.fi.pa165.exceptions.CarParkServiceException;
 import cz.muni.fi.pa165.facade.CarFacade;
 import cz.muni.fi.pa165.facade.EmployeeFacade;
+import cz.muni.fi.pa165.facade.RentalFacade;
 import cz.muni.fi.pa165.facade.ReservationFacade;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -52,6 +53,8 @@ public class ReservationController {
     
     @Autowired
     private ReservationFacade reservationFacade;
+    private RentalFacade rentalFacade;
+
     @Autowired
     private EmployeeFacade emplFacade;
     @Autowired
@@ -163,6 +166,18 @@ public class ReservationController {
             redirectAttributes.addFlashAttribute("alert_error", "Rental number " + id + " was not canceled. " + ex.getMessage());
         }
         return "redirect:" + uriBuilder.path("/reservation/list").toUriString();
+    }
+    
+    @RequestMapping(value = "/rent/{id}", method = RequestMethod.POST)
+    public String rent(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+        try {
+            rentalFacade.createRentalFromReservation(reservationFacade.getReservationById(id));
+            redirectAttributes.addFlashAttribute("alert_success", "Rental created.");
+        } catch (CarParkServiceException ex) {
+            log.warn("Cannot create rental {}",id);
+            redirectAttributes.addFlashAttribute("alert_error", "Rental number was not created. " + ex.getMessage());
+        }
+        return "redirect:" + uriBuilder.path("/rental/list").toUriString();
     }
     
 }

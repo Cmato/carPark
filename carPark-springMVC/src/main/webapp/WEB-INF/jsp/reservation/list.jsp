@@ -66,6 +66,10 @@
                                 <form method="post" action="${pageContext.request.contextPath}/reservation/delete/${reservation.id}" style="display: none;">
                                 </form>
                             </a>
+                            <a href="#" title="Rent" class="rentItem">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <form method="post" action="${pageContext.request.contextPath}/reservation/rent/${reservation.id}" style="display: none;"></form>
+                            </a>
                           </div>
                         </td>
                     </tr>

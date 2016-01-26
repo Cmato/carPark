@@ -261,6 +261,15 @@
                   return false;
               });
           }
+          
+          if($(".rentItem").length > 0) {
+              $("body").delegate(".rentItem", "click", function() {
+                  if(confirm("Do you want to rent this item?"))
+                    $(this).find("form").submit();
+                
+                  return false;
+              });
+          }
       }
 
       $(document).ready(function() {
