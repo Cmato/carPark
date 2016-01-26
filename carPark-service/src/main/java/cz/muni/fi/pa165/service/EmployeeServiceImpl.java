@@ -45,6 +45,24 @@ public class EmployeeServiceImpl implements EmployeeService{
         }
         return null;
     }
+    
+    @Override
+    public Employee updateEmployeeEmail(Employee employee, String newEmail) {
+        if(employee != null && newEmail != null && !newEmail.isEmpty()) {
+            employee.setEmail(newEmail);
+            return employeeDao.updateEmployee(employee);
+        }
+        return null;
+    }
+    
+    @Override
+    public Employee updateEmployeePassword(Employee employee, String newPassword) {
+        if(employee != null && newPassword != null && !newPassword.isEmpty()) {
+            employee.setPassword(createHash(newPassword));
+            return employeeDao.updateEmployee(employee);
+        }
+        return null;
+    }
 
     @Override
     public Employee updateEmployeeBirth(Employee employee, Date newBirth) {

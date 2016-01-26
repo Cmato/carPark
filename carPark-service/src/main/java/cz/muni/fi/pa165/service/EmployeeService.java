@@ -32,6 +32,22 @@ public interface EmployeeService {
      * @return employee object
      */
     public Employee updateEmployeeName(Employee employee, String newName);
+    
+    /**
+     * Updates Employees email
+     * @param updated employee
+     * @param newEmail, new email of employee
+     * @return employee object
+     */
+    public Employee updateEmployeeEmail(Employee employee, String newEmail);
+    
+    /**
+     * Updates Employees password
+     * @param updated employee
+     * @param newPassword, new email of employee
+     * @return employee object
+     */
+    public Employee updateEmployeePassword(Employee employee, String newPassword);
 
     /**
      * Updates Employees birth

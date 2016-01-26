@@ -40,6 +40,16 @@ public class EmployeeFacadeImpl implements EmployeeFacade{
     public EmployeeDTO updateEmployeeName(Long id, String newName) {
         return mappingService.mapTo(employeeService.updateEmployeeName(employeeService.findEmployeeById(id), newName), EmployeeDTO.class);
     }
+    
+    @Override
+    public EmployeeDTO updateEmployeeEmail(Long id, String newEmail) {
+        return mappingService.mapTo(employeeService.updateEmployeeEmail(employeeService.findEmployeeById(id), newEmail), EmployeeDTO.class);
+    }
+    
+    @Override
+    public EmployeeDTO updateEmployeePassword(Long id, String newPassword) {
+        return mappingService.mapTo(employeeService.updateEmployeePassword(employeeService.findEmployeeById(id), newPassword), EmployeeDTO.class);
+    }
 
     @Override
     public EmployeeDTO updateEmployeeBirth(Long id, Date newBirth) {

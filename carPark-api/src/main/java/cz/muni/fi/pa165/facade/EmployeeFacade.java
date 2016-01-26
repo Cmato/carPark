@@ -13,6 +13,8 @@ public interface EmployeeFacade {
     public Long createEmployee(EmployeeDTO employee);
     public boolean deleteEmployee(Long id);
     public EmployeeDTO updateEmployeeName(Long id, String newName);
+    public EmployeeDTO updateEmployeeEmail(Long id, String newEmail);
+    public EmployeeDTO updateEmployeePassword(Long id, String newPassword);
     public EmployeeDTO updateEmployeeBirth(Long id, Date newBirth);
     public EmployeeDTO updateEmployeeIdCardNumber(Long id, String newIdCarNumber);
     public EmployeeDTO findEmployeeById(Long id);
