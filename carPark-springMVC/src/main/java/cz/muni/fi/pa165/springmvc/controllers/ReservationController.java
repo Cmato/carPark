@@ -53,6 +53,8 @@ public class ReservationController {
     
     @Autowired
     private ReservationFacade reservationFacade;
+    
+    @Autowired
     private RentalFacade rentalFacade;
 
     @Autowired

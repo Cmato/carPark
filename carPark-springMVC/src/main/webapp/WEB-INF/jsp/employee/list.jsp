@@ -56,7 +56,7 @@
                         <td><c:out value="${employee.id}"/>.</td>
                         <td><c:out value="${employee.name}"/></td>
                         <td><c:out value="${employee.idCardNumber}"/></td>
-                        <td><fmt:formatDate value="${employee.birth}" pattern="yyyy-MM-dd"/></td>
+                        <td><fmt:formatDate value="${employee.birth}" pattern="dd-MM-yyyy"/></td>
                         <c:if test="${authenticatedUser.isAdmin==true}"><td class="actions">
                           <div class="center">
                             <a href="${pageContext.request.contextPath}/employee/detail/${employee.id}" title='<fmt:message key="employee.edit"/>'><span class="glyphicon glyphicon-edit"></span></a>

@@ -30,7 +30,7 @@
             <div class="col-md-8">
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Employee edit</h3>
+                  <h3 class="box-title"><fmt:message key="employee.edit"/></h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -54,7 +54,7 @@
                     <div class="form-group">
                       <form:label path="password"><fmt:message key="employee.password"/></form:label>
                       <fmt:message key="employee.enterPassword" var="enterPassword"/>
-                      <form:input path="password" id="password" name="password" cssClass="form-control" placeholder="${enterPassword}"/>
+                      <form:password path="password" id="password" name="password" cssClass="form-control" placeholder="${enterPassword}"/>
                       <form:errors path="password" cssClass="help-block"/>
                     </div>
                     <div class="form-group">
@@ -93,10 +93,14 @@
 
         <!-- bootstrap color picker -->
         <script src="${pageContext.request.contextPath}/static/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+        <script src="${pageContext.request.contextPath}/static/plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="${pageContext.request.contextPath}/static/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="${pageContext.request.contextPath}/static/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 
         <script>
           //color picker with addon
           $(".my-colorpicker2").colorpicker();
+          $('.my-little-date-mask').inputmask("dd-mm-yyyy", {"placeholder": "dd-mm-yyyy"});
         </script>
 
 </jsp:attribute>

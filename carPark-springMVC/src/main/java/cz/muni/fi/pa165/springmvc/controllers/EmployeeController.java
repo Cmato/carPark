@@ -6,18 +6,24 @@ package cz.muni.fi.pa165.springmvc.controllers;
 
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.facade.EmployeeFacade;
+import static cz.muni.fi.pa165.springmvc.controllers.RentalController.log;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import org.dozer.MappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,6 +90,13 @@ public class EmployeeController {
         return "employee/detail";
     }
     
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+    
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("employee") EmployeeDTO formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, HttpServletRequest request) {
@@ -96,20 +109,40 @@ public class EmployeeController {
         String updateOrCreate = "created";
         if(formBean.getId() == null) {
             //create employee
-            id = employeeFacade.createEmployee(formBean);            
+            try{
+                id = employeeFacade.createEmployee(formBean);  
+            } catch (ConstraintViolationException ex){
+                log.warn("Error");
+                redirectAttributes.addFlashAttribute("alert_error", "Employee with this e-mail already exists. ");
+                return "redirect:" + uriBuilder.path("/employee/detail/").toUriString();
+            } catch (MappingException ex){
+                log.warn("Error");
+                redirectAttributes.addFlashAttribute("alert_error", "You have to fill all fields. ");
+                return "redirect:" + uriBuilder.path("/employee/detail/").toUriString();
+            } catch (IllegalArgumentException ex){
+                log.warn("Error");
+                redirectAttributes.addFlashAttribute("alert_error", "You have to fill all fields. " + ex);
+                return "redirect:" + uriBuilder.path("/employee/detail/").toUriString();
+            }
         } else {
             //update employee
-            id = formBean.getId();
-            employeeFacade.updateEmployeeName(id, formBean.getName());
-            employeeFacade.updateEmployeeBirth(id, formBean.getBirth());
-            employeeFacade.updateEmployeeIdCardNumber(id, formBean.getIdCardNumber());
-            employeeFacade.updateEmployeeEmail(id, formBean.getEmail());
-            employeeFacade.updateEmployeePassword(id, formBean.getPassword());
-            updateOrCreate = "updated";
+            try{
+                id = formBean.getId();
+                employeeFacade.updateEmployeeName(id, formBean.getName());
+                employeeFacade.updateEmployeeBirth(id, formBean.getBirth());
+                employeeFacade.updateEmployeeIdCardNumber(id, formBean.getIdCardNumber());
+                employeeFacade.updateEmployeeEmail(id, formBean.getEmail());
+                employeeFacade.updateEmployeePassword(id, formBean.getPassword());
+                updateOrCreate = "updated";
+            } catch (MappingException ex){
+                log.warn("Error");
+                redirectAttributes.addFlashAttribute("alert_error", "You have to fill all fields. ");
+                return "redirect:" + uriBuilder.path("/employee/detail/{id}").buildAndExpand(id).encode().toUriString();
+            }
         }
         //report success
         redirectAttributes.addFlashAttribute("alert_success", "Employee \"" + formBean.getName() + "\" was " + updateOrCreate);
-        return "redirect:" + uriBuilder.path("/employee/detail/{id}").buildAndExpand(id).encode().toUriString();
+        return "redirect:" + uriBuilder.path("/employee/list").toUriString();
     }
     
     
