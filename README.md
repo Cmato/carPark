@@ -3,15 +3,22 @@ The project should emulate a real situation in a company. The company employees 
 
 ## REST
 
-Start REST: 
-$ cd  carPark-rest
-$ mvn tomcat7:run
+Start REST:
+
+      $ cd  carPark-rest
+      $ mvn tomcat7:run
 
 CURL commands:
 
-List employees:
-$ curl -i -X GET http://localhost:8080/rest/employees
+List of employees:
+
+      $ curl -i -X GET http://localhost:8080/rest/employees
+
+Single employee:
+
+      $ curl -i -X GET http://localhost:8080/rest/employees/{id}
 
 Delete employee:
-$ curl -i -X DELETE http://localhost:8080/rest/employees/{id}
+
+      $ curl -i -X DELETE http://localhost:8080/rest/employees/{id} Delete employee or return 409 Conflict error code with explaining message.
 (In sample data, only employee with id 6 can be deleted, because he has no rentals.)
