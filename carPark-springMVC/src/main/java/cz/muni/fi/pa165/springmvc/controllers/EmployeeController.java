@@ -7,6 +7,7 @@ package cz.muni.fi.pa165.springmvc.controllers;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.facade.EmployeeFacade;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,11 @@ public class EmployeeController {
     }
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false)
+            return "home/404";
+        
         EmployeeDTO employee = employeeFacade.findEmployeeById(id);
         try{
             employeeFacade.deleteEmployee(id);
@@ -65,7 +70,11 @@ public class EmployeeController {
     }
     
     @RequestMapping(value = {"/detail/{id}", "/detail/"}, method = RequestMethod.GET)
-    public String detail(@PathVariable Optional<Long> id, Model model) {
+    public String detail(@PathVariable Optional<Long> id, Model model, HttpServletRequest request) {
+        
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false)
+            return "home/404";
 
         if(!id.isPresent()) {
             model.addAttribute("employee", new EmployeeDTO());
@@ -77,7 +86,11 @@ public class EmployeeController {
     
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("employee") EmployeeDTO formBean, BindingResult bindingResult,
-                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, HttpServletRequest request) {
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false)
+            return "home/404";
+        
         log.debug("create(employee={})", formBean);
         //in case of validation error forward back to the the form
         if (bindingResult.hasErrors()) {

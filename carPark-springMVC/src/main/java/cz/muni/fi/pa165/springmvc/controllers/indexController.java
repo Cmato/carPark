@@ -5,6 +5,7 @@
 package cz.muni.fi.pa165.springmvc.controllers;
 
 import cz.muni.fi.pa165.dto.EmployeeAuthenticateDTO;
+import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.facade.CarFacade;
 import cz.muni.fi.pa165.facade.EmployeeFacade;
 import cz.muni.fi.pa165.facade.RentalFacade;
@@ -47,28 +48,29 @@ public class indexController {
     @Autowired
     private RentalFacade rentalFacade;
     
-   /* @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String login(Model model) {
-        
-        log.debug("home page or login");
-        
-        model.addAttribute("carsNumber", carFacade.getAllCars().size());
-        model.addAttribute("employeeNumber", employeeFacade.findAllEmployees().size());
-        model.addAttribute("reservationNumber", reservationFacade.getAllReservations().size());
-        model.addAttribute("rentalNumber", rentalFacade.getAllRentals().size());
-        
-        return "home/login";
-    }*/
-    
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Model model) {
+    public String index(Model model, HttpServletRequest request) {
         
-        model.addAttribute("carsNumber", carFacade.getAllCars().size());
-        model.addAttribute("employeeNumber", employeeFacade.findAllEmployees().size());
-        model.addAttribute("reservationNumber", reservationFacade.getAllReservations().size());
-        model.addAttribute("rentalNumber", rentalFacade.getAllRentals().size());
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false) {
+            model.addAttribute("carsNumber", carFacade.getAllCars().size());
+            model.addAttribute("employeeNumber", 0);
+            model.addAttribute("reservationNumber", reservationFacade.getReservationsByEmployee(user.getId()).size());
+            model.addAttribute("rentalNumber", rentalFacade.getRentalsByEmployee(user.getId()).size());
+        } else {
+            model.addAttribute("carsNumber", carFacade.getAllCars().size());
+            model.addAttribute("employeeNumber", employeeFacade.findAllEmployees().size());
+            model.addAttribute("reservationNumber", reservationFacade.getAllReservations().size());
+            model.addAttribute("rentalNumber", rentalFacade.getAllRentals().size());
+        }        
+        
         return "home/home";
+    }
+    
+    @RequestMapping(value = "/404", method = RequestMethod.GET)
+    public String notFound(Model model) {
+        return "home/404";
     }
     
     

@@ -42,6 +42,7 @@
           </div>
         </div>
         <!-- ./col -->
+        <c:if test="${authenticatedUser.isAdmin==true}">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-green">
@@ -59,6 +60,7 @@
             </a>
           </div>
         </div>
+        </c:if>
         <!-- ./col -->
       </div>
 

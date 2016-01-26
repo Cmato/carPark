@@ -5,6 +5,7 @@
 package cz.muni.fi.pa165.springmvc.controllers;
 
 import cz.muni.fi.pa165.dto.CarDTO;
+import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.enums.Fuel;
 import cz.muni.fi.pa165.enums.Transmission;
 import cz.muni.fi.pa165.facade.CarFacade;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -55,7 +57,11 @@ public class CarController {
     }
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false)
+            return "home/404";
+        
         CarDTO car = carFacade.getCarById(id);
         try{
             carFacade.deleteCar(id);
@@ -69,7 +75,11 @@ public class CarController {
     }
     
     @RequestMapping(value = {"/detail/{id}", "/detail/"}, method = RequestMethod.GET)
-    public String detail(@PathVariable Optional<Long> id, Model model) {
+    public String detail(@PathVariable Optional<Long> id, Model model, HttpServletRequest request) {
+        
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false)
+            return "home/404";
 
         if(!id.isPresent()) {
             model.addAttribute("car", new CarDTO());
@@ -110,7 +120,11 @@ public class CarController {
     
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("car") CarDTO formBean, BindingResult bindingResult,
-                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, HttpServletRequest request) {
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false)
+            return "home/404";
+        
         log.debug("create(car={})", formBean);
         //in case of validation error forward back to the the form
         if (bindingResult.hasErrors()) {
