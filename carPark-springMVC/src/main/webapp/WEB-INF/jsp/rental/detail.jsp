@@ -16,8 +16,8 @@
     <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Rentals
-            <small>Administration of rentals</small>
+            <fmt:message key="rental.rentals"/>
+            <small><fmt:message key="rental.admin"/></small>
           </h1>
         </section>
 
@@ -30,7 +30,19 @@
             <div class="col-md-8">
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Rental edit</h3>
+                  <h3 class="box-title"><fmt:message key="rental.edit"/></h3>
+                  <c:choose>
+                    <c:when test="${rental.rentalState=='ACTIVE'}">
+                      <form method="post" action="${pageContext.request.contextPath}/rental/finish/${rental.id}">
+                          <button type="submit" class="btn btn-primary"><fmt:message key="rental.finish"/></button>
+                      </form>
+                    </c:when>
+                    <c:when test="${rental.rentalState=='DELAYED'}">
+                      <form method="post" action="${pageContext.request.contextPath}/rental/finish/${rental.id}">
+                          <button type="submit" class="btn btn-primary"><fmt:message key="rental.finish"/></button>
+                      </form>
+                    </c:when>
+                  </c:choose>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -40,7 +52,7 @@
                       <form:hidden path="id" cssClass="form-control" />
                     </div>
                     <div class="form-group">
-                      <form:label path="employee.id">Employee</form:label>
+                      <form:label path="employee.id"><fmt:message key="rental.employee"/></form:label>
                         <form:select path="employee.id" cssClass="form-control">
                             <c:forEach items="${employees}" var="employee">
                                 <form:option value="${employee.id}">${employee.name}</form:option>
@@ -48,7 +60,7 @@
                         </form:select>
                     </div>
                     <div class="form-group">
-                      <form:label path="car.id">Car</form:label>
+                      <form:label path="car.id"><fmt:message key="rental.car"/></form:label>
                         <form:select path="car.id" cssClass="form-control">
                             <c:forEach items="${cars}" var="car">
                                 <form:option value="${car.id}">${car.name}</form:option>
@@ -56,7 +68,7 @@
                         </form:select>
                     </div>
                     <div class="form-group">
-                        <form:label path="startingDate">Start Date</form:label>
+                        <form:label path="startingDate"><fmt:message key="rental.from"/></form:label>
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
@@ -72,7 +84,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                      <form:label path="estimatedReturnDate">Estimated Return Date</form:label>
+                      <form:label path="estimatedReturnDate"><fmt:message key="rental.to"/></form:label>
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
@@ -86,17 +98,15 @@
                         </div>
                       <!-- /.input group -->
                     </div>
-                    <div class="form-group">
-                      <form:label path="rentalState">Rental State</form:label>
-                      <form:select path="rentalState" cssClass="form-control" items="${rentalStates}" />
-                    </div>
+                    
                   </div>
                   <!-- /.box-body -->
 
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary"><fmt:message key="rental.submit"/></button>
                   </div>
                 </form:form>
+                  
               </div>
              
             </div>

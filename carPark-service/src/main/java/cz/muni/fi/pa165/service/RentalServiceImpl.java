@@ -44,7 +44,7 @@ public class RentalServiceImpl implements RentalService {
         
         /*if (!ca.checkActualCarAvailability(rental)){
             log.error("Can't create rental because the car is not available.");
-            return null;
+            throw new CarParkServiceException("The car is not available.");
         }*/
 
         if(rentalDao.create(rental)) {

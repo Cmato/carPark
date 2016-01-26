@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.dto.CarDTO;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.dto.RentalDTO;
 import cz.muni.fi.pa165.enums.RentalState;
+import cz.muni.fi.pa165.exceptions.CarParkServiceException;
 import cz.muni.fi.pa165.facade.CarFacade;
 import cz.muni.fi.pa165.facade.EmployeeFacade;
 import cz.muni.fi.pa165.facade.RentalFacade;
@@ -114,13 +115,14 @@ public class RentalController {
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
-    
+      
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("rental") RentalDTO formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         log.debug("create(rental={})", formBean);
         //in case of validation error forward back to the the form
-        if (bindingResult.hasErrors()) {
+        formBean.setRentalState(RentalState.ACTIVE);
+        /*if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
                 log.trace("ObjectError: {}", ge);
             }
@@ -129,11 +131,19 @@ public class RentalController {
                 log.trace("FieldError: {}", fe);
             }
             return "rental/detail";
-        }
+        }*/
+        
+        
         Long id = null;
         String updateOrCreate = "created";
-        if(formBean.getId() == null) {
-            rentalFacade.createRental(formBean);
+        if (formBean.getId() == null) {
+            try {
+                rentalFacade.createRental(formBean);
+            } catch (CarParkServiceException ex) {
+                log.warn("Error");
+                redirectAttributes.addFlashAttribute("alert_danger", "Rental was not created. " + ex.getMessage());
+                return "redirect:" + uriBuilder.path("/rental/list").toUriString();
+            }
         } else {
             //update car
             id = formBean.getId();
@@ -147,6 +157,18 @@ public class RentalController {
         }
         //report success
         redirectAttributes.addFlashAttribute("alert_success", "Reservation was " + updateOrCreate);
+        return "redirect:" + uriBuilder.path("/rental/list").toUriString();
+    }
+    
+    @RequestMapping(value = "/finish/{id}", method = RequestMethod.POST)
+    public String finish(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+        try {
+            rentalFacade.finishRental(id);
+            redirectAttributes.addFlashAttribute("alert_success", "Rental number " + id + " was finished.");
+        } catch (CarParkServiceException ex) {
+            log.warn("Cannot finish rental {}",id);
+            redirectAttributes.addFlashAttribute("alert_danger", "Rental number " + id + " was not finished. " + ex.getMessage());
+        }
         return "redirect:" + uriBuilder.path("/rental/list").toUriString();
     }
     

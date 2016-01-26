@@ -43,7 +43,7 @@
                   <th><fmt:message key="rental.employee"/></th>
                   <th><fmt:message key="rental.car"/></th>
                   <th><fmt:message key="rental.state"/></th>
-                  <th>Actions</th>
+                  <th><fmt:message key="rental.actions"/></th>
                 </tr>
                 <c:forEach items="${rentals}" var="rental">
                     <tr>
