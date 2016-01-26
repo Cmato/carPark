@@ -3,7 +3,7 @@ package cz.muni.fi.pa165.springmvc.forms;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import cz.muni.fi.pa165.dto.ReservationDTO;
+import cz.muni.fi.pa165.dto.CreateReservationDTO;
 
 /**
  *
@@ -12,12 +12,11 @@ import cz.muni.fi.pa165.dto.ReservationDTO;
 public class ReservationCreateDTOValidator  implements Validator {
     @Override
     public boolean supports(Class<?> clazz) {
-        return ReservationDTO.class.isAssignableFrom(clazz);
+        return CreateReservationDTO.class.isAssignableFrom(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        ReservationDTO resDTO = (ReservationDTO) target;
-        if (resDTO.getCar() == null) return;
+        CreateReservationDTO resDTO = (CreateReservationDTO) target;
     }
 }

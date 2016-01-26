@@ -10,7 +10,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<own:masterpage>
+<own:masterpage title="Reservation">
 <jsp:attribute name="body">
     
     <!-- Content Header (Page header) -->
@@ -41,11 +41,22 @@
                     </div>
                     <div class="form-group">
                       <form:label path="employee">Employee</form:label>
-                      <form:select path="employee" cssClass="form-control" items="${employees}" />
+                      
+                      <form:select path="employee" name="emplyee.id" cssClass="form-control">
+                            <c:forEach items="${employees}" var="employee1">
+                                <form:option value="${employee1.id}">${employee1.name}</form:option>
+                            </c:forEach>
+                        </form:select>
                     </div>
                     <div class="form-group">
                       <form:label path="car">Car</form:label>
-                      <form:select path="car" cssClass="form-control" items="${cars}" />
+                      <form:select path="car" cssClass="form-control">
+                            <c:forEach items="${cars}" var="car1">
+                                
+                               <form:option value="${car1.id}">${car1.name}</form:option>
+                                
+                            </c:forEach>
+                        </form:select>
                     </div>
                     
                     <div class="form-group">
@@ -54,14 +65,13 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <fmt:formatDate value="${startingDate}" pattern="yyyy-MM-dd"/>
                             
                             <fmt:formatDate value="${reservation.startingDate}"  
 				                type="date" 
 				                pattern="dd-MM-yyyy"
 				                var="theFormattedDate" />
                         
-                            <form:input path="startingDate" id="startingDate" value="${theFormattedDate}" data-inputmask="'alias': 'dd-mm-yyyy'" type="text" class="form-control my-little-date-mask"/>
+                            <form:input path="startingDate" id="startingDate" value="${theFormattedDate}" data-inputmask="'alias': 'dd-mm-yyyy'" type="text" cssClass="form-control my-little-date-mask" />
                         </div>
                     </div>
                     
@@ -104,7 +114,7 @@
         <script src="${pageContext.request.contextPath}/static/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 
         <script>
-          //color picker with addon
+          //<!-- color picker with addon -->
           $(".my-colorpicker2").colorpicker();
           $('.my-little-date-mask').inputmask("dd-mm-yyyy", {"placeholder": "dd-mm-yyyy"});
         </script>

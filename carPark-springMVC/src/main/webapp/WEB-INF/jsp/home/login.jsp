@@ -10,7 +10,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<own:masterpage>
+<own:masterpage title="Login Page">
 <jsp:attribute name="body">
     
     <!-- Content Header (Page header) -->

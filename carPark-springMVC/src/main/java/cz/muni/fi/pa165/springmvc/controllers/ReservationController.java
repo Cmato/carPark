@@ -4,6 +4,8 @@
  */
 package cz.muni.fi.pa165.springmvc.controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -35,6 +37,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import cz.muni.fi.pa165.dto.CarDTO;
+import cz.muni.fi.pa165.dto.CreateReservationDTO;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.dto.ReservationDTO;
 import cz.muni.fi.pa165.entities.Employee;
@@ -53,7 +56,7 @@ import cz.muni.fi.pa165.springmvc.forms.ReservationCreateDTOValidator;
 @RequestMapping("/reservation")
 public class ReservationController {
     
-    final static Logger log = LoggerFactory.getLogger(CarController.class);
+    final static Logger log = LoggerFactory.getLogger(ReservationController.class);
     
     @Autowired
     private ReservationFacade reservationFacade;
@@ -87,7 +90,7 @@ public class ReservationController {
     public String detail(@PathVariable Optional<Long> id, Model model) {
 
         if(!id.isPresent()) {
-            model.addAttribute("reservation", new ReservationDTO());
+            model.addAttribute("reservation", new CreateReservationDTO());
         } else {
             model.addAttribute("reservation", reservationFacade.getReservationById(id.get()));
         }
@@ -95,19 +98,13 @@ public class ReservationController {
     }
     
     @ModelAttribute("employees")
-    public Map<EmployeeDTO,String> employees() {
-        Map<EmployeeDTO,String> empls = new LinkedHashMap<EmployeeDTO,String>();
-        for(EmployeeDTO e: emplFacade.findAllEmployees())
-            empls.put(e, e.getName());
-        return empls;
+    public List<EmployeeDTO> employees() {
+        return emplFacade.findAllEmployees();
     }
     
     @ModelAttribute("cars")
-    public Map<CarDTO,String> cars() {
-        Map<CarDTO,String> cars = new LinkedHashMap<CarDTO,String>();
-        for(CarDTO e: carFacade.getAllCars())
-            cars.put(e, e.getName());
-        return cars;
+    public List<CarDTO> cars() {
+        return carFacade.getAllCars();
     }
     
     @ModelAttribute("state")
@@ -115,20 +112,8 @@ public class ReservationController {
         return new ArrayList<>(EnumSet.allOf(ReservationState.class));
     }
     
-    /**
-     * Spring Validator added to JSR-303 Validator for this @Controller only.
-     * It is useful  for custom validations that are not defined on the form bean by annotations.
-     * http://docs.spring.io/spring/docs/current/spring-framework-reference/html/validation.html#validation-mvc-configuring
-     */
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        if (binder.getTarget() instanceof ReservationDTO) {
-            binder.addValidators(new ReservationCreateDTOValidator());
-        }
-    }
-    
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("reservation") ReservationDTO formBean, BindingResult bindingResult,
+    public String create(@Valid @ModelAttribute("reservation") CreateReservationDTO formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         log.debug("create(reservation={})", formBean);
         //in case of validation error forward back to the the form
@@ -142,16 +127,17 @@ public class ReservationController {
             }
             return "reservation/new";
         }*/
+        
         Long id = null;
         String updateOrCreate = "created";
         if(formBean.getId() == null) {
             //create reservation
-            id = reservationFacade.createReservation(formBean);
+            //id = reservationFacade.createReservation(formBean);
         } else {
             //update reservation
             id = formBean.getId();
-            reservationFacade.updateReservationCar(id, formBean.getCar());
-            reservationFacade.updateReservationEmployee(id, formBean.getEmployee());
+            reservationFacade.updateReservationCarById(id, formBean.getCar());
+            reservationFacade.updateReservationEmployeeById(id, formBean.getEmployee());
             reservationFacade.updateReservationStartingDate(id, formBean.getStartingDate());
             reservationFacade.updateReservationEndingDate(id, formBean.getEndingDate());
             reservationFacade.updateReservationState(id, formBean.getReservationState());

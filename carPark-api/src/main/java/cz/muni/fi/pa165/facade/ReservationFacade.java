@@ -43,4 +43,8 @@ public interface ReservationFacade {
 
     public List<ReservationDTO> getReservationsByCar(Long carId);
 
+    ReservationDTO updateReservationEmployeeById(Long id, Long idEmployee);
+
+    ReservationDTO updateReservationCarById(Long id, Long newCar);
+
 }
