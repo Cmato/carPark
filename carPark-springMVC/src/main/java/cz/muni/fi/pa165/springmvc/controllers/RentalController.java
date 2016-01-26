@@ -159,7 +159,7 @@ public class RentalController {
             }
         }
         //report success
-        redirectAttributes.addFlashAttribute("alert_success", "Reservation was " + updateOrCreate);
+        redirectAttributes.addFlashAttribute("alert_success", "Rental was " + updateOrCreate);
         return "redirect:" + uriBuilder.path("/rental/list").toUriString();
     }
     
