@@ -51,7 +51,11 @@ public class EmployeeController {
     }
     
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model, HttpServletRequest request) {
+        
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false)
+            return "home/404";
         
         model.addAttribute("allEmployees", employeeFacade.findAllEmployees());
         return "employee/list";
