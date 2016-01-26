@@ -34,7 +34,9 @@
               <div class="box-tools">
                 <div class="input-group input-group-sm right" style="width: 48px;">
                   <c:if test="${authenticatedUser.isAdmin==true}">
-                  <button type="button" class="btn btn-info btn-flat" title='<fmt:message key="employee.add"/>'><span class="glyphicon glyphicon-plus"></span></button>
+                  <a href="${pageContext.request.contextPath}/employee/detail/">
+                    <button type="button" class="btn btn-info btn-flat" title='<fmt:message key="employee.add"/>'><span class="glyphicon glyphicon-plus"></span></button>
+                  </a>
                   </c:if>
                 </div>
               </div>

@@ -135,7 +135,7 @@ public class CarController {
                 model.addAttribute(fe.getField() + "_error", true);
                 log.trace("FieldError: {}", fe);
             }
-            return "car/new";
+            return "car/detail";
         }
         Long id = null;
         String updateOrCreate = "created";

@@ -92,28 +92,19 @@ public class EmployeeController {
             return "home/404";
         
         log.debug("create(employee={})", formBean);
-        //in case of validation error forward back to the the form
-        if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                log.trace("ObjectError: {}", ge);
-            }
-            for (FieldError fe : bindingResult.getFieldErrors()) {
-                model.addAttribute(fe.getField() + "_error", true);
-                log.trace("FieldError: {}", fe);
-            }
-            return "employee/new";
-        }
         Long id = null;
         String updateOrCreate = "created";
         if(formBean.getId() == null) {
             //create employee
-            id = employeeFacade.createEmployee(formBean);
+            id = employeeFacade.createEmployee(formBean);            
         } else {
             //update employee
             id = formBean.getId();
             employeeFacade.updateEmployeeName(id, formBean.getName());
             employeeFacade.updateEmployeeBirth(id, formBean.getBirth());
             employeeFacade.updateEmployeeIdCardNumber(id, formBean.getIdCardNumber());
+            employeeFacade.updateEmployeeEmail(id, formBean.getEmail());
+            employeeFacade.updateEmployeePassword(id, formBean.getPassword());
             updateOrCreate = "updated";
         }
         //report success

@@ -41,16 +41,21 @@
                     </div>
                     <div class="form-group">
                       <form:label path="name"><fmt:message key="example.name"/></form:label>
-                      <form:input path="name" cssClass="form-control" placeholder="Enter employee name" />
+                      <fmt:message key="employee.enterName" var="enterName"/>
+                      <form:input path="name" id="name" name="name" cssClass="form-control" placeholder="${enterName}" />
                       <form:errors path="name" cssClass="help-block"/>
                     </div>
                     <div class="form-group">
                       <form:label path="email">E-mail</form:label>
-                      <form:select path="email" cssClass="form-control" placeholder="Enter the employee's e-mail"/>
+                      <fmt:message key="employee.enterEmail" var="enterEmail"/>
+                      <form:input path="email"  id="email" name="email" cssClass="form-control" placeholder="${enterEmail}"/>
+                      <form:errors path="email" cssClass="help-block"/>
                     </div>
                     <div class="form-group">
-                      <form:label path="email"><fmt:message key="employee.password"/></form:label>
-                      <form:select path="email" cssClass="form-control" placeholder="Enter the employee's password"/>
+                      <form:label path="password"><fmt:message key="employee.password"/></form:label>
+                      <fmt:message key="employee.enterPassword" var="enterPassword"/>
+                      <form:input path="password" id="password" name="password" cssClass="form-control" placeholder="${enterPassword}"/>
+                      <form:errors path="password" cssClass="help-block"/>
                     </div>
                     <div class="form-group">
                         <form:label path="birth"><fmt:message key="employee.birthDate"/></form:label>
@@ -58,19 +63,19 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <fmt:formatDate value="${birth}" pattern="yyyy-MM-dd"/>
                             
                             <fmt:formatDate value="${employee.birth}"  
 				                type="date" 
 				                pattern="dd-MM-yyyy"
 				                var="theFormattedDate" />
                         
-                            <form:input path="birth" value="${theFormattedDate}" data-inputmask="'alias': 'dd-mm-yyyy'" type="text" class="form-control my-little-date-mask"/>
+                            <form:input path="birth" id="birth" name="birth" value="${theFormattedDate}" data-inputmask="'alias': 'dd-mm-yyyy'" type="text" class="form-control my-little-date-mask"/>
                         </div>
                     </div>
                     <div class="form-group">
                       <form:label path="idCardNumber"><fmt:message key="employee.idCard"/></form:label>
-                      <form:input path="idCardNumber" cssClass="form-control" placeholder='<fmt:message key="employee.enterIdCard"/>' />
+                      <fmt:message key="employee.enterIdCard"  var="enterIdCard"/>
+                      <form:input path="idCardNumber" id="idCardNumber" name="idCardNumber" cssClass="form-control" placeholder="${enterIdCard}" />
                       <form:errors path="idCardNumber" cssClass="help-block"/>
                     </div>
                   </div>

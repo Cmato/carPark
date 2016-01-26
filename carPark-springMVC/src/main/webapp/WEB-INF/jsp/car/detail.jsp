@@ -41,7 +41,8 @@
                     </div>
                     <div class="form-group">
                       <form:label path="name"><fmt:message key="example.name"/></form:label>
-                      <form:input path="name" cssClass="form-control" placeholder="Enter car name" />
+                      <fmt:message key="car.enterName" var="enterName"/>
+                      <form:input path="name" cssClass="form-control" placeholder="${enterName}" />
                       <form:errors path="name" cssClass="help-block"/>
                     </div>
                     <div class="form-group">
