@@ -89,6 +89,11 @@ public class indexController {
     ) {
         log.debug("login(carPark={})", formBean);
         
+        if(formBean.getEmail().isEmpty() || formBean.getPassword().isEmpty()) {
+            model.addAttribute("alert_warning", "You couldn't be logged in - wrong email or password.");
+            return "home/login";
+        }
+        
         //in case of validation error forward back to the the form
         if (bindingResult.hasErrors()) {
             return "home/login";
