@@ -110,6 +110,6 @@ public class indexController {
         log.debug("logout");
         request.getSession().removeAttribute("authenticatedUser");
         model.addAttribute("alert_success", "You have been logged out.");
-        return "home/home";
+        return "home/login";
     }
 }
