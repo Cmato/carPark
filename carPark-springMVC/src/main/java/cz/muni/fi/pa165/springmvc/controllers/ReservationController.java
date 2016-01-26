@@ -132,7 +132,7 @@ public class ReservationController {
         String updateOrCreate = "created";
         if(formBean.getId() == null) {
             //create reservation
-            //id = reservationFacade.createReservation(formBean);
+            id = reservationFacade.createReservation(formBean);
         } else {
             //update reservation
             id = formBean.getId();

@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.CarDTO;
+import cz.muni.fi.pa165.dto.CreateReservationDTO;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import java.util.List;
 
@@ -44,6 +45,17 @@ public class ReservationFacadeImpl implements ReservationFacade {
 		Reservation mappedReservation = mappingService.mapTo(r, Reservation.class);      
         return reservationService.createReservation(mappedReservation).getId();		
 	}
+	
+	@Override
+    public Long createReservation(CreateReservationDTO r) {
+	    Reservation res = new Reservation();
+	    res.setCar(carService.getCarById(r.getCar()));
+	    res.setEmployee(employeeService.findEmployeeById(r.getEmployee()));
+	    res.setStartingDate(r.getStartingDate());
+	    res.setEndingDate(r.getEndingDate());
+	    res.setReservationState(r.getReservationState());     
+        return reservationService.createReservation(res).getId();     
+    }
 
 	@Override
     public ReservationDTO updateReservationEmployee(Long id, EmployeeDTO newEmployee) {

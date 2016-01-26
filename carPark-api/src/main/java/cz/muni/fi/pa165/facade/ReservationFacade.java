@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.CarDTO;
+import cz.muni.fi.pa165.dto.CreateReservationDTO;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import java.util.List;
 import cz.muni.fi.pa165.dto.ReservationDTO;
@@ -46,5 +47,7 @@ public interface ReservationFacade {
     ReservationDTO updateReservationEmployeeById(Long id, Long idEmployee);
 
     ReservationDTO updateReservationCarById(Long id, Long newCar);
+
+    Long createReservation(CreateReservationDTO r);
 
 }
