@@ -39,7 +39,7 @@ public class RentalServiceImpl implements RentalService {
     public Rental createRental(Rental rental) {
         if (!checkDates(rental.getStartingDate(), rental.getEstimatedReturnDate())) {
             throw new CarParkServiceException("The starting date is after"
-                    + "estimated return date!");
+                    + " estimated return date!");
         }
         
         /*if (!ca.checkActualCarAvailability(rental)){

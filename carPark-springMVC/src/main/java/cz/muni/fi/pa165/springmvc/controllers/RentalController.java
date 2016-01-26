@@ -10,12 +10,12 @@ import cz.muni.fi.pa165.facade.EmployeeFacade;
 import cz.muni.fi.pa165.facade.RentalFacade;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
+import org.dozer.MappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,6 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -77,26 +75,12 @@ public class RentalController {
         return "rental/detail";
     }
     
-    /*@ModelAttribute("employees")
-    public List<String> employees() {
-        List<String> names = new ArrayList<>();
-        for(EmployeeDTO empl: emplFacade.findAllEmployees())
-            names.add(empl.getName());
-        return names;
-    }*/
     @ModelAttribute("employees")
     public List<EmployeeDTO> employees() {
         List<EmployeeDTO> employees = emplFacade.findAllEmployees();
         return employees;
     }
     
-    /*@ModelAttribute("cars")
-    public List<String> cars() {
-        List<String> cars = new ArrayList<>();
-        for(CarDTO car: carFacade.getAllCars())
-            cars.add(car.getName());
-        return cars;
-    }*/
     @ModelAttribute("cars")
     public List<CarDTO> cars() {
         List<CarDTO> cars = carFacade.getAllCars();
@@ -115,45 +99,41 @@ public class RentalController {
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
-      
+         
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("rental") RentalDTO formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         log.debug("create(rental={})", formBean);
-        //in case of validation error forward back to the the form
-        formBean.setRentalState(RentalState.ACTIVE);
-        /*if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                log.trace("ObjectError: {}", ge);
-            }
-            for (FieldError fe : bindingResult.getFieldErrors()) {
-                model.addAttribute(fe.getField() + "_error", true);
-                log.trace("FieldError: {}", fe);
-            }
-            return "rental/detail";
-        }*/
-        
-        
+          
         Long id = null;
         String updateOrCreate = "created";
         if (formBean.getId() == null) {
             try {
+                formBean.setRentalState(RentalState.ACTIVE);
                 rentalFacade.createRental(formBean);
             } catch (CarParkServiceException ex) {
                 log.warn("Error");
-                redirectAttributes.addFlashAttribute("alert_danger", "Rental was not created. " + ex.getMessage());
-                return "redirect:" + uriBuilder.path("/rental/list").toUriString();
+                redirectAttributes.addFlashAttribute("alert_error", "Rental was not created. " + ex.getMessage());
+                return "redirect:" + uriBuilder.path("/rental/detail/").toUriString();
+            } catch (NullPointerException ex){
+                log.warn("Error");
+                redirectAttributes.addFlashAttribute("alert_error", "You have to fill all fields. ");
+                return "redirect:" + uriBuilder.path("/rental/detail/").toUriString();
             }
         } else {
             //update car
-            id = formBean.getId();
-            rentalFacade.updateRentalCar(id, formBean.getCar());
-            rentalFacade.updateRentalEmployee(id, formBean.getEmployee());
-            rentalFacade.updateRentalStartingDate(id, formBean.getStartingDate());
-            rentalFacade.updateRentalReturnDate(id, formBean.getReturnDate());
-            rentalFacade.updateRentalEstimatedReturnDate(id, formBean.getEstimatedReturnDate());
-            rentalFacade.updateRentalState(id, formBean.getRentalState());
-            updateOrCreate = "updated";
+            try{
+                id = formBean.getId();
+                rentalFacade.updateRentalCar(id, formBean.getCar());
+                rentalFacade.updateRentalEmployee(id, formBean.getEmployee());
+                rentalFacade.updateRentalStartingDate(id, formBean.getStartingDate());
+                rentalFacade.updateRentalEstimatedReturnDate(id, formBean.getEstimatedReturnDate());
+                updateOrCreate = "updated";
+            } catch (MappingException ex){
+                log.warn("Error");
+                redirectAttributes.addFlashAttribute("alert_error", "You have to fill all fields. ");
+                return "redirect:" + uriBuilder.path("/rental/detail/{id}").buildAndExpand(id).encode().toUriString();
+            }
         }
         //report success
         redirectAttributes.addFlashAttribute("alert_success", "Reservation was " + updateOrCreate);
@@ -167,7 +147,7 @@ public class RentalController {
             redirectAttributes.addFlashAttribute("alert_success", "Rental number " + id + " was finished.");
         } catch (CarParkServiceException ex) {
             log.warn("Cannot finish rental {}",id);
-            redirectAttributes.addFlashAttribute("alert_danger", "Rental number " + id + " was not finished. " + ex.getMessage());
+            redirectAttributes.addFlashAttribute("alert_error", "Rental number " + id + " was not finished. " + ex.getMessage());
         }
         return "redirect:" + uriBuilder.path("/rental/list").toUriString();
     }
