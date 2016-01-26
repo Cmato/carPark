@@ -18,8 +18,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Employees
-        <small>Administration of employees</small>
+        <fmt:message key="employee.employees"/>
+        <small><fmt:message key="employee.admin"/></small>
       </h1>
     </section>
 
@@ -29,12 +29,12 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">All employees in system</h3>
+              <h3 class="box-title"><fmt:message key="employee.allEmployees"/></h3>
 
               <div class="box-tools">
                 <div class="input-group input-group-sm right" style="width: 48px;">
                   <c:if test="${authenticatedUser.isAdmin==true}">
-                  <button type="button" class="btn btn-info btn-flat" title="Add Employee"><span class="glyphicon glyphicon-plus"></span></button>
+                  <button type="button" class="btn btn-info btn-flat" title='<fmt:message key="employee.add"/>'><span class="glyphicon glyphicon-plus"></span></button>
                   </c:if>
                 </div>
               </div>
@@ -44,10 +44,10 @@
               <table class="table table-hover">
                 <tbody><tr>
                   <th>ID</th>
-                  <th>Name</th>
-                  <th>Id Card Number</th>
-                  <th>Birth Date</th>
-                  <c:if test="${authenticatedUser.isAdmin==true}"><th>Actions</th></c:if>
+                  <th><fmt:message key="example.name"/></th>
+                  <th><fmt:message key="employee.idCard"/></th>
+                  <th><fmt:message key="employee.birthDate"/></th>
+                  <c:if test="${authenticatedUser.isAdmin==true}"><th><fmt:message key="example.actions"/></th></c:if>
                 </tr>
                 <c:forEach items="${allEmployees}" var="employee">
                     <tr>
@@ -57,8 +57,8 @@
                         <td><fmt:formatDate value="${employee.birth}" pattern="yyyy-MM-dd"/></td>
                         <c:if test="${authenticatedUser.isAdmin==true}"><td class="actions">
                           <div class="center">
-                            <a href="${pageContext.request.contextPath}/employee/detail/${employee.id}" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
-                            <a href="#" title="Remove" class="removeItem">
+                            <a href="${pageContext.request.contextPath}/employee/detail/${employee.id}" title='<fmt:message key="employee.edit"/>'><span class="glyphicon glyphicon-edit"></span></a>
+                            <a href="#" title='<fmt:message key="employee.remove"/>' class="removeItem">
                                 <span class="glyphicon glyphicon-trash"></span>
                                 <form method="post" action="${pageContext.request.contextPath}/employee/delete/${employee.id}" style="display: none;">
                                 </form>

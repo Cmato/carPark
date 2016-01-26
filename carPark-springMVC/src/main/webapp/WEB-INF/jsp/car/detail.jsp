@@ -17,8 +17,8 @@
     <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Cars
-            <small>Administration of cars</small>
+            <fmt:message key="car.cars"/>
+            <small><fmt:message key="car.admin"/></small>
           </h1>
         </section>
 
@@ -30,7 +30,7 @@
             <div class="col-md-8">
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Car edit</h3>
+                  <h3 class="box-title"><fmt:message key="car.edit"/></h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -40,20 +40,20 @@
                       <form:hidden path="id" cssClass="form-control" />
                     </div>
                     <div class="form-group">
-                      <form:label path="name">Name</form:label>
+                      <form:label path="name"><fmt:message key="example.name"/></form:label>
                       <form:input path="name" cssClass="form-control" placeholder="Enter car name" />
                       <form:errors path="name" cssClass="help-block"/>
                     </div>
                     <div class="form-group">
-                      <form:label path="transmission">Transmission</form:label>
+                      <form:label path="transmission"><fmt:message key="example.transmission"/></form:label>
                       <form:select path="transmission" cssClass="form-control" items="${transmissions}" />
                     </div>
                     <div class="form-group">
-                      <form:label path="fuel">Fuel</form:label>
+                      <form:label path="fuel"><fmt:message key="example.fuel"/></form:label>
                       <form:select path="fuel" cssClass="form-control" items="${fuels}" />
                     </div>
                     <div class="form-group">
-                      <form:label path="color">Color</form:label>
+                      <form:label path="color"><fmt:message key="example.color"/></form:label>
 
                       <div class="input-group my-colorpicker2 colorpicker-element">
                         <form:input path="color" cssClass="form-control" />
@@ -68,7 +68,7 @@
                   <!-- /.box-body -->
 
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary"><fmt:message key="rental.submit"/></button>
                   </div>
                 </form:form>
               </div>
