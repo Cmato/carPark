@@ -31,6 +31,13 @@
               <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">Reservation edit</h3>
+                  <c:choose>
+                      <c:when test="${reservation.reservationState=='ACTIVE'}">
+                          <form method="post" action="${pageContext.request.contextPath}/reservation/cancel/${reservation.id}">
+                              <button type="submit" class="btn btn-primary">Cancel</button>
+                          </form>
+                      </c:when>
+                  </c:choose>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -40,21 +47,18 @@
                       <form:hidden path="id" cssClass="form-control" />
                     </div>
                     <div class="form-group">
-                      <form:label path="employee">Employee</form:label>
-                      
-                      <form:select path="employee" name="emplyee.id" cssClass="form-control">
-                            <c:forEach items="${employees}" var="employee1">
-                                <form:option value="${employee1.id}">${employee1.name}</form:option>
+                      <form:label path="employee.id">Employee</form:label>
+                        <form:select path="employee.id" cssClass="form-control">
+                            <c:forEach items="${employees}" var="employee">
+                                <form:option value="${employee.id}">${employee.name}</form:option>
                             </c:forEach>
                         </form:select>
                     </div>
                     <div class="form-group">
-                      <form:label path="car">Car</form:label>
-                      <form:select path="car" cssClass="form-control">
-                            <c:forEach items="${cars}" var="car1">
-                                
-                               <form:option value="${car1.id}">${car1.name}</form:option>
-                                
+                      <form:label path="car.id"><fmt:message key="rental.car"/></form:label>
+                        <form:select path="car.id" cssClass="form-control">
+                            <c:forEach items="${cars}" var="car">
+                                <form:option value="${car.id}">${car.name}</form:option>
                             </c:forEach>
                         </form:select>
                     </div>
@@ -89,10 +93,6 @@
                             <form:input path="endingDate" value="${theFormattedDate2}" data-inputmask="'alias': 'dd-mm-yyyy'" type="text" class="form-control my-little-date-mask"/>
                         </div>
                       <!-- /.input group -->
-                    </div>
-                    <div class="form-group">
-                      <form:label path="reservationState">ReservationState</form:label>
-                      <form:select path="reservationState" cssClass="form-control" items="${state}" />
                     </div>
                   </div>
                   <!-- /.box-body -->

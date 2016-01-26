@@ -53,10 +53,10 @@
                 <c:forEach items="${reservations}" var="reservation">
                     <tr>
                         <td><c:out value="${reservation.id}"/>.</td>
-                        <td><fmt:formatDate value="${reservation.startingDate}" pattern="yyyy-MM-dd"/></td>
-                        <td><fmt:formatDate value="${reservation.endingDate}" pattern="yyyy-MM-dd"/></td>
-                        <td><a href="#"><c:out value="${reservation.employee.getName()}"/></a></td>
-                        <td><a href="#"><c:out value="${reservation.car.getName()}"/></a></td>
+                        <td><fmt:formatDate value="${reservation.startingDate}" pattern="dd-MM-yyyy"/></td>
+                        <td><fmt:formatDate value="${reservation.endingDate}" pattern="dd-MM-yyyy"/></td>
+                        <td><c:out value="${reservation.employee.getName()}"/></td>
+                        <td><c:out value="${reservation.car.getName()}"/></td>
                         <td><c:out value="${reservation.reservationState}"/></td>
                         <td class="actions">
                           <div class="center">

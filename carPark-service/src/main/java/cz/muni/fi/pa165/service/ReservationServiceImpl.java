@@ -29,7 +29,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Reservation createReservation(Reservation reservation) {
         if (!checkDates(reservation.getStartingDate(), reservation.getEndingDate())) {
-            throw new CarParkServiceException("Reservation starting date is after" + "estimated return date!");
+            throw new CarParkServiceException("Reservation starting date is after" + " estimated return date!");
         }
         // check active rentals and reservations
         if (!ca.checkActualCarAvailability(reservation)) {
