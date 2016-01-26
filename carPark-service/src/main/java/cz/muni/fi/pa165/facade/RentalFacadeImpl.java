@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.facade;
 import cz.muni.fi.pa165.dto.CarDTO;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.dto.RentalDTO;
+import cz.muni.fi.pa165.dto.ReservationDTO;
 import cz.muni.fi.pa165.entities.Car;
 import cz.muni.fi.pa165.entities.Employee;
 import cz.muni.fi.pa165.entities.Rental;
@@ -11,6 +12,7 @@ import cz.muni.fi.pa165.service.CarService;
 import cz.muni.fi.pa165.service.EmployeeService;
 import cz.muni.fi.pa165.service.MappingService;
 import cz.muni.fi.pa165.service.RentalService;
+import cz.muni.fi.pa165.service.ReservationService;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
@@ -35,11 +37,22 @@ public class RentalFacadeImpl implements RentalFacade {
     
     @Inject
     CarService carService;
+       
+    @Inject
+    ReservationService reservationService;
 
     @Override
     public Long createRental(RentalDTO r) {
         Rental mappedRental = mappingService.mapTo(r, Rental.class);
         return rentalService.createRental(mappedRental).getId();
+    }
+    
+    @Override
+    public Long createRentalFromReservation(ReservationDTO res){
+        RentalDTO rent = new RentalDTO(res.getEmployee(), res.getCar(), res.getStartingDate(), res.getEndingDate());
+        Long newRentalId = createRental(rent);
+        reservationService.removeReservation(res.getId());
+        return newRentalId;
     }
 
     @Override

@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.facade;
 import cz.muni.fi.pa165.dto.CarDTO;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.dto.RentalDTO;
+import cz.muni.fi.pa165.dto.ReservationDTO;
 import cz.muni.fi.pa165.enums.RentalState;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
 public interface RentalFacade {
 
     public Long createRental(RentalDTO r);
+    
+    public Long createRentalFromReservation(ReservationDTO res);
     
     public boolean deleteRental(Long id);
 

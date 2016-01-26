@@ -31,6 +31,7 @@ public class ReservationDTO {
     private ReservationState reservationState;
     
     public ReservationDTO() {
+        this.reservationState = ReservationState.ACTIVE;
     }
     
     public ReservationDTO(EmployeeDTO e, CarDTO c, Date startingDate, Date endingDate) {
