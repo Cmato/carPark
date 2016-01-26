@@ -36,6 +36,7 @@ import cz.muni.fi.pa165.facade.RentalFacade;
 import cz.muni.fi.pa165.facade.ReservationFacade;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 import org.dozer.MappingException;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
@@ -64,7 +65,15 @@ public class ReservationController {
     
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false) {
+            ReservationDTO reserv = reservationFacade.getReservationById(id);
+            Long resId = reserv.getEmployee().getId();
+            if(resId != id)
+                return "home/404";
+        }
+        
         try{
             reservationFacade.removeReservation(id);
             log.debug("delete({})", id);
@@ -77,14 +86,27 @@ public class ReservationController {
     }
     
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model, HttpServletRequest request) {
         
-        model.addAttribute("reservations", reservationFacade.getAllReservations());
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false) {
+            model.addAttribute("reservations", reservationFacade.getReservationsByEmployee(user.getId()));
+        } else {
+            model.addAttribute("reservations", reservationFacade.getAllReservations());
+        }
+        
         return "reservation/list";
     }
     
     @RequestMapping(value = {"/detail/{id}", "/detail/"}, method = RequestMethod.GET)
-    public String detail(@PathVariable Optional<Long> id, Model model) {
+    public String detail(@PathVariable Optional<Long> id, Model model, HttpServletRequest request) {
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(id.isPresent() && user.getIsAdmin() == false) {
+            ReservationDTO reserv = reservationFacade.getReservationById(id.get());
+            Long resId = reserv.getEmployee().getId();
+            if(resId.equals((Long)id.get()))
+                return "home/404";
+        }
 
         if(!id.isPresent()) {
             model.addAttribute("reservation", new ReservationDTO());
@@ -159,7 +181,15 @@ public class ReservationController {
     }
     
     @RequestMapping(value = "/cancel/{id}", method = RequestMethod.POST)
-    public String finish(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String finish(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false) {
+            ReservationDTO reserv = reservationFacade.getReservationById(id);
+            Long resId = reserv.getEmployee().getId();
+            if(resId != id)
+                return "home/404";
+        }
+        
         try {
             reservationFacade.cancelReservation(id);
             redirectAttributes.addFlashAttribute("alert_success", "Reservation number " + id + " was canceled.");
@@ -171,7 +201,15 @@ public class ReservationController {
     }
     
     @RequestMapping(value = "/rent/{id}", method = RequestMethod.POST)
-    public String rent(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String rent(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false) {
+            ReservationDTO reserv = reservationFacade.getReservationById(id);
+            Long resId = reserv.getEmployee().getId();
+            if(resId != id)
+                return "home/404";
+        }
+        
         try {
             rentalFacade.createRentalFromReservation(reservationFacade.getReservationById(id));
             redirectAttributes.addFlashAttribute("alert_success", "Rental created.");

@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.springmvc.controllers;
 import cz.muni.fi.pa165.dto.CarDTO;
 import cz.muni.fi.pa165.dto.EmployeeDTO;
 import cz.muni.fi.pa165.dto.RentalDTO;
+import cz.muni.fi.pa165.dto.ReservationDTO;
 import cz.muni.fi.pa165.enums.RentalState;
 import cz.muni.fi.pa165.exceptions.CarParkServiceException;
 import cz.muni.fi.pa165.facade.CarFacade;
@@ -14,6 +15,7 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.dozer.MappingException;
 import org.slf4j.Logger;
@@ -50,13 +52,27 @@ public class RentalController {
     private CarFacade carFacade;
     
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
-        model.addAttribute("rentals", rentalFacade.getAllRentals());
+    public String list(Model model, HttpServletRequest request) {
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false) {
+            model.addAttribute("rentals", rentalFacade.getRentalsByEmployee(user.getId()));
+        } else {
+            model.addAttribute("rentals", rentalFacade.getAllRentals());
+        }
+        
         return "rental/list";
     }
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false) {
+            RentalDTO rent = rentalFacade.getRentalById(id);
+            Long rentId = rent.getEmployee().getId();
+            if(rentId != id)
+                return "home/404";
+        }
+        
         RentalDTO rental = rentalFacade.getRentalById(id);
         rentalFacade.deleteRental(id);
         log.debug("delete({})", id);
@@ -65,7 +81,14 @@ public class RentalController {
     }
     
     @RequestMapping(value = {"/detail/{id}", "/detail/"}, method = RequestMethod.GET)
-    public String detail(@PathVariable Optional<Long> id, Model model) {
+    public String detail(@PathVariable Optional<Long> id, Model model, HttpServletRequest request) {
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(id.isPresent() && user.getIsAdmin() == false) {
+            RentalDTO rent = rentalFacade.getRentalById(id.get());
+            Long rentId = rent.getEmployee().getId();
+            if(!rentId.equals((Long)id.get()))
+                return "home/404";
+        }
 
         if(!id.isPresent()) {
             model.addAttribute("rental", new RentalDTO());
@@ -141,7 +164,15 @@ public class RentalController {
     }
     
     @RequestMapping(value = "/finish/{id}", method = RequestMethod.POST)
-    public String finish(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String finish(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        EmployeeDTO user = (EmployeeDTO) request.getSession().getAttribute("authenticatedUser");
+        if(user.getIsAdmin() == false) {
+            RentalDTO rent = rentalFacade.getRentalById(id);
+            Long rentId = rent.getEmployee().getId();
+            if(rentId != id)
+                return "home/404";
+        }
+        
         try {
             rentalFacade.finishRental(id);
             redirectAttributes.addFlashAttribute("alert_success", "Rental number " + id + " was finished.");
