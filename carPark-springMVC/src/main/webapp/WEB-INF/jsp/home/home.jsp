@@ -17,8 +17,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Administration
-        <small>Administrator Dashboard</small>
+        <fmt:message key="menu.administration"/>
+        <small><fmt:message key="menu.mainmenu"/></small>
       </h1>
     </section>
 
@@ -31,13 +31,13 @@
             <div class="inner">
               <h3><c:if test="${not empty authenticatedUser}">${carsNumber}</c:if>
               <c:if test="${empty authenticatedUser}">N/A</c:if></h3>
-              <p>Cars</p>
+              <p><fmt:message key="menu.cars"/></p>
             </div>
             <div class="icon">
               <i class="fa fa-automobile"></i>
             </div>
             <a href="${pageContext.request.contextPath}/car/list" class="small-box-footer">
-              More info <i class="fa fa-arrow-circle-right"></i>
+              <fmt:message key="menu.moreinfo"/> <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
         </div>
@@ -49,13 +49,13 @@
               <h3><c:if test="${not empty authenticatedUser}">${employeeNumber}</c:if>
               <c:if test="${empty authenticatedUser}">N/A</c:if></h3>
             
-              <p>Employees</p>
+              <p><fmt:message key="menu.employees"/></p>
             </div>
             <div class="icon">
               <i class="fa fa-user"></i>
             </div>
             <a href="${pageContext.request.contextPath}/employee/list" class="small-box-footer">
-              More info <i class="fa fa-arrow-circle-right"></i>
+              <fmt:message key="menu.moreinfo"/> <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
         </div>
@@ -72,13 +72,13 @@
               <c:if test="${empty authenticatedUser}">N/A</c:if></h3>
             
             
-              <p>Employee Reservations</p>
+              <p><fmt:message key="menu.reservations"/></p>
             </div>
             <div class="icon">
               <i class="fa fa-calendar-o"></i>
             </div>
             <a href="${pageContext.request.contextPath}/reservation/list" class="small-box-footer">
-              More info <i class="fa fa-arrow-circle-right"></i>
+              <fmt:message key="menu.moreinfo"/> <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
         </div>
@@ -91,13 +91,13 @@
               <h3><c:if test="${not empty authenticatedUser}">${rentalNumber}</c:if>
               <c:if test="${empty authenticatedUser}">N/A</c:if></h3>
             
-              <p>Employee Rentals</p>
+              <p><fmt:message key="menu.rentals"/></p>
             </div>
             <div class="icon">
               <i class="fa fa-calendar-check-o"></i>
             </div>
             <a href="${pageContext.request.contextPath}/rental/list" class="small-box-footer">
-              More info <i class="fa fa-arrow-circle-right"></i>
+              <fmt:message key="menu.moreinfo"/> <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
         </div>

@@ -70,7 +70,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A</b>LT</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>CarPark</b></span>
+          <span class="logo-lg"><b><fmt:message key="menu.appTitle"/></b></span>
         </a>
 
         <!-- Header Navbar -->
@@ -88,7 +88,7 @@
                   <!-- The user image in the navbar-->
                   <img src="${pageContext.request.contextPath}/static/dist/img/user2-128x128.png" class="user-image" alt="User Image">
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                  <span class="hidden-xs">Login</span>
+                  <span class="hidden-xs"><fmt:message key="login.login"/></span>
                 </a>
                    </c:if>        
                  <c:if test="${not empty authenticatedUser}">
@@ -144,7 +144,7 @@
             </div>
             <div class="pull-left info">    
 	            <c:if test="${empty sessionScope.authenticatedUser}">
-	               <p><a href="${pageContext.request.contextPath}/login">Login</a></p>
+	               <p><a href="${pageContext.request.contextPath}/login"><fmt:message key="login.login"/></a></p>
                    </c:if>        
                  <c:if test="${not empty authenticatedUser}">
                         <p>${authenticatedUser.name} <c:if test="${authenticatedUser.isAdmin==true}"> <small><i> (Admin)</i>  </small></c:if></p>
@@ -156,13 +156,13 @@
 
           <!-- Sidebar Menu -->
           <ul class="sidebar-menu">
-            <li class="header">Car Park administration</li>
+            <li class="header"><fmt:message key="menu.admin"/></li>
             <!-- Optionally, you can add icons to the links -->
-            <li id="dashboardMenuItem" class="active"><a href="${pageContext.request.contextPath}/"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
-            <li id="carMenuItem"><a href="${pageContext.request.contextPath}/car/list"><i class="fa fa-automobile"></i> <span>Cars</span></a></li>
-            <li id="employeeMenuItem"><a href="${pageContext.request.contextPath}/employee/list"><i class="fa fa-user" style="margin-right: -1px; margin-left: 1px;"></i> <span>Employees</span></a></li>
-            <li id="reservationMenuItem"><a href="${pageContext.request.contextPath}/reservation/list"><i class="fa fa-calendar-o"></i> <span>Reservations</span></a></li>
-            <li id="rentalMenuItem"><a href="${pageContext.request.contextPath}/rental/list"><i class="fa fa-calendar-check-o"></i> <span>Rentals</span></a></li>
+            <li id="dashboardMenuItem" class="active"><a href="${pageContext.request.contextPath}/"><i class="fa fa-home"></i> <span><fmt:message key="menu.dashboard"/></span></a></li>
+            <li id="carMenuItem"><a href="${pageContext.request.contextPath}/car/list"><i class="fa fa-automobile"></i> <span><fmt:message key="menu.cars"/></span></a></li>
+            <li id="employeeMenuItem"><a href="${pageContext.request.contextPath}/employee/list"><i class="fa fa-user" style="margin-right: -1px; margin-left: 1px;"></i> <span><fmt:message key="menu.employees"/></span></a></li>
+            <li id="reservationMenuItem"><a href="${pageContext.request.contextPath}/reservation/list"><i class="fa fa-calendar-o"></i> <span><fmt:message key="menu.reservations"/></span></a></li>
+            <li id="rentalMenuItem"><a href="${pageContext.request.contextPath}/rental/list"><i class="fa fa-calendar-check-o"></i> <span><fmt:message key="menu.rentals"/></span></a></li>
           </ul><!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->
@@ -211,10 +211,10 @@
 
         <!-- To the right -->
         <div class="pull-right hidden-xs">
-          <a href="https://www.fi.muni.cz" target="_blank">Faculty of Informatics Masaryk University</a>
+          <a href="https://www.fi.muni.cz" target="_blank"><fmt:message key="menu.fi"/></a>
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2015 <a href="https://github.com/Cmato/carPark">PA165 Dream Team No. 1</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2015 <a href="https://github.com/Cmato/carPark">PA165 Dream Team No. 1</a>.</strong> <fmt:message key="menu.rights"/>
 
       </footer>
 
